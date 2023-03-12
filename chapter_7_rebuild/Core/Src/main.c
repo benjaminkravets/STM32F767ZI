@@ -110,6 +110,12 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  if (xTaskCreate(GreenTask, "GreenTask",
+                                        STACK_SIZE,
+                                        NULL,
+                                        tskIDLE_PRIORITY + 2,
+                                        NULL) != pdPASS)
+  {while(1);}
 
   /* USER CODE END Init */
 
