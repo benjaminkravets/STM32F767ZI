@@ -110,6 +110,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  STACK_SIZE = 1024
   if (xTaskCreate(GreenTask, "GreenTask",
                                         STACK_SIZE,
                                         NULL,
@@ -160,6 +161,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  void GreenTask()
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
