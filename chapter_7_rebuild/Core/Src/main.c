@@ -23,6 +23,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+void GreenTask(void *argument);
+void BlueTask(void *argument);
+void RedTask(void *argument);
+void lookBusy( void );
+TaskHandle_t blueTaskHandle;
 
 /* USER CODE END Includes */
 
@@ -41,6 +46,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+#define STACK_SIZE 128
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma location=0x2007c000
 ETH_DMADescTypeDef  DMARxDscrTab[ETH_RX_DESC_CNT]; /* Ethernet Rx DMA Descriptors */
@@ -101,7 +107,7 @@ void StartDefaultTask(void *argument);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  if (xTaskCreate(GreenTask, "GreenTask", STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL) != pdPASS){ while(1); }
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -110,13 +116,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  STACK_SIZE = 1024
-  if (xTaskCreate(GreenTask, "GreenTask",
-                                        STACK_SIZE,
-                                        NULL,
-                                        tskIDLE_PRIORITY + 2,
-                                        NULL) != pdPASS)
-  {while(1);}
+
 
   /* USER CODE END Init */
 
@@ -161,7 +161,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  void GreenTask()
+  void GreenTask();
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -411,7 +411,20 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void GreenTask(void *argument)
+{
+	SEGGER_SYSVIEW_PrintfHost("Task1 running \
+							   while Green LED is on\n");
+	GreenLed.On();
+	vTaskDelay(1500/ portTICK_PERIOD_MS);
+	GreenLed.Off();
 
+	//a task can delete itself by passing NULL to vTaskDelete
+	vTaskDelete(NULL);
+
+	//task never get's here
+	GreenLed.On();
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
