@@ -126,9 +126,16 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
-  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
-  HAL_Delay(100);
-  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+  int z = 5;
+  for(z = 1; z < 5; ++z)
+  {
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	  HAL_Delay(100);
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+	  HAL_Delay(100);
+  }
+
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
