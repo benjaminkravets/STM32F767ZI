@@ -4,7 +4,10 @@ Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o: \
  ../Drivers/CMSIS/Include/cmsis_compiler.h \
  ../Drivers/CMSIS/Include/cmsis_gcc.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
- ../Core/Inc/FreeRTOSConfig.h \
+ ../Core/Inc/FreeRTOSConfig.h ../Core/Inc/SEGGER_SYSVIEW_FREERTOS.h \
+ ../Core/Inc/SEGGER_SYSVIEW.h ../Core/Inc/SEGGER.h ../Core/Inc/Global.h \
+ ../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h \
+ ../Core/Inc/SEGGER_SYSVIEW_Conf.h ../Core/Inc/SEGGER_RTT_Conf.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
@@ -22,6 +25,13 @@ Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o: \
 ../Drivers/CMSIS/Include/cmsis_gcc.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
+../Core/Inc/SEGGER_SYSVIEW_FREERTOS.h:
+../Core/Inc/SEGGER_SYSVIEW.h:
+../Core/Inc/SEGGER.h:
+../Core/Inc/Global.h:
+../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h:
+../Core/Inc/SEGGER_SYSVIEW_Conf.h:
+../Core/Inc/SEGGER_RTT_Conf.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h:

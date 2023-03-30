@@ -24,6 +24,7 @@
 #include <task.h>
 #include <semphr.h>
 #include <stm32f7xx_hal.h>
+#include <SEGGER_SYSVIEW.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -132,7 +133,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -152,6 +153,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  SEGGER_SYSVIEW_PrintfHost("Task B (Blue LED) received flag");
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
