@@ -20,6 +20,7 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
+#include "semphr.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -91,6 +92,7 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+SemaphoreHandle_t semPtr = NULL;
 
 /* USER CODE END 0 */
 
@@ -101,7 +103,9 @@ void StartDefaultTask(void *argument);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	 semPtr = xSemaphoreCreateBinary();
+	 //ensure pointer is valid (semaphore created successfully)
+	 assert_param(semPtr != NULL);
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
