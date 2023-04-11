@@ -20,7 +20,7 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
-#include "semphr.h"
+#include <semphr.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -29,7 +29,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+void GreenTaskA( void * argument);
+void BlueTaskB( void* argumet );
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -92,8 +93,8 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+//create storage for a pointer to a semaphore
 SemaphoreHandle_t semPtr = NULL;
-
 /* USER CODE END 0 */
 
 /**
@@ -103,18 +104,19 @@ SemaphoreHandle_t semPtr = NULL;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	 semPtr = xSemaphoreCreateBinary();
-	 //ensure pointer is valid (semaphore created successfully)
-	 assert_param(semPtr != NULL);
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
+  //HWInit();
   /* USER CODE BEGIN Init */
 
+  //create a semaphore using the FreeRTOS Heap
+  //semPtr = xSemaphoreCreateBinary();
+  //assert_param(semPtr != NULL);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -424,6 +426,12 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+    // LED ON
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+    HAL_Delay(100);
+    // LED OFF
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+    HAL_Delay(100);
   }
   /* USER CODE END 5 */
 }
