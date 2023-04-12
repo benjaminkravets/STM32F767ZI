@@ -20,11 +20,12 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
-#include <semphr.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <FreeRTOS.h>
+#include <task.h>
+#include <semphr.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,11 +112,11 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-  //HWInit();
+
   /* USER CODE BEGIN Init */
 
   //create a semaphore using the FreeRTOS Heap
-  //semPtr = xSemaphoreCreateBinary();
+  semPtr = xSemaphoreCreateBinary();
   //assert_param(semPtr != NULL);
   /* USER CODE END Init */
 
@@ -132,7 +133,6 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
-
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -159,6 +159,9 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
+  assert_param(xTaskCreate(GreenTaskA, "GreenTaskA", STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL) == pdPASS);
+  assert_param(xTaskCreate(BlueTaskB, "BlueTaskB", STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) == pdPASS);
+
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
@@ -409,7 +412,55 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void GreenTaskA( void* argument )
+{
+	uint_fast8_t count = 0;
+	while(1)
+	{
+		//every 5 times through the loop, give the semaphore
+		if(++count >= 5)
+		{
+			count = 0;
+			//SEGGER_SYSVIEW_PrintfHost("Task A (green LED) gives semPtr");
+			xSemaphoreGive(semPtr);
+		}
+		//GreenLed.On();
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+		vTaskDelay(100/portTICK_PERIOD_MS);
+		//GreenLed.Off();
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+		vTaskDelay(100/portTICK_PERIOD_MS);
+	}
+}
+void BlueTaskB( void* argument )
+{
+	while(1)
+	{
+		//'take' the semaphore with a really long timeout
+		//SEGGER_SYSVIEW_PrintfHost("Task B (Blue LED) attempts to take semPtr");
+		if(xSemaphoreTake(semPtr, portMAX_DELAY) == pdPASS)
+		{
+			//SEGGER_SYSVIEW_PrintfHost("Task B (Blue LED) received semPtr");
+			//triple blink the Blue LED
+			for(uint_fast8_t i = 0; i < 3; i++)
+			{
+				//BlueLed.On();
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+				vTaskDelay(50/portTICK_PERIOD_MS);
+				//BlueLed.Off();
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+				vTaskDelay(50/portTICK_PERIOD_MS);
+			}
+		}
+//		else
+//		{
+//			This is the code that will be executed if we time out waiting for
+//			the semaphore to be given.  In the case of a 1 mS tick rate, a uint32_t
+//			will only provide a delay of around 50 days.
+//			Unless "#define INCLUDE_vTaskSuspend 1" is configured in FreeRTOSConfig.h
+//		}
+	}
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */

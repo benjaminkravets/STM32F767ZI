@@ -38,6 +38,7 @@
 
 void GreenTaskA( void * argument);
 void BlueTaskB( void* argumet );
+void RedTaskC (void * argument);
 
 //create storage for a pointer to a semaphore
 SemaphoreHandle_t semPtr = NULL;
@@ -59,6 +60,7 @@ int main(void)
 	//using an assert to ensure proper task creation
 	assert_param(xTaskCreate(BlueTaskB, "BlueTaskB", STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) == pdPASS);
 
+	assert_param(xTaskCreate(RedTaskC, "RedTaskC", STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) == pdPASS);
 	//start the scheduler - shouldn't return unless there's a problem
 	vTaskStartScheduler();
 
