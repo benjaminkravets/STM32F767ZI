@@ -38,7 +38,7 @@
 
 void GreenTaskA( void * argument);
 void BlueTaskB( void* argumet );
-void RedTaskC (void * argument);
+void RedTaskC( void* argument );
 
 //create storage for a pointer to a semaphore
 SemaphoreHandle_t semPtr = NULL;
@@ -114,6 +114,34 @@ void BlueTaskB( void* argument )
 				BlueLed.On();
 				vTaskDelay(50/portTICK_PERIOD_MS);
 				BlueLed.Off();
+				vTaskDelay(50/portTICK_PERIOD_MS);
+			}
+		}
+//		else
+//		{
+//			This is the code that will be executed if we time out waiting for
+//			the semaphore to be given.  In the case of a 1 mS tick rate, a uint32_t
+//			will only provide a delay of around 50 days.
+//			Unless "#define INCLUDE_vTaskSuspend 1" is configured in FreeRTOSConfig.h
+//		}
+	}
+}
+
+void RedTaskC( void* argument )
+{
+	while(1)
+	{
+		//'take' the semaphore with a really long timeout
+		SEGGER_SYSVIEW_PrintfHost("Task B (Blue LED) attempts to take semPtr");
+		if(xSemaphoreTake(semPtr, portMAX_DELAY) == pdPASS)
+		{
+			SEGGER_SYSVIEW_PrintfHost("Task B (Blue LED) received semPtr");
+			//triple blink the Blue LED
+			for(uint_fast8_t i = 0; i < 3; i++)
+			{
+				RedLed.On();
+				vTaskDelay(50/portTICK_PERIOD_MS);
+				RedLed.Off();
 				vTaskDelay(50/portTICK_PERIOD_MS);
 			}
 		}
