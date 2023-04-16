@@ -20,12 +20,11 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
+#include <semphr.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <FreeRTOS.h>
-#include <task.h>
-#include <semphr.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -159,9 +158,6 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  assert_param(xTaskCreate(GreenTaskA, "GreenTaskA", STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL) == pdPASS);
-  assert_param(xTaskCreate(BlueTaskB, "BlueTaskB", STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL) == pdPASS);
-
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
@@ -477,12 +473,6 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
-    // LED ON
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-    HAL_Delay(100);
-    // LED OFF
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-    HAL_Delay(100);
   }
   /* USER CODE END 5 */
 }
