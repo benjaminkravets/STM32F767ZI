@@ -116,6 +116,7 @@ int main(void)
 
   //create a semaphore using the FreeRTOS Heap
   semPtr = xSemaphoreCreateBinary();
+  xSemaphoreGive(semPtr);
   //assert_param(semPtr != NULL);
   /* USER CODE END Init */
 
@@ -470,8 +471,14 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
+
   for(;;)
   {
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+	HAL_Delay(100);
+
     osDelay(1);
   }
   /* USER CODE END 5 */
