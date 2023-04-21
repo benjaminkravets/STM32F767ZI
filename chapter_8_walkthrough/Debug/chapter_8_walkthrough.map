@@ -5775,7 +5775,6 @@ LOAD c:/st/stm32cubeide_1.11.2/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
                 0x00000000200007e4        0x4 ./Core/Src/main.o
                 0x00000000200007e4                defaultTaskHandle
  .bss.semPtr    0x00000000200007e8        0x4 ./Core/Src/main.o
-                0x00000000200007e8                semPtr
  .bss.MACAddr.0
                 0x00000000200007ec        0x6 ./Core/Src/main.o
  *fill*         0x00000000200007f2        0x2 

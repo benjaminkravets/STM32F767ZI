@@ -94,7 +94,7 @@ void StartDefaultTask(void *argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 //create storage for a pointer to a semaphore
-SemaphoreHandle_t semPtr = NULL;
+static SemaphoreHandle_t semPtr = NULL;
 /* USER CODE END 0 */
 
 /**
