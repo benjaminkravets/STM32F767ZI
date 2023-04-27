@@ -21,6 +21,7 @@
 #include "string.h"
 #include "cmsis_os.h"
 #include <semphr.h>
+#include <timers.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -95,6 +96,8 @@ void StartDefaultTask(void *argument);
 /* USER CODE BEGIN 0 */
 //create storage for a pointer to a semaphore
 static SemaphoreHandle_t semPtr = NULL;
+void oneShotCallBack( TimerHandle_t xTimer );
+void repeatCallBack( TimerHandle_t xTimer );
 /* USER CODE END 0 */
 
 /**
