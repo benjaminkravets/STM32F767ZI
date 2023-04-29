@@ -457,7 +457,7 @@ void StartBlink01(void *argument)
 		    osDelay(50/portTICK_PERIOD_MS);
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 		    osDelay(50/portTICK_PERIOD_MS);
-		    xSemaphoreGive(myBinarySem01Handle);
+		    //xSemaphoreGive(myBinarySem01Handle);
 	}
 
   }
@@ -478,10 +478,10 @@ void StartBlink02(void *argument)
 	uint_fast8_t count = 0;
 	for(;;)
   	  {
-		if(++count >= 10)
+		if(++count >= 2)
 		{
 			count = 0;
-
+			xSemaphoreGive(myBinarySem01Handle);
 		}
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 	    osDelay(100/portTICK_PERIOD_MS);
@@ -506,7 +506,7 @@ void Callback01(void *argument)
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
   }
   */
-  osDelay(100/portTICK_PERIOD_MS);
+  osDelay(500/portTICK_PERIOD_MS);
   xSemaphoreGive(myBinarySem01Handle);
 
   /* USER CODE END Callback01 */
