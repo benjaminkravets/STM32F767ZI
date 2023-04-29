@@ -20,6 +20,7 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
+#include <semphr.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -78,7 +79,7 @@ osThreadId_t blink02Handle;
 const osThreadAttr_t blink02_attributes = {
   .name = "blink02",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityBelowNormal,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for myTimer01 */
 osTimerId_t myTimer01Handle;
@@ -169,7 +170,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
-  osTimerStart(myTimer01Handle, 500);
+  //osTimerStart(myTimer01Handle, 500);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -450,8 +451,15 @@ void StartBlink01(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-    osDelay(500);
+	if (xSemaphoreTake(myBinarySem01Handle, portMAX_DELAY) == pdPASS)
+	{
+			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+		    osDelay(50/portTICK_PERIOD_MS);
+			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+		    osDelay(50/portTICK_PERIOD_MS);
+		    xSemaphoreGive(myBinarySem01Handle);
+	}
+
   }
   /* USER CODE END 5 */
 }
@@ -467,11 +475,18 @@ void StartBlink02(void *argument)
 {
   /* USER CODE BEGIN StartBlink02 */
   /* Infinite loop */
-  for(;;)
-  {
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
-    osDelay(600);
-  }
+	uint_fast8_t count = 0;
+	for(;;)
+  	  {
+		if(++count >= 10)
+		{
+			count = 0;
+
+		}
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+	    osDelay(100/portTICK_PERIOD_MS);
+
+  	  }
   /* USER CODE END StartBlink02 */
 }
 
@@ -480,6 +495,7 @@ void Callback01(void *argument)
 {
   /* USER CODE BEGIN Callback01 */
   static uint32_t counter = 0;
+  /*
   if(counter++ % 2)
   {
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
@@ -489,6 +505,9 @@ void Callback01(void *argument)
   {
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
   }
+  */
+  osDelay(100/portTICK_PERIOD_MS);
+  xSemaphoreGive(myBinarySem01Handle);
 
   /* USER CODE END Callback01 */
 }
