@@ -80,6 +80,11 @@ const osThreadAttr_t blink02_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityBelowNormal,
 };
+/* Definitions for myTimer01 */
+osTimerId_t myTimer01Handle;
+const osTimerAttr_t myTimer01_attributes = {
+  .name = "myTimer01"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -92,6 +97,7 @@ static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 void StartBlink01(void *argument);
 void StartBlink02(void *argument);
+void Callback01(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -147,6 +153,10 @@ int main(void)
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
+
+  /* Create the timer(s) */
+  /* creation of myTimer01 */
+  myTimer01Handle = osTimerNew(Callback01, osTimerPeriodic, NULL, &myTimer01_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -453,6 +463,14 @@ void StartBlink02(void *argument)
     osDelay(600);
   }
   /* USER CODE END StartBlink02 */
+}
+
+/* Callback01 function */
+void Callback01(void *argument)
+{
+  /* USER CODE BEGIN Callback01 */
+
+  /* USER CODE END Callback01 */
 }
 
 /**
