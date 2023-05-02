@@ -5,7 +5,7 @@
 ../Core/Src/main.c:356:13:MX_USB_OTG_FS_PCD_Init	8	static
 ../Core/Src/main.c:391:13:MX_GPIO_Init	56	static
 ../Core/Src/main.c:448:6:StartBlink01	16	static
-../Core/Src/main.c:474:6:StartBlink02	24	static
-../Core/Src/main.c:494:6:Callback01	16	static
-../Core/Src/main.c:523:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:540:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:472:6:StartBlink02	24	static
+../Core/Src/main.c:492:6:Callback01	16	static
+../Core/Src/main.c:521:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:538:6:Error_Handler	4	static,ignoring_inline_asm

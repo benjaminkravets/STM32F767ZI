@@ -455,8 +455,6 @@ void StartBlink01(void *argument)
 	{
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 		    osDelay(50/portTICK_PERIOD_MS);
-			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-		    osDelay(50/portTICK_PERIOD_MS);
 		    //xSemaphoreGive(myBinarySem01Handle);
 	}
 
@@ -478,7 +476,7 @@ void StartBlink02(void *argument)
 	uint_fast8_t count = 0;
 	for(;;)
   	  {
-		if(++count >= 2)
+		if(++count >= 5)
 		{
 			count = 0;
 			xSemaphoreGive(myBinarySem01Handle);
