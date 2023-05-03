@@ -442,26 +442,10 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-	while(1)
-	{
-		//wait for hte next notification value, clearing it to 0
-		//after receiving
-		uint32_t notificationvalue = ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
-		if((notificationvalue & RED_LED_MASK) != 0)
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-
-		if((notificationvalue & BLUE_LED_MASK) != 0)
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-
-		if((notificationvalue & GREEN_LED_MASK) != 0)
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-	}
+	  for(;;)
+	  {
+	    osDelay(1);
+	  }
   /* USER CODE END 5 */
 }
 
@@ -510,10 +494,27 @@ void startRecv(void *argument)
 {
   /* USER CODE BEGIN startRecv */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	while(1)
+	{
+		//wait for hte next notification value, clearing it to 0
+		//after receiving
+		uint32_t notificationvalue = ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
+		if((notificationvalue & RED_LED_MASK) != 0)
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+
+		if((notificationvalue & BLUE_LED_MASK) != 0)
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+
+		if((notificationvalue & GREEN_LED_MASK) != 0)
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+	}
+
   /* USER CODE END startRecv */
 }
 

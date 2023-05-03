@@ -448,10 +448,10 @@ int main(void)
  80005a0:	08000941 	.word	0x08000941
  80005a4:	200007e4 	.word	0x200007e4
  80005a8:	08007490 	.word	0x08007490
- 80005ac:	080009c1 	.word	0x080009c1
+ 80005ac:	08000951 	.word	0x08000951
  80005b0:	200007e8 	.word	0x200007e8
  80005b4:	080074b4 	.word	0x080074b4
- 80005b8:	08000a35 	.word	0x08000a35
+ 80005b8:	080009c5 	.word	0x080009c5
  80005bc:	200007ec 	.word	0x200007ec
 
 080005c0 <SystemClock_Config>:
@@ -1053,171 +1053,171 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
  8000940:	b580      	push	{r7, lr}
- 8000942:	b084      	sub	sp, #16
+ 8000942:	b082      	sub	sp, #8
  8000944:	af00      	add	r7, sp, #0
  8000946:	6078      	str	r0, [r7, #4]
+  /* USER CODE BEGIN 5 */
   /* Infinite loop */
-	while(1)
-	{
-		//wait for hte next notification value, clearing it to 0
-		//after receiving
-		uint32_t notificationvalue = ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
- 8000948:	f04f 31ff 	mov.w	r1, #4294967295
- 800094c:	2001      	movs	r0, #1
- 800094e:	f005 fc57 	bl	8006200 <ulTaskNotifyTake>
- 8000952:	60f8      	str	r0, [r7, #12]
-		if((notificationvalue & RED_LED_MASK) != 0)
- 8000954:	68fb      	ldr	r3, [r7, #12]
- 8000956:	f003 0301 	and.w	r3, r3, #1
- 800095a:	2b00      	cmp	r3, #0
- 800095c:	d005      	beq.n	800096a <StartDefaultTask+0x2a>
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
- 800095e:	2201      	movs	r2, #1
- 8000960:	2101      	movs	r1, #1
- 8000962:	4816      	ldr	r0, [pc, #88]	; (80009bc <StartDefaultTask+0x7c>)
- 8000964:	f001 f91a 	bl	8001b9c <HAL_GPIO_WritePin>
- 8000968:	e004      	b.n	8000974 <StartDefaultTask+0x34>
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
- 800096a:	2200      	movs	r2, #0
- 800096c:	2101      	movs	r1, #1
- 800096e:	4813      	ldr	r0, [pc, #76]	; (80009bc <StartDefaultTask+0x7c>)
- 8000970:	f001 f914 	bl	8001b9c <HAL_GPIO_WritePin>
+	  for(;;)
+	  {
+	    osDelay(1);
+ 8000948:	2001      	movs	r0, #1
+ 800094a:	f003 ff6b 	bl	8004824 <osDelay>
+ 800094e:	e7fb      	b.n	8000948 <StartDefaultTask+0x8>
 
-		if((notificationvalue & BLUE_LED_MASK) != 0)
- 8000974:	68fb      	ldr	r3, [r7, #12]
- 8000976:	f003 0302 	and.w	r3, r3, #2
- 800097a:	2b00      	cmp	r3, #0
- 800097c:	d005      	beq.n	800098a <StartDefaultTask+0x4a>
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
- 800097e:	2201      	movs	r2, #1
- 8000980:	2180      	movs	r1, #128	; 0x80
- 8000982:	480e      	ldr	r0, [pc, #56]	; (80009bc <StartDefaultTask+0x7c>)
- 8000984:	f001 f90a 	bl	8001b9c <HAL_GPIO_WritePin>
- 8000988:	e004      	b.n	8000994 <StartDefaultTask+0x54>
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
- 800098a:	2200      	movs	r2, #0
- 800098c:	2180      	movs	r1, #128	; 0x80
- 800098e:	480b      	ldr	r0, [pc, #44]	; (80009bc <StartDefaultTask+0x7c>)
- 8000990:	f001 f904 	bl	8001b9c <HAL_GPIO_WritePin>
-
-		if((notificationvalue & GREEN_LED_MASK) != 0)
- 8000994:	68fb      	ldr	r3, [r7, #12]
- 8000996:	f003 0304 	and.w	r3, r3, #4
- 800099a:	2b00      	cmp	r3, #0
- 800099c:	d006      	beq.n	80009ac <StartDefaultTask+0x6c>
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
- 800099e:	2201      	movs	r2, #1
- 80009a0:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 80009a4:	4805      	ldr	r0, [pc, #20]	; (80009bc <StartDefaultTask+0x7c>)
- 80009a6:	f001 f8f9 	bl	8001b9c <HAL_GPIO_WritePin>
- 80009aa:	e7cd      	b.n	8000948 <StartDefaultTask+0x8>
-		else
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
- 80009ac:	2200      	movs	r2, #0
- 80009ae:	f44f 4180 	mov.w	r1, #16384	; 0x4000
- 80009b2:	4802      	ldr	r0, [pc, #8]	; (80009bc <StartDefaultTask+0x7c>)
- 80009b4:	f001 f8f2 	bl	8001b9c <HAL_GPIO_WritePin>
-	{
- 80009b8:	e7c6      	b.n	8000948 <StartDefaultTask+0x8>
- 80009ba:	bf00      	nop
- 80009bc:	40020400 	.word	0x40020400
-
-080009c0 <startSend>:
+08000950 <startSend>:
 * @param argument: Not used
 * @retval None
 */
 /* USER CODE END Header_startSend */
 void startSend(void *argument)
 {
- 80009c0:	b580      	push	{r7, lr}
- 80009c2:	b082      	sub	sp, #8
- 80009c4:	af00      	add	r7, sp, #0
- 80009c6:	6078      	str	r0, [r7, #4]
+ 8000950:	b580      	push	{r7, lr}
+ 8000952:	b082      	sub	sp, #8
+ 8000954:	af00      	add	r7, sp, #0
+ 8000956:	6078      	str	r0, [r7, #4]
 	while(1)
 	{
 		//send the notification to recvTask - turning on the Red LED
 		//since we're overwriting the value, even if another notification is pending
 		//there is no need to check the return value (see docs for xTaskNofify in header)
 		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithOverwrite);
- 80009c8:	4b19      	ldr	r3, [pc, #100]	; (8000a30 <startSend+0x70>)
- 80009ca:	6818      	ldr	r0, [r3, #0]
- 80009cc:	2300      	movs	r3, #0
- 80009ce:	2203      	movs	r2, #3
- 80009d0:	2101      	movs	r1, #1
- 80009d2:	f005 fc5d 	bl	8006290 <xTaskGenericNotify>
+ 8000958:	4b19      	ldr	r3, [pc, #100]	; (80009c0 <startSend+0x70>)
+ 800095a:	6818      	ldr	r0, [r3, #0]
+ 800095c:	2300      	movs	r3, #0
+ 800095e:	2203      	movs	r2, #3
+ 8000960:	2101      	movs	r1, #1
+ 8000962:	f005 fc95 	bl	8006290 <xTaskGenericNotify>
 		vTaskDelay(200);
- 80009d6:	20c8      	movs	r0, #200	; 0xc8
- 80009d8:	f004 feee 	bl	80057b8 <vTaskDelay>
+ 8000966:	20c8      	movs	r0, #200	; 0xc8
+ 8000968:	f004 ff26 	bl	80057b8 <vTaskDelay>
 
 		xTaskNotify( recvHandle, BLUE_LED_MASK, eSetValueWithOverwrite);
- 80009dc:	4b14      	ldr	r3, [pc, #80]	; (8000a30 <startSend+0x70>)
- 80009de:	6818      	ldr	r0, [r3, #0]
- 80009e0:	2300      	movs	r3, #0
- 80009e2:	2203      	movs	r2, #3
- 80009e4:	2102      	movs	r1, #2
- 80009e6:	f005 fc53 	bl	8006290 <xTaskGenericNotify>
+ 800096c:	4b14      	ldr	r3, [pc, #80]	; (80009c0 <startSend+0x70>)
+ 800096e:	6818      	ldr	r0, [r3, #0]
+ 8000970:	2300      	movs	r3, #0
+ 8000972:	2203      	movs	r2, #3
+ 8000974:	2102      	movs	r1, #2
+ 8000976:	f005 fc8b 	bl	8006290 <xTaskGenericNotify>
 		vTaskDelay(200);
- 80009ea:	20c8      	movs	r0, #200	; 0xc8
- 80009ec:	f004 fee4 	bl	80057b8 <vTaskDelay>
+ 800097a:	20c8      	movs	r0, #200	; 0xc8
+ 800097c:	f004 ff1c 	bl	80057b8 <vTaskDelay>
 
 		xTaskNotify( recvHandle, GREEN_LED_MASK, eSetValueWithOverwrite);
- 80009f0:	4b0f      	ldr	r3, [pc, #60]	; (8000a30 <startSend+0x70>)
- 80009f2:	6818      	ldr	r0, [r3, #0]
- 80009f4:	2300      	movs	r3, #0
- 80009f6:	2203      	movs	r2, #3
- 80009f8:	2104      	movs	r1, #4
- 80009fa:	f005 fc49 	bl	8006290 <xTaskGenericNotify>
+ 8000980:	4b0f      	ldr	r3, [pc, #60]	; (80009c0 <startSend+0x70>)
+ 8000982:	6818      	ldr	r0, [r3, #0]
+ 8000984:	2300      	movs	r3, #0
+ 8000986:	2203      	movs	r2, #3
+ 8000988:	2104      	movs	r1, #4
+ 800098a:	f005 fc81 	bl	8006290 <xTaskGenericNotify>
 		vTaskDelay(200);
- 80009fe:	20c8      	movs	r0, #200	; 0xc8
- 8000a00:	f004 feda 	bl	80057b8 <vTaskDelay>
+ 800098e:	20c8      	movs	r0, #200	; 0xc8
+ 8000990:	f004 ff12 	bl	80057b8 <vTaskDelay>
 
 		xTaskNotify( recvHandle, RED_LED_MASK | BLUE_LED_MASK | GREEN_LED_MASK, eSetValueWithOverwrite);
- 8000a04:	4b0a      	ldr	r3, [pc, #40]	; (8000a30 <startSend+0x70>)
- 8000a06:	6818      	ldr	r0, [r3, #0]
- 8000a08:	2300      	movs	r3, #0
- 8000a0a:	2203      	movs	r2, #3
- 8000a0c:	2107      	movs	r1, #7
- 8000a0e:	f005 fc3f 	bl	8006290 <xTaskGenericNotify>
+ 8000994:	4b0a      	ldr	r3, [pc, #40]	; (80009c0 <startSend+0x70>)
+ 8000996:	6818      	ldr	r0, [r3, #0]
+ 8000998:	2300      	movs	r3, #0
+ 800099a:	2203      	movs	r2, #3
+ 800099c:	2107      	movs	r1, #7
+ 800099e:	f005 fc77 	bl	8006290 <xTaskGenericNotify>
 		vTaskDelay(200);
- 8000a12:	20c8      	movs	r0, #200	; 0xc8
- 8000a14:	f004 fed0 	bl	80057b8 <vTaskDelay>
+ 80009a2:	20c8      	movs	r0, #200	; 0xc8
+ 80009a4:	f004 ff08 	bl	80057b8 <vTaskDelay>
 
 		xTaskNotify( recvHandle,0, eSetValueWithOverwrite);
- 8000a18:	4b05      	ldr	r3, [pc, #20]	; (8000a30 <startSend+0x70>)
- 8000a1a:	6818      	ldr	r0, [r3, #0]
- 8000a1c:	2300      	movs	r3, #0
- 8000a1e:	2203      	movs	r2, #3
- 8000a20:	2100      	movs	r1, #0
- 8000a22:	f005 fc35 	bl	8006290 <xTaskGenericNotify>
+ 80009a8:	4b05      	ldr	r3, [pc, #20]	; (80009c0 <startSend+0x70>)
+ 80009aa:	6818      	ldr	r0, [r3, #0]
+ 80009ac:	2300      	movs	r3, #0
+ 80009ae:	2203      	movs	r2, #3
+ 80009b0:	2100      	movs	r1, #0
+ 80009b2:	f005 fc6d 	bl	8006290 <xTaskGenericNotify>
 		vTaskDelay(200);
- 8000a26:	20c8      	movs	r0, #200	; 0xc8
- 8000a28:	f004 fec6 	bl	80057b8 <vTaskDelay>
+ 80009b6:	20c8      	movs	r0, #200	; 0xc8
+ 80009b8:	f004 fefe 	bl	80057b8 <vTaskDelay>
 		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithOverwrite);
- 8000a2c:	e7cc      	b.n	80009c8 <startSend+0x8>
- 8000a2e:	bf00      	nop
- 8000a30:	200007ec 	.word	0x200007ec
+ 80009bc:	e7cc      	b.n	8000958 <startSend+0x8>
+ 80009be:	bf00      	nop
+ 80009c0:	200007ec 	.word	0x200007ec
 
-08000a34 <startRecv>:
+080009c4 <startRecv>:
 * @param argument: Not used
 * @retval None
 */
 /* USER CODE END Header_startRecv */
 void startRecv(void *argument)
 {
- 8000a34:	b580      	push	{r7, lr}
- 8000a36:	b082      	sub	sp, #8
- 8000a38:	af00      	add	r7, sp, #0
- 8000a3a:	6078      	str	r0, [r7, #4]
-  /* USER CODE BEGIN startRecv */
+ 80009c4:	b580      	push	{r7, lr}
+ 80009c6:	b084      	sub	sp, #16
+ 80009c8:	af00      	add	r7, sp, #0
+ 80009ca:	6078      	str	r0, [r7, #4]
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
- 8000a3c:	2001      	movs	r0, #1
- 8000a3e:	f003 fef1 	bl	8004824 <osDelay>
- 8000a42:	e7fb      	b.n	8000a3c <startRecv+0x8>
+	while(1)
+	{
+		//wait for hte next notification value, clearing it to 0
+		//after receiving
+		uint32_t notificationvalue = ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
+ 80009cc:	f04f 31ff 	mov.w	r1, #4294967295
+ 80009d0:	2001      	movs	r0, #1
+ 80009d2:	f005 fc15 	bl	8006200 <ulTaskNotifyTake>
+ 80009d6:	60f8      	str	r0, [r7, #12]
+		if((notificationvalue & RED_LED_MASK) != 0)
+ 80009d8:	68fb      	ldr	r3, [r7, #12]
+ 80009da:	f003 0301 	and.w	r3, r3, #1
+ 80009de:	2b00      	cmp	r3, #0
+ 80009e0:	d005      	beq.n	80009ee <startRecv+0x2a>
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+ 80009e2:	2201      	movs	r2, #1
+ 80009e4:	2101      	movs	r1, #1
+ 80009e6:	4816      	ldr	r0, [pc, #88]	; (8000a40 <startRecv+0x7c>)
+ 80009e8:	f001 f8d8 	bl	8001b9c <HAL_GPIO_WritePin>
+ 80009ec:	e004      	b.n	80009f8 <startRecv+0x34>
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+ 80009ee:	2200      	movs	r2, #0
+ 80009f0:	2101      	movs	r1, #1
+ 80009f2:	4813      	ldr	r0, [pc, #76]	; (8000a40 <startRecv+0x7c>)
+ 80009f4:	f001 f8d2 	bl	8001b9c <HAL_GPIO_WritePin>
+
+		if((notificationvalue & BLUE_LED_MASK) != 0)
+ 80009f8:	68fb      	ldr	r3, [r7, #12]
+ 80009fa:	f003 0302 	and.w	r3, r3, #2
+ 80009fe:	2b00      	cmp	r3, #0
+ 8000a00:	d005      	beq.n	8000a0e <startRecv+0x4a>
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+ 8000a02:	2201      	movs	r2, #1
+ 8000a04:	2180      	movs	r1, #128	; 0x80
+ 8000a06:	480e      	ldr	r0, [pc, #56]	; (8000a40 <startRecv+0x7c>)
+ 8000a08:	f001 f8c8 	bl	8001b9c <HAL_GPIO_WritePin>
+ 8000a0c:	e004      	b.n	8000a18 <startRecv+0x54>
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+ 8000a0e:	2200      	movs	r2, #0
+ 8000a10:	2180      	movs	r1, #128	; 0x80
+ 8000a12:	480b      	ldr	r0, [pc, #44]	; (8000a40 <startRecv+0x7c>)
+ 8000a14:	f001 f8c2 	bl	8001b9c <HAL_GPIO_WritePin>
+
+		if((notificationvalue & GREEN_LED_MASK) != 0)
+ 8000a18:	68fb      	ldr	r3, [r7, #12]
+ 8000a1a:	f003 0304 	and.w	r3, r3, #4
+ 8000a1e:	2b00      	cmp	r3, #0
+ 8000a20:	d006      	beq.n	8000a30 <startRecv+0x6c>
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+ 8000a22:	2201      	movs	r2, #1
+ 8000a24:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+ 8000a28:	4805      	ldr	r0, [pc, #20]	; (8000a40 <startRecv+0x7c>)
+ 8000a2a:	f001 f8b7 	bl	8001b9c <HAL_GPIO_WritePin>
+ 8000a2e:	e7cd      	b.n	80009cc <startRecv+0x8>
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+ 8000a30:	2200      	movs	r2, #0
+ 8000a32:	f44f 4180 	mov.w	r1, #16384	; 0x4000
+ 8000a36:	4802      	ldr	r0, [pc, #8]	; (8000a40 <startRecv+0x7c>)
+ 8000a38:	f001 f8b0 	bl	8001b9c <HAL_GPIO_WritePin>
+	{
+ 8000a3c:	e7c6      	b.n	80009cc <startRecv+0x8>
+ 8000a3e:	bf00      	nop
+ 8000a40:	40020400 	.word	0x40020400
 
 08000a44 <HAL_TIM_PeriodElapsedCallback>:
   * a global variable "uwTick" used as application time base.
