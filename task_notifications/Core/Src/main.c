@@ -33,6 +33,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define RED_LED_MASK 0x0001
+#define BLUE_LED_MASK 0x0002
+#define GREEN_LED_MASK 0x0004
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -98,8 +101,8 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
-void StartTask02(void *argument);
-void StartTask03(void *argument);
+void startSend(void *argument);
+void startRecv(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -169,10 +172,10 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* creation of send */
-  sendHandle = osThreadNew(StartTask02, NULL, &send_attributes);
+  sendHandle = osThreadNew(startSend, NULL, &send_attributes);
 
   /* creation of recv */
-  recvHandle = osThreadNew(StartTask03, NULL, &recv_attributes);
+  recvHandle = osThreadNew(startRecv, NULL, &recv_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -439,47 +442,79 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	while(1)
+	{
+		//wait for hte next notification value, clearing it to 0
+		//after receiving
+		uint32_t notificationvalue = ulTaskNotifyTake( pdTRUE, portMAX_DELAY );
+		if((notificationvalue & RED_LED_MASK) != 0)
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+
+		if((notificationvalue & BLUE_LED_MASK) != 0)
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+
+		if((notificationvalue & GREEN_LED_MASK) != 0)
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+		else
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+	}
   /* USER CODE END 5 */
 }
 
-/* USER CODE BEGIN Header_StartTask02 */
+/* USER CODE BEGIN Header_startSend */
 /**
 * @brief Function implementing the send thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartTask02 */
-void StartTask02(void *argument)
+/* USER CODE END Header_startSend */
+void startSend(void *argument)
 {
-  /* USER CODE BEGIN StartTask02 */
+  /* USER CODE BEGIN startSend */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartTask02 */
+	while(1)
+	{
+		//send the notification to recvTask - turning on the Red LED
+		//since we're overwriting the value, even if another notification is pending
+		//there is no need to check the return value (see docs for xTaskNofify in header)
+		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithOverwrite);
+		vTaskDelay(200);
+
+		xTaskNotify( recvHandle, BLUE_LED_MASK, eSetValueWithOverwrite);
+		vTaskDelay(200);
+
+		xTaskNotify( recvHandle, GREEN_LED_MASK, eSetValueWithOverwrite);
+		vTaskDelay(200);
+
+		xTaskNotify( recvHandle, RED_LED_MASK | BLUE_LED_MASK | GREEN_LED_MASK, eSetValueWithOverwrite);
+		vTaskDelay(200);
+
+		xTaskNotify( recvHandle,0, eSetValueWithOverwrite);
+		vTaskDelay(200);
+	}
+  /* USER CODE END startSend */
 }
 
-/* USER CODE BEGIN Header_StartTask03 */
+/* USER CODE BEGIN Header_startRecv */
 /**
 * @brief Function implementing the recv thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartTask03 */
-void StartTask03(void *argument)
+/* USER CODE END Header_startRecv */
+void startRecv(void *argument)
 {
-  /* USER CODE BEGIN StartTask03 */
+  /* USER CODE BEGIN startRecv */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END StartTask03 */
+  /* USER CODE END startRecv */
 }
 
 /**
