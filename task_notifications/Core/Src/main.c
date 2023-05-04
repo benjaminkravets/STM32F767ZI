@@ -465,7 +465,7 @@ void startSend(void *argument)
 		//send the notification to recvTask - turning on the Red LED
 		//since we're overwriting the value, even if another notification is pending
 		//there is no need to check the return value (see docs for xTaskNofify in header)
-		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithOverwrite);
+		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithoutOverwrite);
 		vTaskDelay(200);
 
 		xTaskNotify( recvHandle, BLUE_LED_MASK, eSetValueWithOverwrite);

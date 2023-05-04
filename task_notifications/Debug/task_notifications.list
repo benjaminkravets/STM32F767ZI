@@ -1081,11 +1081,11 @@ void startSend(void *argument)
 		//send the notification to recvTask - turning on the Red LED
 		//since we're overwriting the value, even if another notification is pending
 		//there is no need to check the return value (see docs for xTaskNofify in header)
-		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithOverwrite);
+		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithoutOverwrite);
  8000958:	4b19      	ldr	r3, [pc, #100]	; (80009c0 <startSend+0x70>)
  800095a:	6818      	ldr	r0, [r3, #0]
  800095c:	2300      	movs	r3, #0
- 800095e:	2203      	movs	r2, #3
+ 800095e:	2204      	movs	r2, #4
  8000960:	2101      	movs	r1, #1
  8000962:	f005 fc95 	bl	8006290 <xTaskGenericNotify>
 		vTaskDelay(200);
@@ -1135,7 +1135,7 @@ void startSend(void *argument)
 		vTaskDelay(200);
  80009b6:	20c8      	movs	r0, #200	; 0xc8
  80009b8:	f004 fefe 	bl	80057b8 <vTaskDelay>
-		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithOverwrite);
+		xTaskNotify( recvHandle, RED_LED_MASK, eSetValueWithoutOverwrite);
  80009bc:	e7cc      	b.n	8000958 <startSend+0x8>
  80009be:	bf00      	nop
  80009c0:	200007ec 	.word	0x200007ec
