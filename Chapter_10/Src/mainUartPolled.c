@@ -63,11 +63,11 @@ int main(void)
 	uart2_BytesReceived = xQueueCreate(10, sizeof(char));
 
 	for(int i = 0; i < 10; i++)
-	//{
-	//	UART4->TDR = i;
-	//	while(!(UART4->ISR & USART_ISR_TXE));
-	//}
-	//start the scheduler - shouldn't return unless there's a problem
+	{
+		UART4->TDR = i;
+		while(!(UART4->ISR & USART_ISR_TXE));
+	}
+	start the scheduler - shouldn't return unless there's a problem
 	vTaskStartScheduler();
 
 	//if you've wound up here, there is likely an issue with overrunning the freeRTOS heap
