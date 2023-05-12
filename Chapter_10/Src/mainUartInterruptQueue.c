@@ -61,7 +61,7 @@ int main(void)
 	SEGGER_SYSVIEW_Conf();
 
 	//ensure proper priority grouping for freeRTOS
-	NVIC_SetPriorityGrouping(0);
+	NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
 	//setup a timer to kick off UART traffic (flowing out of UART4 TX line
 	//and into USART2 RX line) 1 second after the scheduler starts

@@ -51,11 +51,15 @@ static QueueHandle_t uart2_BytesReceived = NULL;
 
 int main(void)
 {
+	SEGGER_SYSVIEW_PrintfHost("1");
 	HWInit();
+	SEGGER_SYSVIEW_PrintfHost("1");
 	SetupUart4ExternalSim(9600);
+	SEGGER_SYSVIEW_PrintfHost("2");
 	SEGGER_SYSVIEW_Conf();
+	SEGGER_SYSVIEW_PrintfHost("3");
 	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);	//ensure proper priority grouping for freeRTOS
-
+	SEGGER_SYSVIEW_PrintfHost("4");
 	//setup tasks, making sure they have been properly created before moving on
 	assert_param(xTaskCreate(polledUartReceive, "polledUartRx", STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL) == pdPASS);
 	assert_param(xTaskCreate(uartPrintOutTask, "uartPrintTask", STACK_SIZE, NULL, tskIDLE_PRIORITY + 3, NULL) == pdPASS);
@@ -68,6 +72,7 @@ int main(void)
 //		while(!(UART4->ISR & USART_ISR_TXE));
 //	}
 	//start the scheduler - shouldn't return unless there's a problem
+	SEGGER_SYSVIEW_PrintfHost("setup");
 	vTaskStartScheduler();
 
 	//if you've wound up here, there is likely an issue with overrunning the freeRTOS heap
@@ -83,7 +88,10 @@ void uartPrintOutTask( void* NotUsed)
 	while(1)
 	{
 		xQueueReceive(uart2_BytesReceived, &nextByte, portMAX_DELAY);
+		SEGGER_SYSVIEW_PrintfHost("print0");
 		SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
+		SEGGER_SYSVIEW_PrintfHost("print1");
+
 	}
 }
 
@@ -101,6 +109,7 @@ void polledUartReceive( void* NotUsed )
 		while(!(USART2->ISR & USART_ISR_RXNE_Msk));
 		nextByte = USART2->RDR;
 		xQueueSend(uart2_BytesReceived, &nextByte, 0);
+		SEGGER_SYSVIEW_PrintfHost("send");
 	}
 }
 
