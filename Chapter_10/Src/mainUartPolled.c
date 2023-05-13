@@ -82,7 +82,9 @@ void uartPrintOutTask( void* NotUsed)
 
 	while(1)
 	{
+
 		xQueueReceive(uart2_BytesReceived, &nextByte, portMAX_DELAY);
+		//SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
 		SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
 	}
 }
