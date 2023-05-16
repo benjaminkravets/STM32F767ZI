@@ -86,7 +86,7 @@ int main(void)
 
 	//start the scheduler - shouldn't return unless there's a problem
 	vTaskStartScheduler();
-
+	SEGGER_SYSVIEW_PrintfHost("init complete");
 	//if you've wound up here, there is likely an issue with overrunning the freeRTOS heap
 	while(1)
 	{
