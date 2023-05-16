@@ -26,6 +26,8 @@
 #include <UartQuickDirtyInit.h>
 #include <stdint.h>
 #include <string.h>
+#include <SEGGER_SYSVIEW.h>
+
 
 //static const uint8_t uart4Msg[] = "0123456789abcdefghijklmnopqrstuvwxyz";
 static const uint8_t uart4Msg[] = "data from uart4";
@@ -107,6 +109,7 @@ static void uart4TxDmaStartRepeat( const uint8_t* Msg, uint16_t Len )
 	//clear the transfer complete flag to make sure our transfer starts
 	UART4->ICR |= USART_ICR_TCCF;
 	assert_param(HAL_DMA_Start(&uart4DmaTx, (uint32_t) Msg, (uint32_t)&(UART4->TDR), Len) == HAL_OK);
+	//SEGGER_SYSVIEW_PrintfHost("send");
 }
 
 void DMA1_Stream4_IRQHandler(void)

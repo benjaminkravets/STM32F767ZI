@@ -110,6 +110,7 @@ void startReceiveInt( void )
 void startUart4Traffic( TimerHandle_t xTimer )
 {
 	SetupUart4ExternalSim(BAUDRATE);
+	//SEGGER_SYSVIEW_PrintfHost("start uart traffic");
 }
 
 void uartPrintOutTask( void* NotUsed)
@@ -122,6 +123,7 @@ void uartPrintOutTask( void* NotUsed)
 	{
 		xQueueReceive(uart2_BytesReceived, &nextByte, portMAX_DELAY);
 		SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
+		SEGGER_SYSVIEW_PrintfHost("print task");
 	}
 }
 
