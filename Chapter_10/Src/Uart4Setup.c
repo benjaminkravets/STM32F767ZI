@@ -65,6 +65,7 @@ void SetupUart4ExternalSim( uint32_t BaudRate )
 	 *	the first NULL character.
 	 */
 	uart4TxDmaStartRepeat(uart4Msg, sizeof(uart4Msg));
+	//SEGGER_SYSVIEW_PrintfHost("call uart transmit");
 }
 
 static void uart4TxDmaSetup( void )
