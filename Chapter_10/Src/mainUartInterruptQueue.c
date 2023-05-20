@@ -61,7 +61,7 @@ int main(void)
 	SEGGER_SYSVIEW_Conf();
 
 	//ensure proper priority grouping for freeRTOS
-	NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+	NVIC_SetPriorityGrouping(0);
 
 	//setup a timer to kick off UART traffic (flowing out of UART4 TX line
 	//and into USART2 RX line) 1 second after the scheduler starts
@@ -86,7 +86,7 @@ int main(void)
 
 	//start the scheduler - shouldn't return unless there's a problem
 	vTaskStartScheduler();
-	SEGGER_SYSVIEW_PrintfHost("init complete");
+
 	//if you've wound up here, there is likely an issue with overrunning the freeRTOS heap
 	while(1)
 	{
@@ -110,7 +110,6 @@ void startReceiveInt( void )
 void startUart4Traffic( TimerHandle_t xTimer )
 {
 	SetupUart4ExternalSim(BAUDRATE);
-	//SEGGER_SYSVIEW_PrintfHost("start uart traffic");
 }
 
 void uartPrintOutTask( void* NotUsed)
@@ -123,7 +122,7 @@ void uartPrintOutTask( void* NotUsed)
 	{
 		xQueueReceive(uart2_BytesReceived, &nextByte, portMAX_DELAY);
 		SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
-		SEGGER_SYSVIEW_PrintfHost("print task");
+		//SEGGER_SYSVIEW_PrintfHost("b");
 	}
 }
 
