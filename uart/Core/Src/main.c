@@ -20,7 +20,6 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
-#include <SEGGER_SYSVIEW.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -75,6 +74,20 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for sender */
+osThreadId_t senderHandle;
+const osThreadAttr_t sender_attributes = {
+  .name = "sender",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for printer */
+osThreadId_t printerHandle;
+const osThreadAttr_t printer_attributes = {
+  .name = "printer",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -86,6 +99,8 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
+void senderEntry(void *argument);
+void printerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -153,6 +168,12 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of sender */
+  senderHandle = osThreadNew(senderEntry, NULL, &sender_attributes);
+
+  /* creation of printer */
+  printerHandle = osThreadNew(printerEntry, NULL, &printer_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -428,6 +449,42 @@ void StartDefaultTask(void *argument)
     SEGGER_SYSVIEW_PrintfHost("Default task");
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_senderEntry */
+/**
+* @brief Function implementing the sender thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_senderEntry */
+void senderEntry(void *argument)
+{
+  /* USER CODE BEGIN senderEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END senderEntry */
+}
+
+/* USER CODE BEGIN Header_printerEntry */
+/**
+* @brief Function implementing the printer thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_printerEntry */
+void printerEntry(void *argument)
+{
+  /* USER CODE BEGIN printerEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END printerEntry */
 }
 
 /**
