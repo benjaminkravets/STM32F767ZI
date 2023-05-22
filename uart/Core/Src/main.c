@@ -20,6 +20,7 @@
 #include "main.h"
 #include "string.h"
 #include "cmsis_os.h"
+#include <SEGGER_SYSVIEW.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -111,7 +112,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -424,6 +425,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("Default task");
   }
   /* USER CODE END 5 */
 }
