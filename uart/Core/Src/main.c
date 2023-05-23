@@ -465,6 +465,7 @@ void senderEntry(void *argument)
   for(;;)
   {
     osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("sender");
   }
   /* USER CODE END senderEntry */
 }
@@ -483,6 +484,7 @@ void printerEntry(void *argument)
   for(;;)
   {
     osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("printer");
   }
   /* USER CODE END printerEntry */
 }
