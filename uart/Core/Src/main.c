@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -88,6 +88,11 @@ const osThreadAttr_t printer_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for printtimer */
+osTimerId_t printtimerHandle;
+const osTimerAttr_t printtimer_attributes = {
+  .name = "printtimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -101,6 +106,7 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
 void senderEntry(void *argument);
 void printerEntry(void *argument);
+void timerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -157,8 +163,13 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* creation of printtimer */
+  printtimerHandle = osTimerNew(timerEntry, osTimerPeriodic, NULL, &printtimer_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(printtimerHandle, 500 /portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -465,7 +476,7 @@ void senderEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    SEGGER_SYSVIEW_PrintfHost("sender");
+    //SEGGER_SYSVIEW_PrintfHost("sender");
   }
   /* USER CODE END senderEntry */
 }
@@ -484,9 +495,17 @@ void printerEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    SEGGER_SYSVIEW_PrintfHost("printer");
+    //SEGGER_SYSVIEW_PrintfHost("printer");
   }
   /* USER CODE END printerEntry */
+}
+
+/* timerEntry function */
+void timerEntry(void *argument)
+{
+  /* USER CODE BEGIN timerEntry */
+	SEGGER_SYSVIEW_PrintfHost("timer print sender");
+  /* USER CODE END timerEntry */
 }
 
 /**
