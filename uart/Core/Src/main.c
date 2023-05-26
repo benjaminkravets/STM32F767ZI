@@ -81,14 +81,14 @@ osThreadId_t senderHandle;
 const osThreadAttr_t sender_attributes = {
   .name = "sender",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for printer */
 osThreadId_t printerHandle;
 const osThreadAttr_t printer_attributes = {
   .name = "printer",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for printtimer */
 osTimerId_t printtimerHandle;
@@ -175,7 +175,8 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
-  osTimerStart(printtimerHandle, 50 /portTICK_PERIOD_MS);
+  //osTimerStart(printtimerHandle, 100);
+  osTimerStart(printtimerHandle, 5);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -516,7 +517,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+static const uint8_t uart4Msg[1] = "d";
 
+//uint8_t uart4Msg[1] = "d";
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -533,7 +536,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
-    SEGGER_SYSVIEW_PrintfHost("Default task");
+    //SEGGER_SYSVIEW_PrintfHost("Default task");
   }
   /* USER CODE END 5 */
 }
@@ -553,6 +556,9 @@ void senderEntry(void *argument)
   {
     osDelay(1);
     //SEGGER_SYSVIEW_PrintfHost("sender");
+    SEGGER_SYSVIEW_PrintfHost("task print sender");
+
+    HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
   }
   /* USER CODE END senderEntry */
 }
@@ -568,13 +574,16 @@ void printerEntry(void *argument)
 {
   /* USER CODE BEGIN printerEntry */
   /* Infinite loop */
-  uint8_t msg[20] = {0};
-  for(;;)
+  uint8_t nextbyte = 'h';
+  while(1)
   {
-    osDelay(1);
+    //osDelay(1);
     //SEGGER_SYSVIEW_PrintfHost("printer");
-    HAL_UART_Receive(&huart2, msg, 20, 500);
-    SEGGER_SYSVIEW_PrintfHost("%c", msg);
+
+    HAL_UART_Receive(&huart2, &nextbyte, 1, 100);
+    SEGGER_SYSVIEW_PrintfHost("uart received");
+    //nextbyte = 'i';
+    SEGGER_SYSVIEW_PrintfHost(&nextbyte);
   }
   /* USER CODE END printerEntry */
 }
@@ -583,9 +592,11 @@ void printerEntry(void *argument)
 void timerEntry(void *argument)
 {
   /* USER CODE BEGIN timerEntry */
+	//uint8_t uart4Msg[] = "a";
+
 	SEGGER_SYSVIEW_PrintfHost("timer print sender");
-	uint8_t uart4Msg[] = "data from uart4";
-	HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 500);
+
+	HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
   /* USER CODE END timerEntry */
 }
 
