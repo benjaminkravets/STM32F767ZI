@@ -9,5 +9,5 @@ main.c:469:13:MX_GPIO_Init	1
 main.c:532:6:StartDefaultTask	1
 main.c:551:6:senderEntry	1
 main.c:573:6:printerEntry	1
-main.c:592:6:timerEntry	1
-main.c:607:6:Error_Handler	1
+main.c:593:6:timerEntry	1
+main.c:608:6:Error_Handler	1

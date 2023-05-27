@@ -574,15 +574,16 @@ void printerEntry(void *argument)
 {
   /* USER CODE BEGIN printerEntry */
   /* Infinite loop */
-  uint8_t nextbyte = 'h';
+  //uint8_t nextbyte[1];
+  char nextbyte[1];
   while(1)
   {
     //osDelay(1);
-    //SEGGER_SYSVIEW_PrintfHost("printer");
+
 
     HAL_UART_Receive(&huart2, &nextbyte, 1, 100);
     SEGGER_SYSVIEW_PrintfHost("uart received");
-    //nextbyte = 'i';
+
     SEGGER_SYSVIEW_PrintfHost(&nextbyte);
   }
   /* USER CODE END printerEntry */
