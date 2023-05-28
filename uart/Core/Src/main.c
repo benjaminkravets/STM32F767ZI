@@ -81,19 +81,19 @@ osThreadId_t senderHandle;
 const osThreadAttr_t sender_attributes = {
   .name = "sender",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityHigh,
+  .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for printer */
 osThreadId_t printerHandle;
 const osThreadAttr_t printer_attributes = {
   .name = "printer",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityHigh,
+  .priority = (osPriority_t) osPriorityLow,
 };
-/* Definitions for printtimer */
-osTimerId_t printtimerHandle;
-const osTimerAttr_t printtimer_attributes = {
-  .name = "printtimer"
+/* Definitions for printTimer */
+osTimerId_t printTimerHandle;
+const osTimerAttr_t printTimer_attributes = {
+  .name = "printTimer"
 };
 /* USER CODE BEGIN PV */
 
@@ -110,7 +110,7 @@ static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
 void senderEntry(void *argument);
 void printerEntry(void *argument);
-void timerEntry(void *argument);
+void printTimerRoutine(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -170,13 +170,13 @@ int main(void)
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* Create the timer(s) */
-  /* creation of printtimer */
-  printtimerHandle = osTimerNew(timerEntry, osTimerPeriodic, NULL, &printtimer_attributes);
+  /* creation of printTimer */
+  printTimerHandle = osTimerNew(printTimerRoutine, osTimerPeriodic, NULL, &printTimer_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
-  //osTimerStart(printtimerHandle, 100);
-  osTimerStart(printtimerHandle, 5);
+
+  osTimerStart(printTimerHandle, 500 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -555,10 +555,10 @@ void senderEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    //SEGGER_SYSVIEW_PrintfHost("sender");
-    SEGGER_SYSVIEW_PrintfHost("task print sender");
 
-    HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
+    //SEGGER_SYSVIEW_PrintfHost("task print sender");
+
+    //HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
   }
   /* USER CODE END senderEntry */
 }
@@ -589,16 +589,16 @@ void printerEntry(void *argument)
   /* USER CODE END printerEntry */
 }
 
-/* timerEntry function */
-void timerEntry(void *argument)
+/* printTimerRoutine function */
+void printTimerRoutine(void *argument)
 {
-  /* USER CODE BEGIN timerEntry */
-	//uint8_t uart4Msg[] = "a";
-
+  /* USER CODE BEGIN printTimerRoutine */
 	SEGGER_SYSVIEW_PrintfHost("timer print sender");
 
+		//HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
+
 	HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
-  /* USER CODE END timerEntry */
+  /* USER CODE END printTimerRoutine */
 }
 
 /**
