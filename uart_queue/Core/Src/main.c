@@ -90,6 +90,11 @@ const osThreadAttr_t uartPrinter_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for sendTimer */
+osTimerId_t sendTimerHandle;
+const osTimerAttr_t sendTimer_attributes = {
+  .name = "sendTimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -105,6 +110,7 @@ static void MX_USART2_Init(void);
 void StartDefaultTask(void *argument);
 void uartReveiverEntry(void *argument);
 void uartPrinterEntry(void *argument);
+void sendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -162,6 +168,10 @@ int main(void)
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
+
+  /* Create the timer(s) */
+  /* creation of sendTimer */
+  sendTimerHandle = osTimerNew(sendTimerEntry, osTimerPeriodic, NULL, &sendTimer_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -559,6 +569,14 @@ void uartPrinterEntry(void *argument)
     osDelay(1);
   }
   /* USER CODE END uartPrinterEntry */
+}
+
+/* sendTimerEntry function */
+void sendTimerEntry(void *argument)
+{
+  /* USER CODE BEGIN sendTimerEntry */
+
+  /* USER CODE END sendTimerEntry */
 }
 
 /**
