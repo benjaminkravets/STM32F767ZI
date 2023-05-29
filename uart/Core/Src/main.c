@@ -176,7 +176,7 @@ int main(void)
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
 
-  osTimerStart(printTimerHandle, 500 / portTICK_PERIOD_MS);
+  osTimerStart(printTimerHandle, 1000 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
