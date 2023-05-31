@@ -23,7 +23,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
+#include <FreeRTOS.h>
+#include <task.h>
+#include <queue.h>
+#include <timers.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,7 +68,7 @@ ETH_TxPacketConfig TxConfig;
 ETH_HandleTypeDef heth;
 
 UART_HandleTypeDef huart4;
-USART_HandleTypeDef husart2;
+UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
@@ -90,6 +94,11 @@ const osThreadAttr_t uartPrinter_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for uart2_queue */
+osMessageQueueId_t uart2_queueHandle;
+const osMessageQueueAttr_t uart2_queue_attributes = {
+  .name = "uart2_queue"
+};
 /* Definitions for sendTimer */
 osTimerId_t sendTimerHandle;
 const osTimerAttr_t sendTimer_attributes = {
@@ -106,7 +115,7 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_UART4_Init(void);
-static void MX_USART2_Init(void);
+static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
 void uartReveiverEntry(void *argument);
 void uartPrinterEntry(void *argument);
@@ -137,7 +146,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -153,7 +162,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   MX_UART4_Init();
-  MX_USART2_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -175,7 +184,14 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(sendTimerHandle, 1000 / portTICK_PERIOD_MS);
+  //xTimerStart(sendTimerHandle, 1000 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
+
+  /* Create the queue(s) */
+  /* creation of uart2_queue */
+  uart2_queueHandle = osMessageQueueNew (16, sizeof(uint16_t), &uart2_queue_attributes);
+  //uart2_queueHandle = xQueueCreate(10, sizeof(char));
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -359,7 +375,7 @@ static void MX_UART4_Init(void)
   * @param None
   * @retval None
   */
-static void MX_USART2_Init(void)
+static void MX_USART2_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
@@ -369,16 +385,17 @@ static void MX_USART2_Init(void)
   /* USER CODE BEGIN USART2_Init 1 */
 
   /* USER CODE END USART2_Init 1 */
-  husart2.Instance = USART2;
-  husart2.Init.BaudRate = 115200;
-  husart2.Init.WordLength = USART_WORDLENGTH_8B;
-  husart2.Init.StopBits = USART_STOPBITS_1;
-  husart2.Init.Parity = USART_PARITY_NONE;
-  husart2.Init.Mode = USART_MODE_TX_RX;
-  husart2.Init.CLKPolarity = USART_POLARITY_LOW;
-  husart2.Init.CLKPhase = USART_PHASE_1EDGE;
-  husart2.Init.CLKLastBit = USART_LASTBIT_DISABLE;
-  if (HAL_USART_Init(&husart2) != HAL_OK)
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -514,7 +531,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+static const uint8_t uart4Msg[1] = "d";
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -545,10 +562,17 @@ void StartDefaultTask(void *argument)
 void uartReveiverEntry(void *argument)
 {
   /* USER CODE BEGIN uartReveiverEntry */
+  uint8_t nextByte;
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	//HAL_UART_Receive(&huart2, &nextbyte, 1, 100);
+    while(!(USART2->ISR & USART_ISR_RXNE_Msk));
+    nextByte = USART2->RDR;
+    SEGGER_SYSVIEW_PrintfHost("received");
+    //SEGGER_SYSVIEW_PrintfHost(&nextByte);
+    xQueueSend(uart2_queueHandle, &nextByte,0);
+
   }
   /* USER CODE END uartReveiverEntry */
 }
@@ -564,9 +588,13 @@ void uartPrinterEntry(void *argument)
 {
   /* USER CODE BEGIN uartPrinterEntry */
   /* Infinite loop */
+  char byteFromQueue;
   for(;;)
   {
     osDelay(1);
+    //SEGGER_SYSVIEW_PrintfHost("printer");
+    xQueueReceive(uart2_queueHandle, &byteFromQueue, portMAX_DELAY);
+    SEGGER_SYSVIEW_PrintfHost(&byteFromQueue);
   }
   /* USER CODE END uartPrinterEntry */
 }
@@ -576,6 +604,8 @@ void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
 
+  SEGGER_SYSVIEW_PrintfHost("timer sender");
+  HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
   /* USER CODE END sendTimerEntry */
 }
 
