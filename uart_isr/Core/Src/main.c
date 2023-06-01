@@ -28,7 +28,7 @@
 #include <task.h>
 #include <queue.h>
 #include <timers.h>
-
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,6 +81,18 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for uartPrintOutTas */
+osThreadId_t uartPrintOutTasHandle;
+const osThreadAttr_t uartPrintOutTas_attributes = {
+  .name = "uartPrintOutTas",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for uart2_BytesReceived */
+osMessageQueueId_t uart2_BytesReceivedHandle;
+const osMessageQueueAttr_t uart2_BytesReceived_attributes = {
+  .name = "uart2_BytesReceived"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -94,9 +106,10 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_UART4_Init(void);
 static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
+void uartPrintOutTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-
+static bool rxInProgress = false;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -156,6 +169,10 @@ int main(void)
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of uart2_BytesReceived */
+  uart2_BytesReceivedHandle = osMessageQueueNew (16, sizeof(uint16_t), &uart2_BytesReceived_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -163,6 +180,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of uartPrintOutTas */
+  uartPrintOutTasHandle = osThreadNew(uartPrintOutTask, NULL, &uartPrintOutTas_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -488,7 +508,15 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void startReceiveInt( void )
+{
+	rxInProgress = true;
+	USART2->CR3 |= USART_CR3_EIE;	//enable error interrupts
+	USART2->CR1 |= (USART_CR1_UE | USART_CR1_RXNEIE);
+	//all 4 bits are for preemption priority -
+	NVIC_SetPriority(USART2_IRQn, 6);
+	NVIC_EnableIRQ(USART2_IRQn);
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -507,6 +535,27 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_uartPrintOutTask */
+/**
+* @brief Function implementing the uartPrintOutTas thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_uartPrintOutTask */
+void uartPrintOutTask(void *argument)
+{
+  /* USER CODE BEGIN uartPrintOutTask */
+  /* Infinite loop */
+  char nextByte;
+  startReceiveInt();
+  for(;;)
+  {
+    xQueueReceive(uart2_BytesReceivedHandle, &nextByte, portMAX_DELAY);
+    SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
+  }
+  /* USER CODE END uartPrintOutTask */
 }
 
 /**
