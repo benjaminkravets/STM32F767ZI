@@ -1,7 +1,10 @@
-main.c:92:5:main	1
-main.c:138:6:SystemClock_Config	4
-main.c:196:13:MX_ETH_Init	2
-main.c:245:13:MX_USART3_UART_Init	2
-main.c:280:13:MX_USB_OTG_FS_PCD_Init	2
-main.c:315:13:MX_GPIO_Init	1
-main.c:373:6:Error_Handler	1
+main.c:111:5:main	1
+main.c:193:6:SystemClock_Config	4
+main.c:251:13:MX_ETH_Init	2
+main.c:300:13:MX_UART4_Init	2
+main.c:335:13:MX_USART2_UART_Init	2
+main.c:370:13:MX_USART3_UART_Init	2
+main.c:405:13:MX_USB_OTG_FS_PCD_Init	2
+main.c:440:13:MX_GPIO_Init	1
+main.c:501:6:StartDefaultTask	1
+main.c:516:6:Error_Handler	1
