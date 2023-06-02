@@ -69,7 +69,7 @@ ETH_TxPacketConfig TxConfig;
 ETH_HandleTypeDef heth;
 
 UART_HandleTypeDef huart4;
-UART_HandleTypeDef huart2;
+USART_HandleTypeDef husart2;
 UART_HandleTypeDef huart3;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
@@ -93,6 +93,11 @@ osMessageQueueId_t uart2_BytesReceivedHandle;
 const osMessageQueueAttr_t uart2_BytesReceived_attributes = {
   .name = "uart2_BytesReceived"
 };
+/* Definitions for sendTimer */
+osTimerId_t sendTimerHandle;
+const osTimerAttr_t sendTimer_attributes = {
+  .name = "sendTimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -104,9 +109,10 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_UART4_Init(void);
-static void MX_USART2_UART_Init(void);
+static void MX_USART2_Init(void);
 void StartDefaultTask(void *argument);
 void uartPrintOutTask(void *argument);
+void sendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 static bool rxInProgress = false;
@@ -149,7 +155,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   MX_UART4_Init();
-  MX_USART2_UART_Init();
+  MX_USART2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -165,8 +171,13 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* creation of sendTimer */
+  sendTimerHandle = osTimerNew(sendTimerEntry, osTimerPeriodic, NULL, &sendTimer_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(sendTimerHandle, 1000 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
@@ -352,7 +363,7 @@ static void MX_UART4_Init(void)
   * @param None
   * @retval None
   */
-static void MX_USART2_UART_Init(void)
+static void MX_USART2_Init(void)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
@@ -362,17 +373,16 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 1 */
 
   /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
+  husart2.Instance = USART2;
+  husart2.Init.BaudRate = 115200;
+  husart2.Init.WordLength = USART_WORDLENGTH_8B;
+  husart2.Init.StopBits = USART_STOPBITS_1;
+  husart2.Init.Parity = USART_PARITY_NONE;
+  husart2.Init.Mode = USART_MODE_TX_RX;
+  husart2.Init.CLKPolarity = USART_POLARITY_LOW;
+  husart2.Init.CLKPhase = USART_PHASE_1EDGE;
+  husart2.Init.CLKLastBit = USART_LASTBIT_DISABLE;
+  if (HAL_USART_Init(&husart2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -517,6 +527,45 @@ void startReceiveInt( void )
 	NVIC_SetPriority(USART2_IRQn, 6);
 	NVIC_EnableIRQ(USART2_IRQn);
 }
+void USART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_IRQn 0 */
+
+  /* USER CODE END USART2_IRQn 0 */
+  HAL_USART_IRQHandler(&husart2);
+  /* USER CODE BEGIN USART2_IRQn 1 */
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	SEGGER_SYSVIEW_RecordEnterISR();
+
+	//first check for errors
+	if(	USART2->ISR & (	USART_ISR_ORE_Msk |
+						USART_ISR_NE_Msk |
+						USART_ISR_FE_Msk |
+						USART_ISR_PE_Msk ))
+	{
+		//clear error flags
+		USART2->ICR |= (USART_ICR_FECF |
+						USART_ICR_PECF |
+						USART_ICR_NCF |
+						USART_ICR_ORECF);
+	}
+
+	if(	USART2->ISR & USART_ISR_RXNE_Msk)
+	{
+		//read the data register unconditionally to clear
+		//the receive not empty interrupt if no reception is
+		//in progress
+		uint8_t tempVal = (uint8_t) USART2->RDR;
+
+		if(rxInProgress)
+		{
+			xQueueSendFromISR(uart2_BytesReceivedHandle, &tempVal, &xHigherPriorityTaskWoken);
+		}
+	}
+	SEGGER_SYSVIEW_RecordExitISR();
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+  /* USER CODE END USART2_IRQn 1 */
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -533,6 +582,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+    //SEGGER_SYSVIEW_PrintfHost("default");
   }
   /* USER CODE END 5 */
 }
@@ -556,6 +606,16 @@ void uartPrintOutTask(void *argument)
     SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
   }
   /* USER CODE END uartPrintOutTask */
+}
+
+/* sendTimerEntry function */
+void sendTimerEntry(void *argument)
+{
+  /* USER CODE BEGIN sendTimerEntry */
+	//SEGGER_SYSVIEW_PrintfHost("timer");
+	  SEGGER_SYSVIEW_PrintfHost("timer sender");
+	  HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
+  /* USER CODE END sendTimerEntry */
 }
 
 /**
