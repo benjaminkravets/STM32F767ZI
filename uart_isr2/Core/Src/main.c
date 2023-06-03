@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,6 +74,11 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for sendTimer */
+osTimerId_t sendTimerHandle;
+const osTimerAttr_t sendTimer_attributes = {
+  .name = "sendTimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -85,6 +90,7 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
+void sendTimerCallback(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -111,7 +117,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -141,8 +147,13 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* creation of sendTimer */
+  sendTimerHandle = osTimerNew(sendTimerCallback, osTimerPeriodic, NULL, &sendTimer_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(sendTimerHandle, 1000 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -440,8 +451,17 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("Timer");
   }
   /* USER CODE END 5 */
+}
+
+/* sendTimerCallback function */
+void sendTimerCallback(void *argument)
+{
+  /* USER CODE BEGIN sendTimerCallback */
+
+  /* USER CODE END sendTimerCallback */
 }
 
 /**
