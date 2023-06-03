@@ -99,6 +99,7 @@ int main(void)
  */
 void startReceiveInt( void )
 {
+	SEGGER_SYSVIEW_PrintfHost("receive");
 	rxInProgress = true;
 	USART2->CR3 |= USART_CR3_EIE;	//enable error interrupts
 	USART2->CR1 |= (USART_CR1_UE | USART_CR1_RXNEIE);

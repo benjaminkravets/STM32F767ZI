@@ -520,6 +520,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void startReceiveInt( void )
 {
+	SEGGER_SYSVIEW_PrintfHost("receive");
 	rxInProgress = true;
 	USART2->CR3 |= USART_CR3_EIE;	//enable error interrupts
 	USART2->CR1 |= (USART_CR1_UE | USART_CR1_RXNEIE);
@@ -530,7 +531,7 @@ void startReceiveInt( void )
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-
+  SEGGER_SYSVIEW_PrintfHost("isr");
   /* USER CODE END USART2_IRQn 0 */
   HAL_USART_IRQHandler(&husart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
@@ -566,6 +567,8 @@ void USART2_IRQHandler(void)
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
   /* USER CODE END USART2_IRQn 1 */
 }
+static const uint8_t uart4Msg[1] = "d";
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
