@@ -79,14 +79,14 @@ osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) 8,
 };
 /* Definitions for uartPrintOutTas */
 osThreadId_t uartPrintOutTasHandle;
 const osThreadAttr_t uartPrintOutTas_attributes = {
   .name = "uartPrintOutTas",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) 9,
 };
 /* Definitions for uart2_BytesReceived */
 osMessageQueueId_t uart2_BytesReceivedHandle;
@@ -584,6 +584,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	//SEGGER_SYSVIEW_PrintfHost("default");
     osDelay(1);
     //SEGGER_SYSVIEW_PrintfHost("default");
   }
@@ -601,10 +602,13 @@ void uartPrintOutTask(void *argument)
 {
   /* USER CODE BEGIN uartPrintOutTask */
   /* Infinite loop */
+  SEGGER_SYSVIEW_PrintfHost("printouttask");
   char nextByte;
+
   startReceiveInt();
   for(;;)
   {
+	SEGGER_SYSVIEW_PrintfHost("printouttask");
     xQueueReceive(uart2_BytesReceivedHandle, &nextByte, portMAX_DELAY);
     SEGGER_SYSVIEW_PrintfHost("%c", nextByte);
   }

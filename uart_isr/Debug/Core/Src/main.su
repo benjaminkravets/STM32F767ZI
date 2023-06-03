@@ -11,6 +11,6 @@
 ../Core/Src/main.c:521:6:startReceiveInt	8	static
 ../Core/Src/main.c:531:6:USART2_IRQHandler	16	static,ignoring_inline_asm
 ../Core/Src/main.c:581:6:StartDefaultTask	16	static
-../Core/Src/main.c:600:6:uartPrintOutTask	24	static
-../Core/Src/main.c:615:6:sendTimerEntry	16	static
-../Core/Src/main.c:628:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:601:6:uartPrintOutTask	24	static
+../Core/Src/main.c:619:6:sendTimerEntry	16	static
+../Core/Src/main.c:632:6:Error_Handler	4	static,ignoring_inline_asm
