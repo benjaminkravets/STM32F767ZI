@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,6 +76,23 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for uart4ISR */
+osThreadId_t uart4ISRHandle;
+const osThreadAttr_t uart4ISR_attributes = {
+  .name = "uart4ISR",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for UART4msg */
+osMessageQueueId_t UART4msgHandle;
+const osMessageQueueAttr_t UART4msg_attributes = {
+  .name = "UART4msg"
+};
+/* Definitions for uart2SendTimer */
+osTimerId_t uart2SendTimerHandle;
+const osTimerAttr_t uart2SendTimer_attributes = {
+  .name = "uart2SendTimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -89,6 +106,8 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_UART4_Init(void);
 void StartDefaultTask(void *argument);
+void uart4ISREntry(void *argument);
+void uart2SendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -115,7 +134,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -147,9 +166,18 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* creation of uart2SendTimer */
+  uart2SendTimerHandle = osTimerNew(uart2SendTimerEntry, osTimerPeriodic, NULL, &uart2SendTimer_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(uart2SendTimerHandle, 500 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
+
+  /* Create the queue(s) */
+  /* creation of UART4msg */
+  UART4msgHandle = osMessageQueueNew (16, sizeof(uint16_t), &UART4msg_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -158,6 +186,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of uart4ISR */
+  uart4ISRHandle = osThreadNew(uart4ISREntry, NULL, &uart4ISR_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -483,6 +514,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+static const uint8_t uart4Msg[1] = "d";
+uint8_t UART4_rxBuffer[12] = {0};
 
 /* USER CODE END 4 */
 
@@ -500,8 +533,37 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_uart4ISREntry */
+/**
+* @brief Function implementing the uart4ISR thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_uart4ISREntry */
+void uart4ISREntry(void *argument)
+{
+  /* USER CODE BEGIN uart4ISREntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+    HAL_UART_Receive_IT (&huart4, UART4_rxBuffer, 12);
+  }
+  /* USER CODE END uart4ISREntry */
+}
+
+/* uart2SendTimerEntry function */
+void uart2SendTimerEntry(void *argument)
+{
+  /* USER CODE BEGIN uart2SendTimerEntry */
+	//SEGGER_SYSVIEW_PrintfHost("timer sender");
+	HAL_UART_Transmit(&huart2, uart4Msg, sizeof(uart4Msg), 100);
+  /* USER CODE END uart2SendTimerEntry */
 }
 
 /**
