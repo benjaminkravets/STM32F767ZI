@@ -13,4 +13,5 @@ main.c:533:6:USART2_IRQHandler	5
 main.c:584:6:StartDefaultTask	1
 main.c:604:6:uartPrintOutTask	1
 main.c:625:6:sendTimerEntry	1
-main.c:638:6:Error_Handler	1
+main.c:642:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:659:6:Error_Handler	1
