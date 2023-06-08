@@ -8,5 +8,5 @@ main.c:403:13:MX_USB_OTG_FS_PCD_Init	2
 main.c:436:13:MX_DMA_Init	1
 main.c:454:13:MX_GPIO_Init	1
 main.c:515:6:StartDefaultTask	1
-main.c:535:6:HAL_TIM_PeriodElapsedCallback	2
-main.c:552:6:Error_Handler	1
+main.c:538:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:555:6:Error_Handler	1

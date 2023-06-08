@@ -77,6 +77,11 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for sendTimer */
+osTimerId_t sendTimerHandle;
+const osTimerAttr_t sendTimer_attributes = {
+  .name = "sendTimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -91,6 +96,7 @@ static void MX_UART4_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
+void sendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -149,6 +155,10 @@ int main(void)
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
+
+  /* Create the timer(s) */
+  /* creation of sendTimer */
+  sendTimerHandle = osTimerNew(sendTimerEntry, osTimerPeriodic, NULL, &sendTimer_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -515,13 +525,24 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+  uint8_t UART4_rxBuffer[12] = {0};
+
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
     SEGGER_SYSVIEW_PrintfHost("def");
+    HAL_UART_Receive_DMA(&huart4, UART4_rxBuffer, 12);
   }
   /* USER CODE END 5 */
+}
+
+/* sendTimerEntry function */
+void sendTimerEntry(void *argument)
+{
+  /* USER CODE BEGIN sendTimerEntry */
+
+  /* USER CODE END sendTimerEntry */
 }
 
 /**
