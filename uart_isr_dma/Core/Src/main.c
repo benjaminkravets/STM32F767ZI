@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,6 +66,7 @@ ETH_HandleTypeDef heth;
 UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
+DMA_HandleTypeDef hdma_uart4_rx;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
@@ -83,10 +84,11 @@ const osThreadAttr_t defaultTask_attributes = {
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_ETH_Init(void);
+static void MX_DMA_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_UART4_Init(void);
+static void MX_ETH_Init(void);
 static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
 
@@ -115,7 +117,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -127,10 +129,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_ETH_Init();
+  MX_DMA_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   MX_UART4_Init();
+  MX_ETH_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
@@ -428,6 +431,22 @@ static void MX_USB_OTG_FS_PCD_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream2_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -500,6 +519,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("def");
   }
   /* USER CODE END 5 */
 }
