@@ -77,6 +77,13 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for uart4dma */
+osThreadId_t uart4dmaHandle;
+const osThreadAttr_t uart4dma_attributes = {
+  .name = "uart4dma",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for sendTimer */
 osTimerId_t sendTimerHandle;
 const osTimerAttr_t sendTimer_attributes = {
@@ -96,6 +103,7 @@ static void MX_UART4_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
+void uart4dmaEntry(void *argument);
 void sendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
@@ -171,6 +179,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of uart4dma */
+  uart4dmaHandle = osThreadNew(uart4dmaEntry, NULL, &uart4dma_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -512,7 +523,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+static const uint8_t uart2Msg[1] = "d";
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -532,16 +543,39 @@ void StartDefaultTask(void *argument)
   {
     osDelay(1);
     SEGGER_SYSVIEW_PrintfHost("def");
-    HAL_UART_Receive_DMA(&huart4, UART4_rxBuffer, 12);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_uart4dmaEntry */
+/**
+* @brief Function implementing the uart4dma thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_uart4dmaEntry */
+void uart4dmaEntry(void *argument)
+{
+  /* USER CODE BEGIN uart4dmaEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+    //SEGGER_SYSVIEW_PrintfHost("dma isr");
+  }
+  /* USER CODE END uart4dmaEntry */
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+	SEGGER_SYSVIEW_PrintfHost("dma isr");
 }
 
 /* sendTimerEntry function */
 void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
-
+  HAL_UART_Transmit(&huart2, uart2Msg, sizeof(uart2Msg), 100);
   /* USER CODE END sendTimerEntry */
 }
 
