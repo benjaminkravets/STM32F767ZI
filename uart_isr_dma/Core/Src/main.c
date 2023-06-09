@@ -170,6 +170,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(sendTimerHandle, 1000 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -524,6 +525,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 static const uint8_t uart2Msg[1] = "d";
+static const uint8_t uart4dmaMsg[1] = "d";
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -536,13 +538,12 @@ static const uint8_t uart2Msg[1] = "d";
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-  uint8_t UART4_rxBuffer[12] = {0};
 
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
-    SEGGER_SYSVIEW_PrintfHost("def");
+    //SEGGER_SYSVIEW_PrintfHost("def");
   }
   /* USER CODE END 5 */
 }
@@ -562,13 +563,9 @@ void uart4dmaEntry(void *argument)
   {
     osDelay(1);
     //SEGGER_SYSVIEW_PrintfHost("dma isr");
+    HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 12);
   }
   /* USER CODE END uart4dmaEntry */
-}
-
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-	SEGGER_SYSVIEW_PrintfHost("dma isr");
 }
 
 /* sendTimerEntry function */
@@ -576,6 +573,7 @@ void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
   HAL_UART_Transmit(&huart2, uart2Msg, sizeof(uart2Msg), 100);
+  SEGGER_SYSVIEW_PrintfHost("send");
   /* USER CODE END sendTimerEntry */
 }
 
