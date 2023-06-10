@@ -573,7 +573,7 @@ void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
   HAL_UART_Transmit(&huart2, uart2Msg, sizeof(uart2Msg), 100);
-  SEGGER_SYSVIEW_PrintfHost("send");
+  //SEGGER_SYSVIEW_PrintfHost("send");
   /* USER CODE END sendTimerEntry */
 }
 
