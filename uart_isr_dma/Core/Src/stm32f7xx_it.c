@@ -169,8 +169,10 @@ void DMA1_Stream2_IRQHandler(void)
 
   /* USER CODE END DMA1_Stream2_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_uart4_rx);
+
   /* USER CODE BEGIN DMA1_Stream2_IRQn 1 */
   SEGGER_SYSVIEW_PrintfHost("dma irq");
+  //SEGGER_SYSVIEW_PrintfHost(&uart4dmaMsg);
   /* USER CODE END DMA1_Stream2_IRQn 1 */
 }
 

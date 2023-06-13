@@ -9,6 +9,6 @@
 ../Core/Src/main.c:476:13:MX_GPIO_Init	56	static
 ../Core/Src/main.c:538:6:StartDefaultTask	16	static
 ../Core/Src/main.c:558:6:uart4dmaEntry	16	static
-../Core/Src/main.c:572:6:sendTimerEntry	16	static
-../Core/Src/main.c:588:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:605:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:573:6:sendTimerEntry	16	static
+../Core/Src/main.c:589:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:606:6:Error_Handler	4	static,ignoring_inline_asm

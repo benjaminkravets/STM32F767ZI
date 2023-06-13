@@ -170,7 +170,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
-  osTimerStart(sendTimerHandle, 1000 / portTICK_PERIOD_MS);
+  osTimerStart(sendTimerHandle, 500 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -463,7 +463,7 @@ static void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA1_Stream2_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream2_IRQn, 5, 0);
+  HAL_NVIC_SetPriority(DMA1_Stream2_IRQn, 10, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream2_IRQn);
 
 }
@@ -524,8 +524,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-static const uint8_t uart2Msg[1] = "d";
-static const uint8_t uart4dmaMsg[1] = "d";
+static const uint8_t uart2Msg[1] = "T";
+static const uint8_t uart4dmaMsg[4];
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -562,8 +562,9 @@ void uart4dmaEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    //SEGGER_SYSVIEW_PrintfHost("dma isr");
-    HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 12);
+    //SEGGER_SYSVIEW_PrintfHost("dma isr rcv");
+    HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 2);
+
   }
   /* USER CODE END uart4dmaEntry */
 }
@@ -573,7 +574,7 @@ void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
   HAL_UART_Transmit(&huart2, uart2Msg, sizeof(uart2Msg), 100);
-  //SEGGER_SYSVIEW_PrintfHost("send");
+  SEGGER_SYSVIEW_PrintfHost("send");
   /* USER CODE END sendTimerEntry */
 }
 
