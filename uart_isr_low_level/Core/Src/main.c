@@ -74,6 +74,18 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for uartPrintOut */
+osThreadId_t uartPrintOutHandle;
+const osThreadAttr_t uartPrintOut_attributes = {
+  .name = "uartPrintOut",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for sendTimer */
+osTimerId_t sendTimerHandle;
+const osTimerAttr_t sendTimer_attributes = {
+  .name = "sendTimer"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -85,6 +97,8 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
+void uartPrintOutEntry(void *argument);
+void sendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -141,6 +155,10 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* creation of sendTimer */
+  sendTimerHandle = osTimerNew(sendTimerEntry, osTimerPeriodic, NULL, &sendTimer_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
@@ -152,6 +170,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of uartPrintOut */
+  uartPrintOutHandle = osThreadNew(uartPrintOutEntry, NULL, &uartPrintOut_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -442,6 +463,32 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_uartPrintOutEntry */
+/**
+* @brief Function implementing the uartPrintOut thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_uartPrintOutEntry */
+void uartPrintOutEntry(void *argument)
+{
+  /* USER CODE BEGIN uartPrintOutEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END uartPrintOutEntry */
+}
+
+/* sendTimerEntry function */
+void sendTimerEntry(void *argument)
+{
+  /* USER CODE BEGIN sendTimerEntry */
+
+  /* USER CODE END sendTimerEntry */
 }
 
 /**
