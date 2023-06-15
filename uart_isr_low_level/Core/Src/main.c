@@ -23,7 +23,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <FreeRTOS.h>
+#include <task.h>
+#include <stream_buffer.h>
+#include <timers.h>
+#include <stm32f7xx_hal.h>
+#include <stdbool.h>
+#include <string.h>
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,6 +70,8 @@ ETH_TxPacketConfig TxConfig;
 
 ETH_HandleTypeDef heth;
 
+UART_HandleTypeDef huart4;
+UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
@@ -96,12 +105,25 @@ static void MX_GPIO_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
+static void MX_UART4_Init(void);
+static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
 void uartPrintOutEntry(void *argument);
 void sendTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
+void uartPrintOutTask( void* NotUsed);
+void startUart4Traffic( TimerHandle_t xTimer );
 
+static uint8_t rxData[20];
+static uint8_t expectedLen = 16;
+
+static StreamBufferHandle_t rxStream = NULL;
+
+static bool rxInProgress = false;
+static uint_fast16_t rxLen = 0;
+
+static DMA_HandleTypeDef usart2DmaRx;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -125,7 +147,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -140,6 +162,8 @@ int main(void)
   MX_ETH_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
+  MX_UART4_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -303,6 +327,76 @@ static void MX_ETH_Init(void)
 }
 
 /**
+  * @brief UART4 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_UART4_Init(void)
+{
+
+  /* USER CODE BEGIN UART4_Init 0 */
+
+  /* USER CODE END UART4_Init 0 */
+
+  /* USER CODE BEGIN UART4_Init 1 */
+
+  /* USER CODE END UART4_Init 1 */
+  huart4.Instance = UART4;
+  huart4.Init.BaudRate = 115200;
+  huart4.Init.WordLength = UART_WORDLENGTH_8B;
+  huart4.Init.StopBits = UART_STOPBITS_1;
+  huart4.Init.Parity = UART_PARITY_NONE;
+  huart4.Init.Mode = UART_MODE_TX_RX;
+  huart4.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart4.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart4.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart4.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN UART4_Init 2 */
+
+  /* USER CODE END UART4_Init 2 */
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
+
+}
+
+/**
   * @brief USART3 Initialization Function
   * @param None
   * @retval None
@@ -423,28 +517,42 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USB_OverCurrent_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC10 PC11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF8_UART4;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PD5 PD6 */
-  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
-  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+void setupUSART2DMA( void )
+{
+	//disable UART so no bytes can be accepted, which could create an
+	//overrun if DMA isn't setup in time
+//	USART2->CR1 &= ~USART_CR1_UE;	//start with the USART disabled
 
+	__HAL_RCC_DMA1_CLK_ENABLE();
+
+	NVIC_SetPriority(DMA1_Stream5_IRQn, 6);
+	NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+
+	//initialize the DMA peripheral to transfer uart4Msg
+	//to UART4 repeatedly
+	memset(&usart2DmaRx, 0, sizeof(usart2DmaRx));
+	usart2DmaRx.Instance = DMA1_Stream5;					//stream 5 is for USART2 Rx
+	usart2DmaRx.Init.Channel = DMA_CHANNEL_4;				//channel 4 is for USART2 Rx/Tx
+	usart2DmaRx.Init.Direction = DMA_PERIPH_TO_MEMORY;	//transfering out of memory and into the peripheral register
+	usart2DmaRx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;		//no fifo
+	usart2DmaRx.Init.MemBurst = DMA_MBURST_SINGLE;		//transfer 1 at a time
+	usart2DmaRx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+	usart2DmaRx.Init.MemInc = DMA_MINC_ENABLE;			//increment 1 byte at a time
+	usart2DmaRx.Init.Mode = DMA_NORMAL;					//flow control mode set to normal
+	usart2DmaRx.Init.PeriphBurst = DMA_PBURST_SINGLE;		//write 1 at a time to the peripheral
+	usart2DmaRx.Init.PeriphInc = DMA_PINC_DISABLE;		//always keep the peripheral address the same (the RX data register is always in the same location)
+	usart2DmaRx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	usart2DmaRx.Init.Priority = DMA_PRIORITY_HIGH;
+	assert_param(HAL_DMA_Init(&usart2DmaRx) == HAL_OK);
+
+	DMA1_Stream5->CR |= DMA_SxCR_TCIE;	//enable transfer complete interrupts
+	USART2->CR3 |= USART_CR3_DMAR_Msk;	//set the DMA receive mode flag in the USART
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
