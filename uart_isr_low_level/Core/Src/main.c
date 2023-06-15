@@ -95,6 +95,11 @@ osTimerId_t sendTimerHandle;
 const osTimerAttr_t sendTimer_attributes = {
   .name = "sendTimer"
 };
+/* Definitions for startUart4Traffic */
+osTimerId_t startUart4TrafficHandle;
+const osTimerAttr_t startUart4Traffic_attributes = {
+  .name = "startUart4Traffic"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -110,6 +115,7 @@ static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
 void uartPrintOutEntry(void *argument);
 void sendTimerEntry(void *argument);
+void startUart4TrafficEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 void uartPrintOutTask( void* NotUsed);
@@ -183,8 +189,12 @@ int main(void)
   /* creation of sendTimer */
   sendTimerHandle = osTimerNew(sendTimerEntry, osTimerPeriodic, NULL, &sendTimer_attributes);
 
+  /* creation of startUart4Traffic */
+  startUart4TrafficHandle = osTimerNew(startUart4TrafficEntry, osTimerOnce, NULL, &startUart4Traffic_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(startUart4TrafficHandle, 500 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -595,8 +605,16 @@ void uartPrintOutEntry(void *argument)
 void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
-
+ SEGGER_SYSVIEW_PrintfHost("sender");
   /* USER CODE END sendTimerEntry */
+}
+
+/* startUart4TrafficEntry function */
+void startUart4TrafficEntry(void *argument)
+{
+  /* USER CODE BEGIN startUart4TrafficEntry */
+	osTimerStart(sendTimerHandle, 500 / portTICK_PERIOD_MS);
+  /* USER CODE END startUart4TrafficEntry */
 }
 
 /**
