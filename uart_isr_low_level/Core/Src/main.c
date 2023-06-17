@@ -203,6 +203,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+  rxStream = xStreamBufferCreate( 100, 1);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -570,9 +571,71 @@ void setupUSART2DMA( void )
 
 	DMA1_Stream5->CR |= DMA_SxCR_TCIE;	//enable transfer complete interrupts
 	USART2->CR3 |= USART_CR3_DMAR_Msk;	//set the DMA receive mode flag in the USART
-	SEGGER_SYSVIEW_PrintfHost("DMA Init");
+	//SEGGER_SYSVIEW_PrintfHost("DMA Init");
 }
 static const uint8_t uart4Msg[1] = "T";
+
+void DMA1_Stream5_IRQHandler(void)
+{
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	SEGGER_SYSVIEW_RecordEnterISR();
+
+	if(rxInProgress && (DMA1->HISR & DMA_HISR_TCIF5))
+	{
+		rxInProgress = false;
+		DMA1->HIFCR |= DMA_HIFCR_CTCIF5;
+		SEGGER_SYSVIEW_PrintfHost(&rxData);
+		xStreamBufferSendFromISR(	rxStream,
+									rxData,
+									expectedLen - DMA1_Stream5->NDTR,
+									&xHigherPriorityTaskWoken);
+	}
+	SEGGER_SYSVIEW_RecordExitISR();
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
+
+int32_t startReceiveDMA( uint8_t* Buffer, uint_fast16_t Len )
+{
+	if(!rxInProgress && (Buffer != NULL))
+	{
+		rxInProgress = true;
+		rxLen = Len;
+
+		//get the DMA peripheral ready to receive data immediately before enabling UART
+		//so there is no chance of overrun
+		//dma stream enable bit must be toggled before a transfer will properly restart
+		__HAL_DMA_DISABLE(&usart2DmaRx);
+		setupUSART2DMA();
+		if(HAL_DMA_Start(&usart2DmaRx, (uint32_t)&(USART2->RDR), (uint32_t) Buffer, Len) != HAL_OK)
+		{
+			return -1;
+		}
+
+		//enable the UART
+		//clears error flags
+		USART2->ICR |= (USART_ICR_FECF | USART_ICR_PECF |
+		            	USART_ICR_NCF | USART_ICR_ORECF);
+		//for this specific instance, we'll avoid enabling UART interrupts for errors since
+		//we'll wind up with a lot of noise on the line (the way the ISR is written will
+		//cause a transfer to terminate if there are any errors are detected, rather than simply
+		//continue with what data it can).  In practice, most of the "errors" at baudrates below
+		//460800 are noise detection
+//		USART2->CR3 |= (USART_CR3_EIE);	//enable error interrupts
+		NVIC_SetPriority(USART2_IRQn, 6);
+		NVIC_EnableIRQ(USART2_IRQn);
+		USART2->CR1 |= (USART_CR1_UE);
+		return 0;
+	}
+
+	return -1;
+}
+
+void stopReceiveDMA( void )
+{
+	rxInProgress = false;
+	HAL_DMA_Abort(&usart2DmaRx);
+}
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -586,9 +649,7 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  SEGGER_SYSVIEW_PrintfHost("DMA Init");
-  setupUSART2DMA();
-  SEGGER_SYSVIEW_PrintfHost("DMA Init");
+
   for(;;)
   {
     osDelay(1);
@@ -608,10 +669,31 @@ void uartPrintOutEntry(void *argument)
 {
   /* USER CODE BEGIN uartPrintOutEntry */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+	uint8_t rxBufferedData[20];
+	uint8_t numBytesReceived = 16;
+
+	setupUSART2DMA();
+	//STM_UartInit(USART2, BAUDRATE, NULL, &usart2DmaRx);
+	MX_USART2_UART_Init();
+	while(1)
+	{
+		memset(rxBufferedData, 0, 20);
+		startReceiveDMA(rxData, expectedLen);
+		uint8_t numBytes = xStreamBufferReceive(	rxStream,
+													rxBufferedData,
+													numBytesReceived,
+													100 );
+		if(numBytes > 0)
+		{
+			SEGGER_SYSVIEW_PrintfHost("received: ");
+			SEGGER_SYSVIEW_Print((char*)rxBufferedData);
+		}
+		else
+		{
+	        stopReceiveDMA();
+			//SEGGER_SYSVIEW_PrintfHost("timeout");
+		}
+	}
   /* USER CODE END uartPrintOutEntry */
 }
 
@@ -621,7 +703,7 @@ void sendTimerEntry(void *argument)
   /* USER CODE BEGIN sendTimerEntry */
  HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
  SEGGER_SYSVIEW_PrintfHost("send");
- SEGGER_SYSVIEW_PrintfHost(uart4Msg);
+ SEGGER_SYSVIEW_PrintfHost(&uart4Msg);
 
   /* USER CODE END sendTimerEntry */
 }
