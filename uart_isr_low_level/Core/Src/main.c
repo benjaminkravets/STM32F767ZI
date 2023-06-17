@@ -116,6 +116,7 @@ void StartDefaultTask(void *argument);
 void uartPrintOutEntry(void *argument);
 void sendTimerEntry(void *argument);
 void startUart4TrafficEntry(void *argument);
+static void setupUSART2DMA( void );
 
 /* USER CODE BEGIN PFP */
 void uartPrintOutTask( void* NotUsed);
@@ -170,13 +171,15 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   MX_UART4_Init();
   MX_USART2_UART_Init();
+  SEGGER_SYSVIEW_PrintfHost("test 1");
+  setupUSART2DMA();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
-
+  SEGGER_SYSVIEW_PrintfHost("test 2");
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -195,6 +198,7 @@ int main(void)
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   osTimerStart(startUart4TrafficHandle, 500 / portTICK_PERIOD_MS);
+  SEGGER_SYSVIEW_PrintfHost("test 3");
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -207,9 +211,12 @@ int main(void)
 
   /* creation of uartPrintOut */
   uartPrintOutHandle = osThreadNew(uartPrintOutEntry, NULL, &uartPrintOut_attributes);
-
+  SEGGER_SYSVIEW_PrintfHost("test 4");
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  SEGGER_SYSVIEW_PrintfHost("DMA Init");
+  setupUSART2DMA();
+  SEGGER_SYSVIEW_PrintfHost("DMA Init");
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -217,6 +224,7 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
+  SEGGER_SYSVIEW_PrintfHost("test 3");
   osKernelStart();
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -562,7 +570,9 @@ void setupUSART2DMA( void )
 
 	DMA1_Stream5->CR |= DMA_SxCR_TCIE;	//enable transfer complete interrupts
 	USART2->CR3 |= USART_CR3_DMAR_Msk;	//set the DMA receive mode flag in the USART
+	SEGGER_SYSVIEW_PrintfHost("DMA Init");
 }
+static const uint8_t uart4Msg[1] = "T";
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -576,9 +586,13 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
+  SEGGER_SYSVIEW_PrintfHost("DMA Init");
+  setupUSART2DMA();
+  SEGGER_SYSVIEW_PrintfHost("DMA Init");
   for(;;)
   {
     osDelay(1);
+    setupUSART2DMA();
   }
   /* USER CODE END 5 */
 }
@@ -605,7 +619,10 @@ void uartPrintOutEntry(void *argument)
 void sendTimerEntry(void *argument)
 {
   /* USER CODE BEGIN sendTimerEntry */
- SEGGER_SYSVIEW_PrintfHost("sender");
+ HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
+ SEGGER_SYSVIEW_PrintfHost("send");
+ SEGGER_SYSVIEW_PrintfHost(uart4Msg);
+
   /* USER CODE END sendTimerEntry */
 }
 
