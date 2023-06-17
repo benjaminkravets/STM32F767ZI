@@ -71,7 +71,7 @@ ETH_TxPacketConfig TxConfig;
 ETH_HandleTypeDef heth;
 
 UART_HandleTypeDef huart4;
-UART_HandleTypeDef huart2;
+//UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
@@ -154,6 +154,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  NVIC_SetPriorityGrouping(0);
   SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
@@ -389,12 +390,37 @@ static void MX_USART2_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
+	__HAL_RCC_DMA1_CLK_ENABLE();
 
+	NVIC_SetPriority(DMA1_Stream5_IRQn, 6);
+	NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+
+	//initialize the DMA peripheral to transfer uart4Msg
+	//to UART4 repeatedly
+	memset(&usart2DmaRx, 0, sizeof(usart2DmaRx));
+	usart2DmaRx.Instance = DMA1_Stream5;					//stream 5 is for USART2 Rx
+	usart2DmaRx.Init.Channel = DMA_CHANNEL_4;				//channel 4 is for USART2 Rx/Tx
+	usart2DmaRx.Init.Direction = DMA_PERIPH_TO_MEMORY;	//transfering out of memory and into the peripheral register
+	usart2DmaRx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;		//no fifo
+	usart2DmaRx.Init.MemBurst = DMA_MBURST_SINGLE;		//transfer 1 at a time
+	usart2DmaRx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+	usart2DmaRx.Init.MemInc = DMA_MINC_ENABLE;			//increment 1 byte at a time
+	usart2DmaRx.Init.Mode = DMA_NORMAL;					//flow control mode set to normal
+	usart2DmaRx.Init.PeriphBurst = DMA_PBURST_SINGLE;		//write 1 at a time to the peripheral
+	usart2DmaRx.Init.PeriphInc = DMA_PINC_DISABLE;		//always keep the peripheral address the same (the RX data register is always in the same location)
+	usart2DmaRx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	usart2DmaRx.Init.Priority = DMA_PRIORITY_HIGH;
+	assert_param(HAL_DMA_Init(&usart2DmaRx) == HAL_OK);
+
+	DMA1_Stream5->CR |= DMA_SxCR_TCIE;	//enable transfer complete interrupts
+	USART2->CR3 |= USART_CR3_DMAR_Msk;	//set the DMA receive mode flag in the USART
+	SEGGER_SYSVIEW_PrintfHost("usart2 dma init");
   /* USER CODE END USART2_Init 0 */
 
   /* USER CODE BEGIN USART2_Init 1 */
 
   /* USER CODE END USART2_Init 1 */
+	/*
   huart2.Instance = USART2;
   huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
@@ -408,7 +434,7 @@ static void MX_USART2_UART_Init(void)
   if (HAL_UART_Init(&huart2) != HAL_OK)
   {
     Error_Handler();
-  }
+  }*/
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
@@ -575,8 +601,10 @@ void setupUSART2DMA( void )
 }
 static const uint8_t uart4Msg[1] = "T";
 
+
 void DMA1_Stream5_IRQHandler(void)
 {
+	SEGGER_SYSVIEW_PrintfHost("DMA IRQ");
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	SEGGER_SYSVIEW_RecordEnterISR();
 
@@ -596,6 +624,7 @@ void DMA1_Stream5_IRQHandler(void)
 
 int32_t startReceiveDMA( uint8_t* Buffer, uint_fast16_t Len )
 {
+	//SEGGER_SYSVIEW_PrintfHost("startReceiveDMA");
 	if(!rxInProgress && (Buffer != NULL))
 	{
 		rxInProgress = true;
