@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -77,6 +77,16 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for startUart4Traffic */
+osTimerId_t startUart4TrafficHandle;
+const osTimerAttr_t startUart4Traffic_attributes = {
+  .name = "startUart4Traffic"
+};
+/* Definitions for uart4Send */
+osTimerId_t uart4SendHandle;
+const osTimerAttr_t uart4Send_attributes = {
+  .name = "uart4Send"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -91,6 +101,8 @@ static void MX_UART4_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
+void startUart4TrafficEntry(void *argument);
+void uart4SendEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -117,7 +129,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -149,6 +161,13 @@ int main(void)
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
+
+  /* Create the timer(s) */
+  /* creation of startUart4Traffic */
+  startUart4TrafficHandle = osTimerNew(startUart4TrafficEntry, osTimerOnce, NULL, &startUart4Traffic_attributes);
+
+  /* creation of uart4Send */
+  uart4SendHandle = osTimerNew(uart4SendEntry, osTimerPeriodic, NULL, &uart4Send_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -521,6 +540,22 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* startUart4TrafficEntry function */
+void startUart4TrafficEntry(void *argument)
+{
+  /* USER CODE BEGIN startUart4TrafficEntry */
+
+  /* USER CODE END startUart4TrafficEntry */
+}
+
+/* uart4SendEntry function */
+void uart4SendEntry(void *argument)
+{
+  /* USER CODE BEGIN uart4SendEntry */
+
+  /* USER CODE END uart4SendEntry */
 }
 
 /**
