@@ -24,16 +24,27 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <SEGGER_SYSVIEW.h>
+#include <stream_buffer.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+#define bool _Bool
+#define	false	0
+#define	true	1
+static DMA_HandleTypeDef usart2DmaRx;
+static bool rxInProgress = false;
+static uint_fast16_t rxLen = 0;
+static uint8_t expectedLen = 16;
+static uint8_t rxData[20];
+static StreamBufferHandle_t rxStream = NULL;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+static const uint8_t uart4Msg[1] = "T";
+static uint8_t uart2dmaMsg[1];
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -77,6 +88,13 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for uartPrintTask */
+osThreadId_t uartPrintTaskHandle;
+const osThreadAttr_t uartPrintTask_attributes = {
+  .name = "uartPrintTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for startUart4Traffic */
 osTimerId_t startUart4TrafficHandle;
 const osTimerAttr_t startUart4Traffic_attributes = {
@@ -101,6 +119,7 @@ static void MX_UART4_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
+void uartPrintTaskEntry(void *argument);
 void startUart4TrafficEntry(void *argument);
 void uart4SendEntry(void *argument);
 
@@ -171,6 +190,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  osTimerStart(startUart4TrafficHandle, 500 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -180,6 +200,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of uartPrintTask */
+  uartPrintTaskHandle = osThreadNew(uartPrintTaskEntry, NULL, &uartPrintTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -522,6 +545,75 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+int32_t startReceiveDMA( uint8_t* Buffer, uint_fast16_t Len )
+{
+	if(!rxInProgress && (Buffer != NULL))
+	{
+		rxInProgress = true;
+		rxLen = Len;
+
+		//get the DMA peripheral ready to receive data immediately before enabling UART
+		//so there is no chance of overrun
+		//dma stream enable bit must be toggled before a transfer will properly restart
+		__HAL_DMA_DISABLE(&usart2DmaRx);
+		MX_DMA_Init();
+		if(HAL_DMA_Start(&usart2DmaRx, (uint32_t)&(USART2->RDR), (uint32_t) Buffer, Len) != HAL_OK)
+		{
+			return -1;
+		}
+
+		//enable the UART
+		//clears error flags
+		USART2->ICR |= (USART_ICR_FECF | USART_ICR_PECF |
+		            	USART_ICR_NCF | USART_ICR_ORECF);
+		//for this specific instance, we'll avoid enabling UART interrupts for errors since
+		//we'll wind up with a lot of noise on the line (the way the ISR is written will
+		//cause a transfer to terminate if there are any errors are detected, rather than simply
+		//continue with what data it can).  In practice, most of the "errors" at baudrates below
+		//460800 are noise detection
+//		USART2->CR3 |= (USART_CR3_EIE);	//enable error interrupts
+		NVIC_SetPriority(USART2_IRQn, 6);
+		NVIC_EnableIRQ(USART2_IRQn);
+		USART2->CR1 |= (USART_CR1_UE);
+		return 0;
+	}
+
+	return -1;
+}
+
+void stopReceiveDMA( void )
+{
+	rxInProgress = false;
+	HAL_DMA_Abort(&usart2DmaRx);
+}
+void uartPrintOutTask( void* NotUsed)
+{
+	uint8_t rxBufferedData[20];
+	uint8_t numBytesReceived = 16;
+
+	MX_DMA_Init();
+	//STM_UartInit(USART2, BAUDRATE, NULL, &usart2DmaRx);
+	MX_USART2_UART_Init();
+	while(1)
+	{
+		memset(rxBufferedData, 0, 20);
+		startReceiveDMA(rxData, expectedLen);
+		uint8_t numBytes = xStreamBufferReceive(	rxStream,
+													rxBufferedData,
+													numBytesReceived,
+													100 );
+		if(numBytes > 0)
+		{
+			SEGGER_SYSVIEW_PrintfHost("received: ");
+			SEGGER_SYSVIEW_Print((char*)rxBufferedData);
+		}
+		else
+		{
+	        stopReceiveDMA();
+			SEGGER_SYSVIEW_PrintfHost("timeout");
+		}
+	}
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -538,14 +630,35 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+    //SEGGER_SYSVIEW_PrintfHost("def");
+    HAL_UART_Receive_DMA (&huart2, uart2dmaMsg, 2);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_uartPrintTaskEntry */
+/**
+* @brief Function implementing the uartPrintTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_uartPrintTaskEntry */
+void uartPrintTaskEntry(void *argument)
+{
+  /* USER CODE BEGIN uartPrintTaskEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END uartPrintTaskEntry */
 }
 
 /* startUart4TrafficEntry function */
 void startUart4TrafficEntry(void *argument)
 {
   /* USER CODE BEGIN startUart4TrafficEntry */
+  osTimerStart(uart4SendHandle, 500 / portTICK_PERIOD_MS);
 
   /* USER CODE END startUart4TrafficEntry */
 }
@@ -554,8 +667,30 @@ void startUart4TrafficEntry(void *argument)
 void uart4SendEntry(void *argument)
 {
   /* USER CODE BEGIN uart4SendEntry */
-
+	SEGGER_SYSVIEW_PrintfHost("UART 4 Send");
+	HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
   /* USER CODE END uart4SendEntry */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
 
 /**
