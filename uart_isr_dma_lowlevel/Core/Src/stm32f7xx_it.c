@@ -23,6 +23,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <SEGGER_SYSVIEW.h>
+//#include <portmacro.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -165,16 +167,7 @@ void DebugMon_Handler(void)
 /**
   * @brief This function handles DMA1 stream5 global interrupt.
   */
-void DMA1_Stream5_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
 
-  /* USER CODE END DMA1_Stream5_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_usart2_rx);
-  /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
-  SEGGER_SYSVIEW_PrintfHost("dma irq");
-  /* USER CODE END DMA1_Stream5_IRQn 1 */
-}
 
 /**
   * @brief This function handles TIM1 update interrupt and TIM10 global interrupt.

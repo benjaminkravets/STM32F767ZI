@@ -122,6 +122,7 @@ void StartDefaultTask(void *argument);
 void uartPrintTaskEntry(void *argument);
 void startUart4TrafficEntry(void *argument);
 void uart4SendEntry(void *argument);
+void uartPrintOutTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -149,6 +150,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
   SEGGER_SYSVIEW_Conf();
+  NVIC_SetPriorityGrouping(0);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -179,6 +181,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
+  rxStream = xStreamBufferCreate(100, 1);
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* Create the timer(s) */
@@ -195,6 +198,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
+
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -202,7 +206,8 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* creation of uartPrintTask */
-  uartPrintTaskHandle = osThreadNew(uartPrintTaskEntry, NULL, &uartPrintTask_attributes);
+  //uartPrintTaskHandle = osThreadNew(uartPrintTaskEntry, NULL, &uartPrintTask_attributes);
+  uartPrintTaskHandle = osThreadNew(uartPrintOutTask, NULL, &uartPrintTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -220,7 +225,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+    SEGGER_SYSVIEW_PrintfHost("problem");
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -596,6 +601,7 @@ void uartPrintOutTask( void* NotUsed)
 	MX_USART2_UART_Init();
 	while(1)
 	{
+		//SEGGER_SYSVIEW_PrintfHost("Printer task");
 		memset(rxBufferedData, 0, 20);
 		startReceiveDMA(rxData, expectedLen);
 		uint8_t numBytes = xStreamBufferReceive(	rxStream,
@@ -613,6 +619,31 @@ void uartPrintOutTask( void* NotUsed)
 			SEGGER_SYSVIEW_PrintfHost("timeout");
 		}
 	}
+}
+
+void DMA1_Stream5_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream5_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart2_rx);
+  //SEGGER_SYSVIEW_PrintfHost("irq");
+  /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+	SEGGER_SYSVIEW_RecordEnterISR();
+
+	if(rxInProgress && (DMA1->HISR & DMA_HISR_TCIF5))
+	{
+		rxInProgress = false;
+		DMA1->HIFCR |= DMA_HIFCR_CTCIF5;
+		xStreamBufferSendFromISR(	rxStream,
+									rxData,
+									expectedLen - DMA1_Stream5->NDTR,
+									&xHigherPriorityTaskWoken);
+	}
+	SEGGER_SYSVIEW_RecordExitISR();
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+  /* USER CODE END DMA1_Stream5_IRQn 1 */
 }
 /* USER CODE END 4 */
 
