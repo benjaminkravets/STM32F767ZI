@@ -43,7 +43,7 @@ static StreamBufferHandle_t rxStream = NULL;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-static const uint8_t uart4Msg[1] = "T";
+static const uint8_t uart4Msg[14] = "data data data";
 static uint8_t uart2dmaMsg[1];
 /* USER CODE END PD */
 
@@ -624,18 +624,25 @@ void uartPrintOutTask( void* NotUsed)
 void DMA1_Stream5_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
+	static uint8_t tmpBuffer[14] = {0};
 
+	HAL_UART_Receive_DMA(&huart2, tmpBuffer, 14);
+
+	SEGGER_SYSVIEW_PrintfHost(&tmpBuffer);
   /* USER CODE END DMA1_Stream5_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_usart2_rx);
+
   //SEGGER_SYSVIEW_PrintfHost("irq");
   /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	SEGGER_SYSVIEW_RecordEnterISR();
 
+
 	if(rxInProgress && (DMA1->HISR & DMA_HISR_TCIF5))
 	{
 		rxInProgress = false;
 		DMA1->HIFCR |= DMA_HIFCR_CTCIF5;
+		//SEGGER_SYSVIEW_PrintfHost(&rxData);
 		xStreamBufferSendFromISR(	rxStream,
 									rxData,
 									expectedLen - DMA1_Stream5->NDTR,
@@ -662,7 +669,8 @@ void StartDefaultTask(void *argument)
   {
     osDelay(1);
     //SEGGER_SYSVIEW_PrintfHost("def");
-    HAL_UART_Receive_DMA (&huart2, uart2dmaMsg, 2);
+    HAL_UART_Receive_DMA (&huart2, uart2dmaMsg, 14);
+    SEGGER_SYSVIEW_PrintfHost(&uart2dmaMsg);
   }
   /* USER CODE END 5 */
 }

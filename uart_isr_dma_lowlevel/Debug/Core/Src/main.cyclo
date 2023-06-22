@@ -14,9 +14,9 @@ main.c:553:9:startReceiveDMA	4
 main.c:589:6:stopReceiveDMA	1
 main.c:594:6:uartPrintOutTask	2
 main.c:624:6:DMA1_Stream5_IRQHandler	4
-main.c:657:6:StartDefaultTask	1
-main.c:677:6:uartPrintTaskEntry	1
-main.c:689:6:startUart4TrafficEntry	1
-main.c:698:6:uart4SendEntry	1
-main.c:714:6:HAL_TIM_PeriodElapsedCallback	2
-main.c:731:6:Error_Handler	1
+main.c:664:6:StartDefaultTask	1
+main.c:685:6:uartPrintTaskEntry	1
+main.c:697:6:startUart4TrafficEntry	1
+main.c:706:6:uart4SendEntry	1
+main.c:722:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:739:6:Error_Handler	1
