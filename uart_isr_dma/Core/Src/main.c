@@ -524,7 +524,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-static const uint8_t uart2Msg[1] = "T";
+static const uint8_t uart2Msg[1] = "data data data";
 static const uint8_t uart4dmaMsg[4];
 /* USER CODE END 4 */
 
@@ -562,9 +562,9 @@ void uart4dmaEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    //SEGGER_SYSVIEW_PrintfHost("dma isr rcv");
-    HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 2);
 
+    HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 2);
+    SEGGER_SYSVIEW_PrintfHost(&uart4dmaMsg);
   }
   /* USER CODE END uart4dmaEntry */
 }

@@ -490,6 +490,23 @@ static void MX_DMA_Init(void)
   /* DMA1_Stream5_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+	memset(&usart2DmaRx, 0, sizeof(usart2DmaRx));
+	usart2DmaRx.Instance = DMA1_Stream5;					//stream 5 is for USART2 Rx
+	usart2DmaRx.Init.Channel = DMA_CHANNEL_4;				//channel 4 is for USART2 Rx/Tx
+	usart2DmaRx.Init.Direction = DMA_PERIPH_TO_MEMORY;	//transfering out of memory and into the peripheral register
+	usart2DmaRx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;		//no fifo
+	usart2DmaRx.Init.MemBurst = DMA_MBURST_SINGLE;		//transfer 1 at a time
+	usart2DmaRx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+	usart2DmaRx.Init.MemInc = DMA_MINC_ENABLE;			//increment 1 byte at a time
+	usart2DmaRx.Init.Mode = DMA_NORMAL;					//flow control mode set to normal
+	usart2DmaRx.Init.PeriphBurst = DMA_PBURST_SINGLE;		//write 1 at a time to the peripheral
+	usart2DmaRx.Init.PeriphInc = DMA_PINC_DISABLE;		//always keep the peripheral address the same (the RX data register is always in the same location)
+	usart2DmaRx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+	usart2DmaRx.Init.Priority = DMA_PRIORITY_HIGH;
+	assert_param(HAL_DMA_Init(&usart2DmaRx) == HAL_OK);
+
+	DMA1_Stream5->CR |= DMA_SxCR_TCIE;	//enable transfer complete interrupts
+	USART2->CR3 |= USART_CR3_DMAR_Msk;	//set the DMA receive mode flag in the USART
 
 }
 
@@ -621,18 +638,19 @@ void uartPrintOutTask( void* NotUsed)
 	}
 }
 
+
 void DMA1_Stream5_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
 	static uint8_t tmpBuffer[14] = {0};
 
-	HAL_UART_Receive_DMA(&huart2, tmpBuffer, 14);
+	//HAL_UART_Receive_DMA(&huart2, tmpBuffer, 14);
 
-	SEGGER_SYSVIEW_PrintfHost(&tmpBuffer);
+	//SEGGER_SYSVIEW_PrintfHost("i");
   /* USER CODE END DMA1_Stream5_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_usart2_rx);
 
-  //SEGGER_SYSVIEW_PrintfHost("irq");
+  SEGGER_SYSVIEW_PrintfHost(&tmpBuffer);
   /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	SEGGER_SYSVIEW_RecordEnterISR();
@@ -642,7 +660,11 @@ void DMA1_Stream5_IRQHandler(void)
 	{
 		rxInProgress = false;
 		DMA1->HIFCR |= DMA_HIFCR_CTCIF5;
-		//SEGGER_SYSVIEW_PrintfHost(&rxData);
+		SEGGER_SYSVIEW_PrintfHost(&rxData);
+		xStreamBufferSend(	rxStream,
+							"t",
+							1,
+							100);
 		xStreamBufferSendFromISR(	rxStream,
 									rxData,
 									expectedLen - DMA1_Stream5->NDTR,
@@ -669,8 +691,8 @@ void StartDefaultTask(void *argument)
   {
     osDelay(1);
     //SEGGER_SYSVIEW_PrintfHost("def");
-    HAL_UART_Receive_DMA (&huart2, uart2dmaMsg, 14);
-    SEGGER_SYSVIEW_PrintfHost(&uart2dmaMsg);
+    //HAL_UART_Receive_DMA (&huart2, uart2dmaMsg, 14);
+    //SEGGER_SYSVIEW_PrintfHost(&uart2dmaMsg);
   }
   /* USER CODE END 5 */
 }
@@ -708,6 +730,8 @@ void uart4SendEntry(void *argument)
   /* USER CODE BEGIN uart4SendEntry */
 	SEGGER_SYSVIEW_PrintfHost("UART 4 Send");
 	HAL_UART_Transmit(&huart4, uart4Msg, sizeof(uart4Msg), 100);
+
+
   /* USER CODE END uart4SendEntry */
 }
 
