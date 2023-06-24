@@ -525,7 +525,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 static const uint8_t uart2Msg[1] = "data data data";
-static const uint8_t uart4dmaMsg[4];
+static const uint8_t uart4dmaMsg[4] = {0};
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -563,10 +563,14 @@ void uart4dmaEntry(void *argument)
   {
     osDelay(1);
 
-    HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 2);
-    SEGGER_SYSVIEW_PrintfHost(&uart4dmaMsg);
+    //HAL_UART_Receive_DMA (&huart4, uart4dmaMsg, 2);
+    //SEGGER_SYSVIEW_PrintfHost(uart4dmaMsg);
   }
   /* USER CODE END uart4dmaEntry */
+}
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	SEGGER_SYSVIEW_PrintfHost("bb");
 }
 
 /* sendTimerEntry function */

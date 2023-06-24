@@ -9,6 +9,7 @@ main.c:458:13:MX_DMA_Init	1
 main.c:476:13:MX_GPIO_Init	1
 main.c:538:6:StartDefaultTask	1
 main.c:558:6:uart4dmaEntry	1
-main.c:573:6:sendTimerEntry	1
-main.c:589:6:HAL_TIM_PeriodElapsedCallback	2
-main.c:606:6:Error_Handler	1
+main.c:571:6:HAL_UART_RxCpltCallback	1
+main.c:577:6:sendTimerEntry	1
+main.c:593:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:610:6:Error_Handler	1
