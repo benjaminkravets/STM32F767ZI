@@ -45,6 +45,7 @@ static StreamBufferHandle_t rxStream = NULL;
 /* USER CODE BEGIN PD */
 static const uint8_t uart4Msg[14] = "data data data";
 static uint8_t uart2dmaMsg[1];
+uint8_t UART2_rxBuffer[12] = {0};
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -211,6 +212,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  HAL_UART_Receive_DMA (&huart2, UART2_rxBuffer, 1);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -567,6 +569,13 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+    //HAL_UART_Receive_DMA (&huart2, UART2_rxBuffer, 1);
+    //SEGGER_SYSVIEW_PrintfHost(&UART2_rxBuffer);
+}
+
 int32_t startReceiveDMA( uint8_t* Buffer, uint_fast16_t Len )
 {
 	if(!rxInProgress && (Buffer != NULL))
@@ -642,15 +651,15 @@ void uartPrintOutTask( void* NotUsed)
 void DMA1_Stream5_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
-	static uint8_t tmpBuffer[14] = {0};
+
 
 	//HAL_UART_Receive_DMA(&huart2, tmpBuffer, 14);
-
+	  HAL_DMA_IRQHandler(&hdma_usart2_rx);
+	HAL_UART_Receive_DMA (&huart2, UART2_rxBuffer, 10);
 	//SEGGER_SYSVIEW_PrintfHost("i");
   /* USER CODE END DMA1_Stream5_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_usart2_rx);
 
-  SEGGER_SYSVIEW_PrintfHost(&tmpBuffer);
+    SEGGER_SYSVIEW_PrintfHost(&UART2_rxBuffer);
   /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	SEGGER_SYSVIEW_RecordEnterISR();

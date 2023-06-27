@@ -23,12 +23,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
+#include "FreeRTOS.h"
+#include "timers.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+static const uint8_t uart2Msg[1] = "d";
+uint8_t UART4_rxBuffer[12] = {0};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -129,7 +132,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -171,6 +174,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  xTimerStart(startUart2TrafficHandle, 500 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -187,6 +191,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
+  HAL_UART_Receive_DMA (&huart4, UART4_rxBuffer, 1);
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
@@ -521,7 +526,12 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
 
+    HAL_UART_Receive_DMA (&huart4, UART4_rxBuffer, 1);
+    SEGGER_SYSVIEW_PrintfHost(&UART4_rxBuffer);
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -538,6 +548,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+
   }
   /* USER CODE END 5 */
 }
@@ -546,15 +557,18 @@ void StartDefaultTask(void *argument)
 void startUart2TrafficEntry(void *argument)
 {
   /* USER CODE BEGIN startUart2TrafficEntry */
-
+  xTimerStart(sendUart2TrafficHandle, 500 / portTICK_PERIOD_MS);
+  SEGGER_SYSVIEW_PrintfHost("start traffic");
   /* USER CODE END startUart2TrafficEntry */
 }
 
 /* sendUart2TrafficEntry function */
 void sendUart2TrafficEntry(void *argument)
 {
-  /* USER CODE BEGIN sendUart2TrafficEntry */
 
+  /* USER CODE BEGIN sendUart2TrafficEntry */
+	SEGGER_SYSVIEW_PrintfHost("traffic");
+	HAL_UART_Transmit(&huart2, uart2Msg, sizeof(uart2Msg), 100);
   /* USER CODE END sendUart2TrafficEntry */
 }
 
