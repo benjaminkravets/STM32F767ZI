@@ -659,7 +659,7 @@ void DMA1_Stream5_IRQHandler(void)
 	//SEGGER_SYSVIEW_PrintfHost("i");
   /* USER CODE END DMA1_Stream5_IRQn 0 */
 
-    SEGGER_SYSVIEW_PrintfHost(&UART2_rxBuffer);
+    //SEGGER_SYSVIEW_PrintfHost(&UART2_rxBuffer);
   /* USER CODE BEGIN DMA1_Stream5_IRQn 1 */
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	SEGGER_SYSVIEW_RecordEnterISR();
