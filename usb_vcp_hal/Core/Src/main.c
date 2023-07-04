@@ -74,6 +74,13 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for usbSend */
+osThreadId_t usbSendHandle;
+const osThreadAttr_t usbSend_attributes = {
+  .name = "usbSend",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -85,6 +92,7 @@ static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
+void usbSendEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -152,6 +160,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of usbSend */
+  usbSendHandle = osThreadNew(usbSendEntry, NULL, &usbSend_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -426,6 +437,24 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_usbSendEntry */
+/**
+* @brief Function implementing the usbSend thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_usbSendEntry */
+void usbSendEntry(void *argument)
+{
+  /* USER CODE BEGIN usbSendEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END usbSendEntry */
 }
 
 /**
