@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <SEGGER_SYSVIEW.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,7 +111,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  SEGGER_SYSVIEW_Conf();
   /* USER CODE END Init */
 
   /* Configure the system clock */
