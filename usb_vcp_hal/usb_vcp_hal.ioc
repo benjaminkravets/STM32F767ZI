@@ -336,3 +336,4 @@ VP_SYS_VS_Systick.Signal=SYS_VS_Systick
 board=NUCLEO-F767ZI
 boardIOC=true
 rtos.0.ip=FREERTOS
+isbadioc=false
