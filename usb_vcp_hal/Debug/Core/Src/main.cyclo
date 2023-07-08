@@ -5,4 +5,4 @@ main.c:297:13:MX_USART3_UART_Init	2
 main.c:332:13:MX_GPIO_Init	1
 main.c:393:6:StartDefaultTask	1
 main.c:413:6:usbSendEntry	1
-main.c:430:6:Error_Handler	1
+main.c:432:6:Error_Handler	1

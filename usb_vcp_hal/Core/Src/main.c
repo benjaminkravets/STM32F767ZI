@@ -417,7 +417,9 @@ void usbSendEntry(void *argument)
   for(;;)
   {
     osDelay(1);
+    static char buffer[10] = {0};
 	CDC_Transmit_FS((uint8_t*)"test\n", 5);
+
 	vTaskDelay(100);
   }
   /* USER CODE END usbSendEntry */
