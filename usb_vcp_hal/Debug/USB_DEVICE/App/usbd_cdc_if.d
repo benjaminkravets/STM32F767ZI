@@ -39,7 +39,9 @@ USB_DEVICE/App/usbd_cdc_if.o: ../USB_DEVICE/App/usbd_cdc_if.c \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
- ../Core/Inc/SEGGER.h ../Core/Inc/Global.h
+ ../Core/Inc/SEGGER.h ../Core/Inc/Global.h ../Core/Inc/SEGGER_SYSVIEW.h \
+ ../Core/Inc/SEGGER.h ../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h \
+ ../Core/Inc/SEGGER_SYSVIEW_Conf.h ../Core/Inc/SEGGER_RTT_Conf.h
 ../USB_DEVICE/App/usbd_cdc_if.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
@@ -83,3 +85,8 @@ USB_DEVICE/App/usbd_cdc_if.o: ../USB_DEVICE/App/usbd_cdc_if.c \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
 ../Core/Inc/SEGGER.h:
 ../Core/Inc/Global.h:
+../Core/Inc/SEGGER_SYSVIEW.h:
+../Core/Inc/SEGGER.h:
+../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h:
+../Core/Inc/SEGGER_SYSVIEW_Conf.h:
+../Core/Inc/SEGGER_RTT_Conf.h:
