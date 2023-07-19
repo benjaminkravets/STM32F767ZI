@@ -27,6 +27,7 @@
 #include <SEGGER_SYSVIEW.h>
 #include "usbd_cdc_if.h"
 #include <queue.h>
+#include <timers.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,10 +76,22 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for commandReader */
+osThreadId_t commandReaderHandle;
+const osThreadAttr_t commandReader_attributes = {
+  .name = "commandReader",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* Definitions for commandQueue */
 osMessageQueueId_t commandQueueHandle;
 const osMessageQueueAttr_t commandQueue_attributes = {
   .name = "commandQueue"
+};
+/* Definitions for testCommandTimer */
+osTimerId_t testCommandTimerHandle;
+const osTimerAttr_t testCommandTimer_attributes = {
+  .name = "testCommandTimer"
 };
 /* USER CODE BEGIN PV */
 
@@ -90,6 +103,8 @@ static void MX_GPIO_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 void StartDefaultTask(void *argument);
+void commandReaderEntry(void *argument);
+void testCommandTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -145,8 +160,13 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* creation of testCommandTimer */
+  testCommandTimerHandle = osTimerNew(testCommandTimerEntry, osTimerPeriodic, NULL, &testCommandTimer_attributes);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
+  xTimerStart(testCommandTimerHandle, 10000 / portTICK_PERIOD_MS);
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
@@ -160,6 +180,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of commandReader */
+  commandReaderHandle = osThreadNew(commandReaderEntry, NULL, &commandReader_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -402,6 +425,57 @@ void StartDefaultTask(void *argument)
     CDC_Transmit_FS((uint8_t*)"test", 4);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_commandReaderEntry */
+/**
+* @brief Function implementing the commandReader thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_commandReaderEntry */
+void commandReaderEntry(void *argument)
+{
+  /* USER CODE BEGIN commandReaderEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+    char command[20];
+    xQueueReceive(commandQueueHandle, command, 100);
+
+    SEGGER_SYSVIEW_PrintfHost("reader");
+  }
+  /* USER CODE END commandReaderEntry */
+}
+
+/* testCommandTimerEntry function */
+void testCommandTimerEntry(void *argument)
+{
+  /* USER CODE BEGIN testCommandTimerEntry */
+  SEGGER_SYSVIEW_PrintfHost("sender");
+  /* USER CODE END testCommandTimerEntry */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
 
 /**
