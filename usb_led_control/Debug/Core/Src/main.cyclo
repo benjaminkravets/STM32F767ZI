@@ -6,5 +6,5 @@ main.c:355:13:MX_GPIO_Init	1
 main.c:416:6:StartDefaultTask	1
 main.c:437:6:commandReaderEntry	1
 main.c:453:6:testCommandTimerEntry	1
-main.c:468:6:HAL_TIM_PeriodElapsedCallback	2
-main.c:485:6:Error_Handler	1
+main.c:471:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:488:6:Error_Handler	1

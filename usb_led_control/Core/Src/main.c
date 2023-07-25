@@ -171,7 +171,7 @@ int main(void)
 
   /* Create the queue(s) */
   /* creation of commandQueue */
-  commandQueueHandle = osMessageQueueNew (16, sizeof(uint16_t), &commandQueue_attributes);
+  commandQueueHandle = osMessageQueueNew (16, 32, &commandQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -441,10 +441,10 @@ void commandReaderEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    char command[20];
+    uint8_t command[32];
     xQueueReceive(commandQueueHandle, command, 100);
 
-    SEGGER_SYSVIEW_PrintfHost("reader");
+    SEGGER_SYSVIEW_PrintfHost((uint8_t*)command);
   }
   /* USER CODE END commandReaderEntry */
 }
@@ -453,7 +453,10 @@ void commandReaderEntry(void *argument)
 void testCommandTimerEntry(void *argument)
 {
   /* USER CODE BEGIN testCommandTimerEntry */
-  SEGGER_SYSVIEW_PrintfHost("sender");
+  //SEGGER_SYSVIEW_PrintfHost("sender");
+  uint8_t *data = "Hello World from USB CDC\n";
+  xQueueSend(commandQueueHandle, data, 100);
+
   /* USER CODE END testCommandTimerEntry */
 }
 
