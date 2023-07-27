@@ -7104,6 +7104,7 @@ Discarded input sections
  .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_cdc_if.o
  .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_cdc_if.o
  .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_cdc_if.o
+ .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_cdc_if.o
  .text          0x0000000000000000        0x0 ./USB_DEVICE/App/usbd_cdc_if.o
  .data          0x0000000000000000        0x0 ./USB_DEVICE/App/usbd_cdc_if.o
  .bss           0x0000000000000000        0x0 ./USB_DEVICE/App/usbd_cdc_if.o
@@ -7193,6 +7194,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x20f ./USB_DEVICE/App/usbd_cdc_if.o
  .debug_macro   0x0000000000000000       0x95 ./USB_DEVICE/App/usbd_cdc_if.o
  .debug_macro   0x0000000000000000       0x10 ./USB_DEVICE/App/usbd_cdc_if.o
+ .debug_macro   0x0000000000000000       0x74 ./USB_DEVICE/App/usbd_cdc_if.o
  .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_desc.o
  .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_desc.o
  .group         0x0000000000000000        0xc ./USB_DEVICE/App/usbd_desc.o
@@ -9689,7 +9691,7 @@ LOAD c:/st/stm32cubeide_1.11.2/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_ranges  0x0000000000001f40       0x58 ./USB_DEVICE/App/usbd_desc.o
  .debug_ranges  0x0000000000001f98      0x100 ./USB_DEVICE/Target/usbd_conf.o
 
-.debug_macro    0x0000000000000000     0xab8a
+.debug_macro    0x0000000000000000     0xab9d
  .debug_macro   0x0000000000000000      0x1bd ./Core/Inc/SEGGER_RTT.o
  .debug_macro   0x00000000000001bd      0xa90 ./Core/Inc/SEGGER_RTT.o
  .debug_macro   0x0000000000000c4d       0x49 ./Core/Inc/SEGGER_RTT.o
@@ -9817,12 +9819,12 @@ LOAD c:/st/stm32cubeide_1.11.2/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000000000009d2c      0x142 ./USB_DEVICE/App/usb_device.o
  .debug_macro   0x0000000000009e6e       0x22 ./USB_DEVICE/App/usb_device.o
  .debug_macro   0x0000000000009e90       0x16 ./USB_DEVICE/App/usb_device.o
- .debug_macro   0x0000000000009ea6      0x441 ./USB_DEVICE/App/usbd_cdc_if.o
- .debug_macro   0x000000000000a2e7      0x460 ./USB_DEVICE/App/usbd_desc.o
- .debug_macro   0x000000000000a747       0x1c ./USB_DEVICE/App/usbd_desc.o
- .debug_macro   0x000000000000a763      0x427 ./USB_DEVICE/Target/usbd_conf.o
+ .debug_macro   0x0000000000009ea6      0x454 ./USB_DEVICE/App/usbd_cdc_if.o
+ .debug_macro   0x000000000000a2fa      0x460 ./USB_DEVICE/App/usbd_desc.o
+ .debug_macro   0x000000000000a75a       0x1c ./USB_DEVICE/App/usbd_desc.o
+ .debug_macro   0x000000000000a776      0x427 ./USB_DEVICE/Target/usbd_conf.o
 
-.debug_line     0x0000000000000000    0x28f80
+.debug_line     0x0000000000000000    0x28fc8
  .debug_line    0x0000000000000000      0xe52 ./Core/Inc/SEGGER_RTT.o
  .debug_line    0x0000000000000e52       0x90 ./Core/Inc/SEGGER_RTT_ASM_ARMv7M.o
  .debug_line    0x0000000000000ee2     0x22f1 ./Core/Inc/SEGGER_SYSVIEW.o
@@ -9861,9 +9863,9 @@ LOAD c:/st/stm32cubeide_1.11.2/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_line    0x0000000000024de5      0x8c2 ./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1/port.o
  .debug_line    0x00000000000256a7      0x8e2 ./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o
  .debug_line    0x0000000000025f89      0xaaf ./USB_DEVICE/App/usb_device.o
- .debug_line    0x0000000000026a38      0xb12 ./USB_DEVICE/App/usbd_cdc_if.o
- .debug_line    0x000000000002754a      0xb93 ./USB_DEVICE/App/usbd_desc.o
- .debug_line    0x00000000000280dd      0xea3 ./USB_DEVICE/Target/usbd_conf.o
+ .debug_line    0x0000000000026a38      0xb5a ./USB_DEVICE/App/usbd_cdc_if.o
+ .debug_line    0x0000000000027592      0xb93 ./USB_DEVICE/App/usbd_desc.o
+ .debug_line    0x0000000000028125      0xea3 ./USB_DEVICE/Target/usbd_conf.o
 
 .debug_str      0x0000000000000000   0x117866
  .debug_str     0x0000000000000000     0x7611 ./Core/Inc/SEGGER_RTT.o
@@ -9943,7 +9945,7 @@ LOAD c:/st/stm32cubeide_1.11.2/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_str     0x00000000001173f2       0xc6 ./USB_DEVICE/App/usb_device.o
                                       0xff387 (size before relaxing)
  .debug_str     0x00000000001174b8       0x8a ./USB_DEVICE/App/usbd_cdc_if.o
-                                      0xff3c7 (size before relaxing)
+                                      0xff597 (size before relaxing)
  .debug_str     0x0000000000117542      0x298 ./USB_DEVICE/App/usbd_desc.o
                                       0xfeefe (size before relaxing)
  .debug_str     0x00000000001177da       0x8c ./USB_DEVICE/Target/usbd_conf.o

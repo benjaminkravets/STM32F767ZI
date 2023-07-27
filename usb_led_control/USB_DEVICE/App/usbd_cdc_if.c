@@ -22,9 +22,9 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-#include <queue.h>
+//#include <queue.h>
 #include <cmsis_os2.h>
-extern osMessageQueueId_t commandQueue;
+extern osMessageQueueId_t commandQueueHandle;
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
