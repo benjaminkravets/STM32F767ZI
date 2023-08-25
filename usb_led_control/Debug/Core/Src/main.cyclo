@@ -5,6 +5,6 @@ main.c:319:13:MX_USART3_UART_Init	2
 main.c:354:13:MX_GPIO_Init	1
 main.c:415:6:StartDefaultTask	1
 main.c:436:6:commandReaderEntry	1
-main.c:452:6:testCommandTimerEntry	1
-main.c:470:6:HAL_TIM_PeriodElapsedCallback	2
-main.c:487:6:Error_Handler	1
+main.c:454:6:testCommandTimerEntry	1
+main.c:473:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:490:6:Error_Handler	1

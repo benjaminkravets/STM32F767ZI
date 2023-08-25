@@ -22,8 +22,12 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-//#include <queue.h>
+#include "FreeRTOS.h"
+#include <SEGGER_SYSVIEW.h>
+#include <queue.h>
 #include <cmsis_os2.h>
+//#include "../../Middlewares/Third_Party/FreeRTOS/Source/queue.c"
+
 extern osMessageQueueId_t commandQueueHandle;
 /* USER CODE END INCLUDE */
 
@@ -265,11 +269,13 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
-  //uint8_t* command = 'hi';
+  //uint8_t* command = "hi";
+  //xQueueSend(commandQueueHandle, command, 100);
+  uint8_t *data = "Hello World from USB CDC\n";
+  SEGGER_SYSVIEW_PrintfHost("send");
+  xQueueSendFromISR(commandQueueHandle, data, 100);
+  SEGGER_SYSVIEW_PrintfHost("send done");
 
-  //osMessageQueuePut(commandQueueHandle, command, 1, 200);
-  //HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-  //mine
 
 
   return (USBD_OK);

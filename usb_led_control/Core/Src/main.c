@@ -421,7 +421,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
-    CDC_Transmit_FS((uint8_t*)"test", 4);
+    //CDC_Transmit_FS((uint8_t*)"test", 4);
   }
   /* USER CODE END 5 */
 }
@@ -440,10 +440,12 @@ void commandReaderEntry(void *argument)
   for(;;)
   {
     osDelay(1);
-    uint8_t command[32];
+    uint8_t * command[32];
     xQueueReceive(commandQueueHandle, command, 100);
 
     SEGGER_SYSVIEW_PrintfHost((uint8_t*)command);
+
+
   }
   /* USER CODE END commandReaderEntry */
 }
@@ -453,8 +455,9 @@ void testCommandTimerEntry(void *argument)
 {
   /* USER CODE BEGIN testCommandTimerEntry */
   //SEGGER_SYSVIEW_PrintfHost("sender");
-  uint8_t *data = "Hello World from USB CDC\n";
-  xQueueSend(commandQueueHandle, data, 100);
+  osDelay(1);
+  //uint8_t *data = "Hello World from USB CDC\n";
+  //xQueueSend(commandQueueHandle, data, 100);
 
   /* USER CODE END testCommandTimerEntry */
 }
