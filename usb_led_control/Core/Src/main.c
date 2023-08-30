@@ -28,6 +28,7 @@
 #include "usbd_cdc_if.h"
 #include <queue.h>
 #include <timers.h>
+#include <Freertos.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -441,9 +442,11 @@ void commandReaderEntry(void *argument)
   {
     osDelay(1);
     uint8_t * command[32];
-    xQueueReceive(commandQueueHandle, command, 100);
+    if (xQueueReceive(commandQueueHandle, command, 100) == pdPASS){
+    	SEGGER_SYSVIEW_PrintfHost((uint8_t*)command);
+    }
 
-    SEGGER_SYSVIEW_PrintfHost((uint8_t*)command);
+
 
 
   }
