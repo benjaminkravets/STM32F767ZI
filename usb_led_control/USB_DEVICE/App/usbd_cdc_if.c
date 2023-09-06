@@ -270,8 +270,10 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   //uint8_t *data = "Hello World from USB CDC\n";
-  uint8_t * command;
+  uint8_t * command[64];
   strcpy(command, Buf);
+  command[*Len] = "\0";
+  //SEGGER_SYSVIEW_PrintfHost(Len);
 
   xQueueSendFromISR(commandQueueHandle, command, 100);
 
