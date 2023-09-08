@@ -445,6 +445,7 @@ void commandReaderEntry(void *argument)
     if (xQueueReceive(commandQueueHandle, command, 100) == pdPASS){
     	SEGGER_SYSVIEW_PrintfHost((uint8_t*)command);
     }
+    //command[8] = '\0';
 
 
 
