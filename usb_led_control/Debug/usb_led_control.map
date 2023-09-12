@@ -926,10 +926,14 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./Core/Src/led_controls.o
  .data          0x0000000000000000        0x0 ./Core/Src/led_controls.o
  .bss           0x0000000000000000        0x0 ./Core/Src/led_controls.o
- .debug_info    0x0000000000000000       0x70 ./Core/Src/led_controls.o
- .debug_abbrev  0x0000000000000000       0x28 ./Core/Src/led_controls.o
+ .text.deduplex
+                0x0000000000000000       0x14 ./Core/Src/led_controls.o
+ .debug_info    0x0000000000000000      0x100 ./Core/Src/led_controls.o
+ .debug_abbrev  0x0000000000000000       0xa3 ./Core/Src/led_controls.o
  .debug_aranges
-                0x0000000000000000       0x18 ./Core/Src/led_controls.o
+                0x0000000000000000       0x20 ./Core/Src/led_controls.o
+ .debug_rnglists
+                0x0000000000000000       0x13 ./Core/Src/led_controls.o
  .debug_macro   0x0000000000000000      0x220 ./Core/Src/led_controls.o
  .debug_macro   0x0000000000000000      0xac0 ./Core/Src/led_controls.o
  .debug_macro   0x0000000000000000      0x29f ./Core/Src/led_controls.o
@@ -980,9 +984,10 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xba ./Core/Src/led_controls.o
  .debug_macro   0x0000000000000000      0x15b ./Core/Src/led_controls.o
  .debug_macro   0x0000000000000000      0x13c ./Core/Src/led_controls.o
- .debug_line    0x0000000000000000      0x7b2 ./Core/Src/led_controls.o
- .debug_str     0x0000000000000000    0xfa255 ./Core/Src/led_controls.o
+ .debug_line    0x0000000000000000      0x7c6 ./Core/Src/led_controls.o
+ .debug_str     0x0000000000000000    0xfa291 ./Core/Src/led_controls.o
  .comment       0x0000000000000000       0x44 ./Core/Src/led_controls.o
+ .debug_frame   0x0000000000000000       0x38 ./Core/Src/led_controls.o
  .ARM.attributes
                 0x0000000000000000       0x32 ./Core/Src/led_controls.o
  .group         0x0000000000000000        0xc ./Core/Src/main.o

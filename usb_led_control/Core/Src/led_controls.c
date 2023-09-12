@@ -6,4 +6,8 @@ typedef struct{
 	uint8_t blue;
 	uint8_t green;
 
-};
+}LedCmd;
+
+void deduplex(LedCmd* curcmd){
+
+}
