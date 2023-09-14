@@ -275,7 +275,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   //command[*Len] = "\0";
   SEGGER_SYSVIEW_PrintfHost("%d\n", *Len );
 
-  SEGGER_SYSVIEW_PrintfHost(command);
+  //SEGGER_SYSVIEW_PrintfHost(command);
 
   xQueueSendFromISR(commandQueueHandle, Buf, 100);
 

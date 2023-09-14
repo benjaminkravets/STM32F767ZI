@@ -3,7 +3,10 @@ from serial.tools import list_ports
 from serial import Serial
 from serial import SerialException
 import PySimpleGUI as sg
-from PyCRC.CRC32 import CRC32
+#from PyCRC.CRC32 import CRC32
+import zlib
+from pycrc.CRC32 import CRC32
+#from crc import Crc32 as CRC32
 from enum import IntEnum
 
 
@@ -21,10 +24,12 @@ class CMD_ID(IntEnum):
 def buildCmd(cmdNum: int, red: int, green: int, blue: int):
     cmd = bytearray([0x02, int(cmdNum & 0xff), int(red) & 0xff, int(green) & 0xff, int(blue) & 0xff])
     crc = CRC32().calculate(bytes(cmd[0:4]))
+    #crc = zlib.crc32(bytes(cmd[0:4]))
     cmd.append(crc & 0x000000FF)
     cmd.append((crc & 0x0000FF00) >> 8)
     cmd.append((crc & 0x00FF0000) >> 16)
     cmd.append((crc & 0xFF000000) >> 24)
+    print(cmd)
     return cmd
 
 

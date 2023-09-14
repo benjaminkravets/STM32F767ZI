@@ -5,6 +5,6 @@
 ../Core/Src/main.c:355:13:MX_GPIO_Init	1
 ../Core/Src/main.c:416:6:StartDefaultTask	1
 ../Core/Src/main.c:437:6:commandReaderEntry	2
-../Core/Src/main.c:458:6:testCommandTimerEntry	1
-../Core/Src/main.c:477:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:494:6:Error_Handler	1
+../Core/Src/main.c:461:6:testCommandTimerEntry	1
+../Core/Src/main.c:480:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:497:6:Error_Handler	1
