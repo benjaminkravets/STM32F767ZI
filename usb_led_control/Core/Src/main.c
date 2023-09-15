@@ -21,6 +21,7 @@
 #include "string.h"
 #include "cmsis_os.h"
 #include "usb_device.h"
+#include "led_controls.c"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -33,7 +34,12 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+struct
+{
+	uint8_t first[32];
 
+
+}LedCmd;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -445,8 +451,27 @@ void commandReaderEntry(void *argument)
     if (xQueueReceive(commandQueueHandle, &command, 100) == pdPASS){
     	//SEGGER_SYSVIEW_PrintfHost((uint8_t*)command);
 
-    	SEGGER_SYSVIEW_PrintfHost((void*)command);
-
+    	//SEGGER_SYSVIEW_PrintfHost((void*)command);
+    	//SEGGER_SYSVIEW_PrintfHost("%c \n", (void*)command);
+    	//SEGGER_SYSVIEW_PrintfHost("%d \n", (void*)command);
+    	//SEGGER_SYSVIEW_PrintfHost("%p \n", (void*)command);
+    	//SEGGER_SYSVIEW_PrintfHost("%u \n", (void*)command);
+    	//SEGGER_SYSVIEW_PrintfHost("%x \n", (void*)command);
+    	memcpy(&LedCmd, &command, 32);
+    	SEGGER_SYSVIEW_PrintfHost(&LedCmd.first);
+    	/*
+    	for (int i = 0; i < 32; i++)
+    	  {
+    	    if ((int)command & (1 << i))
+    	      {
+    	    	SEGGER_SYSVIEW_PrintfHost("Bit %d is set.\n", i);
+    	      }
+    	    else
+    	      {
+    	    	SEGGER_SYSVIEW_PrintfHost("Bit %d isn't. \n", i);
+    	      }
+    	   }
+    	   */
     }
     //command[8] = '\0';
 
