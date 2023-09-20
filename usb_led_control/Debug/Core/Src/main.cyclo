@@ -4,7 +4,7 @@
 ../Core/Src/main.c:326:13:MX_USART3_UART_Init	2
 ../Core/Src/main.c:361:13:MX_GPIO_Init	1
 ../Core/Src/main.c:422:6:StartDefaultTask	1
-../Core/Src/main.c:443:6:commandReaderEntry	2
-../Core/Src/main.c:486:6:testCommandTimerEntry	1
-../Core/Src/main.c:505:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:522:6:Error_Handler	1
+../Core/Src/main.c:443:6:commandReaderEntry	3
+../Core/Src/main.c:490:6:testCommandTimerEntry	1
+../Core/Src/main.c:509:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:526:6:Error_Handler	1

@@ -453,12 +453,16 @@ void commandReaderEntry(void *argument)
 
     	//SEGGER_SYSVIEW_PrintfHost((void*)command);
     	//SEGGER_SYSVIEW_PrintfHost("%c \n", (void*)command);
-    	//SEGGER_SYSVIEW_PrintfHost("%d \n", (void*)command);
+    	//SEGGER_SYSVIEW_PrintfHost("%d \n", *command);
+    	//SEGGER_SYSVIEW_PrintfHost("%d \n", command[1]);
     	//SEGGER_SYSVIEW_PrintfHost("%p \n", (void*)command);
     	//SEGGER_SYSVIEW_PrintfHost("%u \n", (void*)command);
     	//SEGGER_SYSVIEW_PrintfHost("%x \n", (void*)command);
-    	memcpy(&LedCmd, &command, 32);
-    	SEGGER_SYSVIEW_PrintfHost(&LedCmd.first);
+    	SEGGER_SYSVIEW_PrintfHost("begin:");
+    	for(int i=0; i < 10; i++){
+    		SEGGER_SYSVIEW_PrintfHost("%d \n", command[i]);
+    	}
+    	SEGGER_SYSVIEW_PrintfHost("end");
     	/*
     	for (int i = 0; i < 32; i++)
     	  {

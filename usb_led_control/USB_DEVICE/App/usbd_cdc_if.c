@@ -271,7 +271,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   //uint8_t *data = "Hello World from USB CDC\n";
   uint8_t * command[8];
-  strcpy(command, Buf);
+  //strcpy(command, Buf);
   //command[*Len] = "\0";
   SEGGER_SYSVIEW_PrintfHost("%d\n", *Len );
 
