@@ -8,6 +8,7 @@
 "./Core/Inc/SEGGER_SYSVIEW.o"
 "./Core/Inc/SEGGER_SYSVIEW_Config_FreeRTOS.o"
 "./Core/Inc/SEGGER_SYSVIEW_FreeRTOS.o"
+"./Core/Src/CRC32.o"
 "./Core/Src/freertos.o"
 "./Core/Src/led_controls.o"
 "./Core/Src/main.o"

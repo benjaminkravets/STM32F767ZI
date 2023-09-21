@@ -46,8 +46,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../USB_DEVICE/App/usb_device.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../USB_DEVICE/Target/usbd_conf.h ../Core/Src/led_controls.c \
- ../Core/Inc/SEGGER_SYSVIEW.h ../Core/Inc/SEGGER.h ../Core/Inc/Global.h \
+ ../USB_DEVICE/Target/usbd_conf.h ../Core/Inc/SEGGER_SYSVIEW.h \
+ ../Core/Inc/SEGGER.h ../Core/Inc/Global.h \
  ../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h \
  ../Core/Inc/SEGGER_SYSVIEW_Conf.h ../Core/Inc/SEGGER_RTT_Conf.h \
  ../USB_DEVICE/App/usbd_cdc_if.h \
@@ -60,7 +60,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/Freertos.h
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/Freertos.h \
+ ../Core/Inc/CRC32.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -110,7 +111,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../USB_DEVICE/App/usb_device.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
 ../USB_DEVICE/Target/usbd_conf.h:
-../Core/Src/led_controls.c:
 ../Core/Inc/SEGGER_SYSVIEW.h:
 ../Core/Inc/SEGGER.h:
 ../Core/Inc/Global.h:
@@ -128,3 +128,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/Freertos.h:
+../Core/Inc/CRC32.h:
