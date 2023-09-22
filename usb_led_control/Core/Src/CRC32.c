@@ -66,7 +66,11 @@ bool CheckCRC( const uint8_t* Buff, uint32_t Len)
 	while (size--)
 		crc = crc32_tab[(crc ^ *p++) & 0xFF] ^ (crc >> 8);
 		//return crc ^ ~0U;
+	//crc ^= ~0U;
+	//uint32_t temp =
 	SEGGER_SYSVIEW_PrintfHost("%u \n", crc ^ ~0U);
+
+
 
 
 

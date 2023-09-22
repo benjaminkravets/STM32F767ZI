@@ -546,11 +546,11 @@ void commandReaderEntry(void *argument)
     	//SEGGER_SYSVIEW_PrintfHost("%u \n", (void*)command);
     	//SEGGER_SYSVIEW_PrintfHost("%x \n", (void*)command);
 
-    	//SEGGER_SYSVIEW_PrintfHost("begin:");
-    	//for(int i=0; i < 10; i++){
-    	//	SEGGER_SYSVIEW_PrintfHost("%d \n", command[i]);
-    	//}
-    	//SEGGER_SYSVIEW_PrintfHost("end");
+    	SEGGER_SYSVIEW_PrintfHost("begin:");
+    	for(int i=0; i < 10; i++){
+    		SEGGER_SYSVIEW_PrintfHost("%d \n", command[i]);
+    	}
+    	SEGGER_SYSVIEW_PrintfHost("end");
     	CheckCRC(command, 9);
 
 
