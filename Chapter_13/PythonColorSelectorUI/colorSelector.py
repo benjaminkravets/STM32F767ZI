@@ -30,6 +30,8 @@ def buildCmd(cmdNum: int, red: int, green: int, blue: int):
     cmd.append((crc & 0x00FF0000) >> 16)
     cmd.append((crc & 0xFF000000) >> 24)
     print(cmd)
+    cmd[2] = 5
+    print(cmd)
     return cmd
 
 
