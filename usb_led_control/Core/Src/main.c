@@ -21,6 +21,7 @@
 #include "string.h"
 #include "cmsis_os.h"
 #include "usb_device.h"
+#include <math.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -490,26 +491,8 @@ void StartDefaultTask(void *argument)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(100);
-    int32_t CH1_DC = 0;
-    while (1)
-    {
-        while(CH1_DC < 65535)
-        {
-            TIM4->CCR2 = CH1_DC;
-            CH1_DC += 70;
-            HAL_Delay(1);
-        }
-        while(CH1_DC > 0)
-        {
-            TIM4->CCR2 = CH1_DC;
-            CH1_DC -= 70;
-            HAL_Delay(1);
-        }
-    }
-  }
+  while(1)
+    osDelay(1);
   /* USER CODE END 5 */
 }
 
@@ -525,6 +508,7 @@ void commandReaderEntry(void *argument)
   /* USER CODE BEGIN commandReaderEntry */
   /* Infinite loop */
   bool crccheck;
+  int32_t TIM4_CH2_BLUE = 0;
   for(;;)
   {
     osDelay(1);
@@ -545,7 +529,11 @@ void commandReaderEntry(void *argument)
     	}
     	SEGGER_SYSVIEW_PrintfHost("end");
     	crccheck = CheckCRC(command, 9);
-    	SEGGER_SYSVIEW_PrintfHost("%d \n", crccheck);
+    	//SEGGER_SYSVIEW_PrintfHost("%d \n", crccheck);
+    	SEGGER_SYSVIEW_PrintfHost("%u \n", command[2]);
+    	TIM4_CH2_BLUE = (command[2] * 256);
+    	SEGGER_SYSVIEW_PrintfHost("%d \n", TIM4_CH2_BLUE);
+    	TIM4->CCR2 = TIM4_CH2_BLUE;
 
 
     }
