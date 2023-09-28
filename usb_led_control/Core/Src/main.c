@@ -99,10 +99,10 @@ osMessageQueueId_t commandQueueHandle;
 const osMessageQueueAttr_t commandQueue_attributes = {
   .name = "commandQueue"
 };
-/* Definitions for testCommandTimer */
-osTimerId_t testCommandTimerHandle;
-const osTimerAttr_t testCommandTimer_attributes = {
-  .name = "testCommandTimer"
+/* Definitions for ledBlinkTimer */
+osTimerId_t ledBlinkTimerHandle;
+const osTimerAttr_t ledBlinkTimer_attributes = {
+  .name = "ledBlinkTimer",
 };
 /* USER CODE BEGIN PV */
 
@@ -118,7 +118,7 @@ static void MX_TIM12_Init(void);
 static void MX_TIM3_Init(void);
 void StartDefaultTask(void *argument);
 void commandReaderEntry(void *argument);
-void testCommandTimerEntry(void *argument);
+void ledBlinkTimerEntry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -180,12 +180,12 @@ int main(void)
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* Create the timer(s) */
-  /* creation of testCommandTimer */
-  testCommandTimerHandle = osTimerNew(testCommandTimerEntry, osTimerPeriodic, NULL, &testCommandTimer_attributes);
+  /* creation of ledBlinkTimer */
+  ledBlinkTimerHandle = osTimerNew(ledBlinkTimerEntry, osTimerPeriodic, NULL, &ledBlinkTimer_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
-  xTimerStart(testCommandTimerHandle, 10000 / portTICK_PERIOD_MS);
+
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
@@ -583,7 +583,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+bool ledblink = 0;
+int32_t TIM12_CH1_RED = 0;
+int32_t TIM3_CH3_GREEN = 0;
+int32_t TIM4_CH2_BLUE = 0;
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -617,9 +620,7 @@ void commandReaderEntry(void *argument)
   /* Infinite loop */
   bool crccheck;
 
-  int32_t TIM12_CH1_RED = 0;
-  int32_t TIM3_CH3_GREEN = 0;
-  int32_t TIM4_CH2_BLUE = 0;
+
 
   for(;;)
   {
@@ -643,9 +644,15 @@ void commandReaderEntry(void *argument)
     	crccheck = CheckCRC(command, 9);
     	//SEGGER_SYSVIEW_PrintfHost("%d \n", crccheck);
 
-    	SEGGER_SYSVIEW_PrintfHost("%d \n", command[2]);
-    	SEGGER_SYSVIEW_PrintfHost("%d \n", command[3]);
-    	SEGGER_SYSVIEW_PrintfHost("%d \n", command[4]);
+    	if(command[1] == 3){
+    		SEGGER_SYSVIEW_PrintfHost("blinker %d \n", command[1]);
+    		osTimerStart(ledBlinkTimerHandle, 500 / portTICK_PERIOD_MS);
+    	}
+
+    	else{
+    		SEGGER_SYSVIEW_PrintfHost("no blinker %d \n", command[1]);
+    		osTimerStop(ledBlinkTimerHandle);
+    	}
 
     	TIM12_CH1_RED = (command[2] * 256);
     	TIM12->CCR1 = TIM12_CH1_RED;
@@ -658,25 +665,30 @@ void commandReaderEntry(void *argument)
 
 
     }
-    //command[8] = '\0';
-
-
-
 
   }
   /* USER CODE END commandReaderEntry */
 }
 
-/* testCommandTimerEntry function */
-void testCommandTimerEntry(void *argument)
+/* ledBlinkTimerEntry function */
+void ledBlinkTimerEntry(void *argument)
 {
-  /* USER CODE BEGIN testCommandTimerEntry */
-  //SEGGER_SYSVIEW_PrintfHost("sender");
-  osDelay(1);
-  //uint8_t *data = "Hello World from USB CDC\n";
-  //xQueueSend(commandQueueHandle, data, 100);
+  /* USER CODE BEGIN ledBlinkTimerEntry */
 
-  /* USER CODE END testCommandTimerEntry */
+  ledblink = !ledblink;
+  if(ledblink){
+	  TIM12->CCR1 = TIM12_CH1_RED;
+	  TIM3->CCR3 = TIM3_CH3_GREEN;
+	  TIM4->CCR2 = TIM4_CH2_BLUE;
+  }
+  else{
+	  TIM12->CCR1 = 0;
+	  TIM3->CCR3 = 0;
+	  TIM4->CCR2 = 0;
+  }
+
+  SEGGER_SYSVIEW_PrintfHost("%d \n", ledblink);
+  /* USER CODE END ledBlinkTimerEntry */
 }
 
 /**
