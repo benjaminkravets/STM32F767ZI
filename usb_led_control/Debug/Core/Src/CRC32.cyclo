@@ -1,2 +1,1 @@
-../Core/Src/CRC32.c:62:10:crc32	2
-../Core/Src/CRC32.c:73:6:CheckCRC	6
+../Core/Src/CRC32.c:14:6:CheckCRC	6

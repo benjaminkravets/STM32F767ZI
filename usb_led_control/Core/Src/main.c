@@ -72,6 +72,8 @@ ETH_DMADescTypeDef DMATxDscrTab[ETH_TX_DESC_CNT] __attribute__((section(".TxDecr
 
 ETH_TxPacketConfig TxConfig;
 
+CRC_HandleTypeDef hcrc;
+
 ETH_HandleTypeDef heth;
 
 TIM_HandleTypeDef htim3;
@@ -102,7 +104,7 @@ const osMessageQueueAttr_t commandQueue_attributes = {
 /* Definitions for ledBlinkTimer */
 osTimerId_t ledBlinkTimerHandle;
 const osTimerAttr_t ledBlinkTimer_attributes = {
-  .name = "ledBlinkTimer",
+  .name = "ledBlinkTimer"
 };
 /* USER CODE BEGIN PV */
 
@@ -116,6 +118,7 @@ static void MX_USART3_UART_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM12_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_CRC_Init(void);
 void StartDefaultTask(void *argument);
 void commandReaderEntry(void *argument);
 void ledBlinkTimerEntry(void *argument);
@@ -162,6 +165,7 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM12_Init();
   MX_TIM3_Init();
+  MX_CRC_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
@@ -281,6 +285,37 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief CRC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CRC_Init(void)
+{
+
+  /* USER CODE BEGIN CRC_Init 0 */
+
+  /* USER CODE END CRC_Init 0 */
+
+  /* USER CODE BEGIN CRC_Init 1 */
+
+  /* USER CODE END CRC_Init 1 */
+  hcrc.Instance = CRC;
+  hcrc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
+  hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
+  hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_BYTE;
+  hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_ENABLE;
+  hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
+  if (HAL_CRC_Init(&hcrc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CRC_Init 2 */
+
+  /* USER CODE END CRC_Init 2 */
+
 }
 
 /**
@@ -642,7 +677,8 @@ void commandReaderEntry(void *argument)
     	}
     	SEGGER_SYSVIEW_PrintfHost("end");
     	crccheck = CheckCRC(command, 9);
-    	//SEGGER_SYSVIEW_PrintfHost("%d \n", crccheck);
+
+    	SEGGER_SYSVIEW_PrintfHost("crc pass? %d \n", crccheck);
 
     	if(command[1] == 3){
     		SEGGER_SYSVIEW_PrintfHost("blinker %d \n", command[1]);
