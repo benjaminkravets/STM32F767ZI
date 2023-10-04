@@ -267,7 +267,7 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
@@ -551,12 +551,12 @@ void StartDefaultTask(void *argument)
 
 	TIM3->CCR3 = (AD_RES<<4);
 
-    osDelay(10);
+    osDelay(100);
     HAL_ADC_Start(&hadc1);
    // Poll ADC1 Perihperal & TimeOut = 1mSec
     HAL_ADC_PollForConversion(&hadc1, 1);
     AD_RES = HAL_ADC_GetValue(&hadc1);
-    SEGGER_SYSVIEW_PrintfHost("%u\n", (AD_RES<<4));
+    SEGGER_SYSVIEW_PrintfHost("%u\n", AD_RES);
   }
   /* USER CODE END 5 */
 }
