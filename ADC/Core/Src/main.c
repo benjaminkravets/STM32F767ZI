@@ -557,6 +557,7 @@ void StartDefaultTask(void *argument)
     HAL_ADC_PollForConversion(&hadc1, 1);
     AD_RES = HAL_ADC_GetValue(&hadc1);
     SEGGER_SYSVIEW_PrintfHost("%u\n", AD_RES);
+    SEGGER_SYSVIEW_PrintfHost("%u\n", (AD_RES<<4));
   }
   /* USER CODE END 5 */
 }
