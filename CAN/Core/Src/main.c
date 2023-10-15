@@ -77,6 +77,20 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for can_sender */
+osThreadId_t can_senderHandle;
+const osThreadAttr_t can_sender_attributes = {
+  .name = "can_sender",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for can_receiver */
+osThreadId_t can_receiverHandle;
+const osThreadAttr_t can_receiver_attributes = {
+  .name = "can_receiver",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityAboveNormal,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -90,6 +104,8 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_CAN1_Init(void);
 static void MX_CAN2_Init(void);
 void StartDefaultTask(void *argument);
+void can_sender_entry(void *argument);
+void can_receiver_entry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -134,7 +150,10 @@ int main(void)
   MX_CAN1_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
-
+  if (HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK)
+  {
+	  Error_Handler();
+  }
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -159,6 +178,12 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of can_sender */
+  can_senderHandle = osThreadNew(can_sender_entry, NULL, &can_sender_attributes);
+
+  /* creation of can_receiver */
+  can_receiverHandle = osThreadNew(can_receiver_entry, NULL, &can_receiver_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -506,9 +531,63 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
-    SEGGER_SYSVIEW_PrintfHost("test");
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_can_sender_entry */
+/**
+* @brief Function implementing the can_sender thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_can_sender_entry */
+void can_sender_entry(void *argument)
+{
+  /* USER CODE BEGIN can_sender_entry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("sender");
+
+    CAN_TxHeaderTypeDef TxHeader;
+    uint8_t TxData[8];
+    uint32_t TxMailbox;
+
+    TxHeader.IDE = CAN_ID_STD;
+    TxHeader.StdId = 0x446;
+    TxHeader.RTR = CAN_RTR_DATA;
+    TxHeader.DLC = 2;
+
+    TxData[0] = 50;
+    TxData[1] = 0xAA;
+
+    if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox) != HAL_OK)
+    {
+    	Error_Handler();
+    }
+  }
+  /* USER CODE END can_sender_entry */
+}
+
+/* USER CODE BEGIN Header_can_receiver_entry */
+/**
+* @brief Function implementing the can_receiver thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_can_receiver_entry */
+void can_receiver_entry(void *argument)
+{
+  /* USER CODE BEGIN can_receiver_entry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+    SEGGER_SYSVIEW_PrintfHost("receiver");
+  }
+  /* USER CODE END can_receiver_entry */
 }
 
 /**
