@@ -82,14 +82,14 @@ osThreadId_t can_senderHandle;
 const osThreadAttr_t can_sender_attributes = {
   .name = "can_sender",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for can_receiver */
 osThreadId_t can_receiverHandle;
 const osThreadAttr_t can_receiver_attributes = {
   .name = "can_receiver",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityAboveNormal,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* USER CODE BEGIN PV */
 
@@ -334,7 +334,20 @@ static void MX_CAN2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN2_Init 2 */
+  CAN_FilterTypeDef canfilterconfig;
 
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
+  canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+  canfilterconfig.FilterIdHigh = 0x446<<5;
+  canfilterconfig.FilterIdLow = 0;
+  canfilterconfig.FilterMaskIdHigh = 0x446<<5;
+  canfilterconfig.FilterMaskIdLow = 0x0000;
+  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig.SlaveStartFilterBank = 20;  // how many filters to assign to the CAN1 (master can)
+
+  HAL_CAN_ConfigFilter(&hcan2, &canfilterconfig);
   /* USER CODE END CAN2_Init 2 */
 
 }
@@ -514,7 +527,19 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+uint8_t RxData[8];
+CAN_RxHeaderTypeDef RxHeader;
+int datacheck = 0;
 
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, RxData);
+	if (RxHeader.DLC == 2)
+	{
+		datacheck = 1;
+		SEGGER_SYSVIEW_PrintfHost("datacheck set");
+	}
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -531,6 +556,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+
   }
   /* USER CODE END 5 */
 }
@@ -562,11 +588,12 @@ void can_sender_entry(void *argument)
 
     TxData[0] = 50;
     TxData[1] = 0xAA;
-
+    /*
     if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox) != HAL_OK)
     {
     	Error_Handler();
-    }
+    }*/
+
   }
   /* USER CODE END can_sender_entry */
 }
