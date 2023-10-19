@@ -588,11 +588,11 @@ void can_sender_entry(void *argument)
 
     TxData[0] = 50;
     TxData[1] = 0xAA;
-    /*
+
     if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox) != HAL_OK)
     {
-    	Error_Handler();
-    }*/
+    	//Error_Handler();
+    }
 
   }
   /* USER CODE END can_sender_entry */
@@ -628,6 +628,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+	  SEGGER_SYSVIEW_PrintfHost("err");
   }
   /* USER CODE END Error_Handler_Debug */
 }
