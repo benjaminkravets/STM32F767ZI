@@ -7,6 +7,6 @@
 ../Core/Src/main.c:454:13:MX_USB_OTG_FS_PCD_Init	2
 ../Core/Src/main.c:489:13:MX_GPIO_Init	1
 ../Core/Src/main.c:550:6:StartDefaultTask	1
-../Core/Src/main.c:569:6:can1_sender_entry	1
-../Core/Src/main.c:598:6:can2_sender_entry	1
-../Core/Src/main.c:624:6:Error_Handler	1
+../Core/Src/main.c:569:6:can1_sender_entry	2
+../Core/Src/main.c:602:6:can2_sender_entry	1
+../Core/Src/main.c:628:6:Error_Handler	1
