@@ -584,10 +584,7 @@ void can1_sender_entry(void *argument)
   {
     osDelay(1);
     SEGGER_SYSVIEW_PrintfHost("Can1 send");
-    if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-    {
-       Error_Handler ();
-    }
+
   }
   /* USER CODE END can1_sender_entry */
 }
@@ -617,10 +614,7 @@ void can2_sender_entry(void *argument)
   {
     osDelay(1);
     SEGGER_SYSVIEW_PrintfHost("Can2 send");
-    if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-    {
-       Error_Handler ();
-    }
+
   }
   /* USER CODE END can2_sender_entry */
 }
