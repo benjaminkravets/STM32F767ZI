@@ -114,6 +114,27 @@ void can2_sender_entry(void *argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+uint8_t RxData[8];
+CAN_RxHeaderTypeDef RxHeader;
+int datacheck = 0;
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+	SEGGER_SYSVIEW_PrintfHost("received");
+	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+	if (RxHeader.DLC == 2)
+	{
+		SEGGER_SYSVIEW_PrintfHost("received");
+	}
+}
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+	SEGGER_SYSVIEW_PrintfHost("received");
+	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+	if (RxHeader.DLC == 2)
+	{
+		SEGGER_SYSVIEW_PrintfHost("received");
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -151,6 +172,9 @@ int main(void)
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
   SEGGER_SYSVIEW_Conf();
+  HAL_CAN_Start(&hcan1);
+  HAL_CAN_Start(&hcan2);
+  HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -294,20 +318,7 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  CAN_FilterTypeDef canfilterconfig;
 
-  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
-  canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
-  canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-  canfilterconfig.FilterIdHigh = 0x446<<5;
-  canfilterconfig.FilterIdLow = 0;
-  canfilterconfig.FilterMaskIdHigh = 0x446<<5;
-  canfilterconfig.FilterMaskIdLow = 0x0000;
-  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.SlaveStartFilterBank = 20;  // how many filters to assign to the CAN1 (master can)
-
-  HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
   /* USER CODE END CAN1_Init 2 */
 
 }
@@ -349,15 +360,15 @@ static void MX_CAN2_Init(void)
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
   canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
   canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-  canfilterconfig.FilterIdHigh = 0x446<<5;
+  canfilterconfig.FilterIdHigh = 0x101<<5;
   canfilterconfig.FilterIdLow = 0;
-  canfilterconfig.FilterMaskIdHigh = 0x446<<5;
+  canfilterconfig.FilterMaskIdHigh = 0x101<<5;
   canfilterconfig.FilterMaskIdLow = 0x0000;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
   canfilterconfig.SlaveStartFilterBank = 20;  // how many filters to assign to the CAN1 (master can)
 
-  HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
+  HAL_CAN_ConfigFilter(&hcan2, &canfilterconfig);
   /* USER CODE END CAN2_Init 2 */
 
 }
@@ -574,7 +585,7 @@ void can1_sender_entry(void *argument)
   uint8_t               TxData[8];
   uint32_t              TxMailbox;
   TxHeader.IDE = CAN_ID_STD;
-  TxHeader.StdId = 0x446;
+  TxHeader.StdId = 0x101;
   TxHeader.RTR = CAN_RTR_DATA;
   TxHeader.DLC = 2;
 
@@ -584,7 +595,7 @@ void can1_sender_entry(void *argument)
   {
     osDelay(1);
     SEGGER_SYSVIEW_PrintfHost("Can1 send");
-
+	HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
   }
   /* USER CODE END can1_sender_entry */
 }
@@ -600,20 +611,10 @@ void can2_sender_entry(void *argument)
 {
   /* USER CODE BEGIN can2_sender_entry */
   /* Infinite loop */
-  CAN_TxHeaderTypeDef   TxHeader;
-  uint8_t               TxData[8];
-  uint32_t              TxMailbox;
-  TxHeader.IDE = CAN_ID_STD;
-  TxHeader.StdId = 0x446;
-  TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.DLC = 2;
 
-  TxData[0] = 50;
-  TxData[1] = 0xAA;
   for(;;)
   {
     osDelay(1);
-    SEGGER_SYSVIEW_PrintfHost("Can2 send");
 
   }
   /* USER CODE END can2_sender_entry */
