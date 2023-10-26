@@ -10,5 +10,5 @@
 ../Core/Src/main.c:500:13:MX_GPIO_Init	1
 ../Core/Src/main.c:561:6:StartDefaultTask	1
 ../Core/Src/main.c:580:6:can1_sender_entry	1
-../Core/Src/main.c:610:6:can2_sender_entry	1
-../Core/Src/main.c:627:6:Error_Handler	1
+../Core/Src/main.c:612:6:can2_sender_entry	1
+../Core/Src/main.c:629:6:Error_Handler	1

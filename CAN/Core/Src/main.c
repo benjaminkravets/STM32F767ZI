@@ -591,6 +591,8 @@ void can1_sender_entry(void *argument)
 
   TxData[0] = 50;
   TxData[1] = 0xAA;
+  TxData[2] = 50;
+  TxData[3] = 0xAA;
   for(;;)
   {
     osDelay(1);
