@@ -987,6 +987,7 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
  8000908:	f003 fdb6 	bl	8004478 <MX_LWIP_Init>
   /* USER CODE BEGIN 5 */
+
   /* Infinite loop */
   for(;;)
   {
