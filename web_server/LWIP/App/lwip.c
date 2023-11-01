@@ -51,6 +51,10 @@ osThreadAttr_t attributes;
 /* USER CODE END OS_THREAD_ATTR_CMSIS_RTOS_V2 */
 
 /* USER CODE BEGIN 2 */
+uint8_t IP_ADDRESS[4];
+uint8_t NETMASK_ADDRESS[4];
+uint8_t GATEWAY_ADDRESS[4];
+
 
 /* USER CODE END 2 */
 
@@ -59,6 +63,14 @@ osThreadAttr_t attributes;
   */
 void MX_LWIP_Init(void)
 {
+  GATEWAY_ADDRESS[0] = 192;
+  GATEWAY_ADDRESS[1] = 168;
+  GATEWAY_ADDRESS[2] = 1;
+  GATEWAY_ADDRESS[3] = 1;
+  NETMASK_ADDRESS[0] = 255;
+  NETMASK_ADDRESS[1] = 255;
+  NETMASK_ADDRESS[2] = 255;
+  NETMASK_ADDRESS[3] = 0;
   /* Initilialize the LwIP stack with RTOS */
   tcpip_init( NULL, NULL );
 
@@ -68,8 +80,8 @@ void MX_LWIP_Init(void)
   gw.addr = 0;
 
   /* add the network interface (IPv4/IPv6) with RTOS */
-  netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input);
-
+  //netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input);
+  netif_add(&gnetif, &ipaddr, &NETMASK_ADDRESS, &GATEWAY_ADDRESS, NULL, &ethernetif_init, &tcpip_input);
   /* Registers the default network interface */
   netif_set_default(&gnetif);
 

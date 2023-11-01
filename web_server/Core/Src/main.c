@@ -353,7 +353,7 @@ void StartDefaultTask(void *argument)
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
 
-  netif_set_gw(netif, &new_gateway_addr);
+
   /* Infinite loop */
   for(;;)
   {
