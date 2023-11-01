@@ -81,7 +81,10 @@ LWIP/App/lwip.o: ../LWIP/App/lwip.c ../LWIP/App/lwip.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../LWIP/Target/ethernetif.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h \
+ ../Core/Inc/SEGGER_SYSVIEW.h ../Core/Inc/SEGGER.h ../Core/Inc/Global.h \
+ ../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h \
+ ../Core/Inc/SEGGER_SYSVIEW_Conf.h ../Core/Inc/SEGGER_RTT_Conf.h
 ../LWIP/App/lwip.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/opt.h:
 ../LWIP/Target/lwipopts.h:
@@ -167,3 +170,9 @@ LWIP/App/lwip.o: ../LWIP/App/lwip.c ../LWIP/App/lwip.h \
 ../LWIP/Target/ethernetif.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:
 ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h:
+../Core/Inc/SEGGER_SYSVIEW.h:
+../Core/Inc/SEGGER.h:
+../Core/Inc/Global.h:
+../Core/Inc/SEGGER_SYSVIEW_ConfDefaults.h:
+../Core/Inc/SEGGER_SYSVIEW_Conf.h:
+../Core/Inc/SEGGER_RTT_Conf.h:

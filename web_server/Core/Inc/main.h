@@ -73,8 +73,6 @@ void Error_Handler(void);
 #define RMII_RXD0_GPIO_Port GPIOC
 #define RMII_RXD1_Pin GPIO_PIN_5
 #define RMII_RXD1_GPIO_Port GPIOC
-#define LD1_Pin GPIO_PIN_0
-#define LD1_GPIO_Port GPIOB
 #define RMII_TXD1_Pin GPIO_PIN_13
 #define RMII_TXD1_GPIO_Port GPIOB
 #define LD3_Pin GPIO_PIN_14
@@ -111,7 +109,30 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+#define DEST_IP_ADDR0   (uint8_t) 192
+#define DEST_IP_ADDR1   (uint8_t) 168
+#define DEST_IP_ADDR2   (uint8_t) 1
+#define DEST_IP_ADDR3   (uint8_t) 105
 
+#define DEST_PORT       (uint16_t) 7
+
+/*Static IP ADDRESS: IP_ADDR0.IP_ADDR1.IP_ADDR2.IP_ADDR3 */
+#define IP_ADDR0   (uint8_t) 192
+#define IP_ADDR1   (uint8_t) 168
+#define IP_ADDR2   (uint8_t) 1
+#define IP_ADDR3   (uint8_t) 10
+
+/*NETMASK*/
+#define NETMASK_ADDR0   (uint8_t) 255
+#define NETMASK_ADDR1   (uint8_t) 255
+#define NETMASK_ADDR2   (uint8_t) 255
+#define NETMASK_ADDR3   (uint8_t) 0
+
+/*Gateway Address*/
+#define GW_ADDR0   (uint8_t) 192
+#define GW_ADDR1   (uint8_t) 168
+#define GW_ADDR2   (uint8_t) 1
+#define GW_ADDR3   (uint8_t) 254
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
