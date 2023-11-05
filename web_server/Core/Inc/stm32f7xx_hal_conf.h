@@ -146,7 +146,7 @@
   * @brief This is the HAL system configuration section
   */
 #define  VDD_VALUE                    3300U /*!< Value of VDD in mv */
-#define  TICK_INT_PRIORITY            ((uint32_t)15U) /*!< tick interrupt priority */
+#define  TICK_INT_PRIORITY            ((uint32_t)0U) /*!< tick interrupt priority */
 #define  USE_RTOS                     0U
 #define  PREFETCH_ENABLE              0U
 #define  ART_ACCELERATOR_ENABLE        0U /* To enable instruction cache and prefetch */
@@ -217,8 +217,8 @@
 
 /* Section 2: PHY configuration section */
 
-/*  PHY Address*/
-#define _PHY_ADDRESS
+/* LAN8742A PHY Address*/
+#define LAN8742A_PHY_ADDRESS           0x00U
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/
 #define PHY_RESET_DELAY                 ((uint32_t)0x000000FFU)
 /* PHY Configuration delay */
@@ -248,10 +248,13 @@
 #define PHY_JABBER_DETECTION            ((uint16_t)0x0002U)  /*!< Jabber condition detected            */
 
 /* Section 4: Extended PHY Registers */
-#define PHY_SR                          ((uint16_t))    /*!< PHY status register Offset                      */
+#define PHY_SR                          ((uint16_t)0x001FU)    /*!< PHY status register Offset                      */
 
-#define PHY_SPEED_STATUS                ((uint16_t))  /*!< PHY Speed mask                                  */
-#define PHY_DUPLEX_STATUS               ((uint16_t))  /*!< PHY Duplex mask                                 */
+#define PHY_SPEED_STATUS                ((uint16_t)0x0004U)  /*!< PHY Speed mask                                  */
+#define PHY_DUPLEX_STATUS               ((uint16_t)0x0010U)  /*!< PHY Duplex mask                                 */
+
+#define PHY_ISFR                        ((uint16_t)0x1DU)    /*!< PHY Interrupt Source Flag register Offset   */
+#define PHY_ISFR_INT4                   ((uint16_t)0x0010U)  /*!< PHY Link down inturrupt       */
 
 /* ################## SPI peripheral configuration ########################## */
 
