@@ -28,4 +28,10 @@ Drivers/BSP/Components/lan8742 \
 Drivers/STM32F7xx_HAL_Driver/Src \
 LWIP/App \
 LWIP/Target \
+Middlewares/Third_Party/LwIP/src/api \
+Middlewares/Third_Party/LwIP/src/core \
+Middlewares/Third_Party/LwIP/src/core/ipv4 \
+Middlewares/Third_Party/LwIP/src/core/ipv6 \
+Middlewares/Third_Party/LwIP/src/netif \
+Middlewares/Third_Party/LwIP/src/netif/ppp \
 
