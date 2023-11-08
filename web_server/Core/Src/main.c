@@ -96,6 +96,7 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
+
   httpd_init();
 
   /* USER CODE END 2 */

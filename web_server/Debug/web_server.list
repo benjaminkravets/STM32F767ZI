@@ -12685,9 +12685,9 @@ void MX_LWIP_Init(void)
  8004c58:	4b8b      	ldr	r3, [pc, #556]	; (8004e88 <MX_LWIP_Init+0x23c>)
  8004c5a:	22a8      	movs	r2, #168	; 0xa8
  8004c5c:	705a      	strb	r2, [r3, #1]
-  IP_ADDRESS[2] = 0;
+  IP_ADDRESS[2] = 1;
  8004c5e:	4b8a      	ldr	r3, [pc, #552]	; (8004e88 <MX_LWIP_Init+0x23c>)
- 8004c60:	2200      	movs	r2, #0
+ 8004c60:	2201      	movs	r2, #1
  8004c62:	709a      	strb	r2, [r3, #2]
   IP_ADDRESS[3] = 111;
  8004c64:	4b88      	ldr	r3, [pc, #544]	; (8004e88 <MX_LWIP_Init+0x23c>)
@@ -12717,9 +12717,9 @@ void MX_LWIP_Init(void)
  8004c88:	4b81      	ldr	r3, [pc, #516]	; (8004e90 <MX_LWIP_Init+0x244>)
  8004c8a:	22a8      	movs	r2, #168	; 0xa8
  8004c8c:	705a      	strb	r2, [r3, #1]
-  GATEWAY_ADDRESS[2] = 0;
+  GATEWAY_ADDRESS[2] = 1;
  8004c8e:	4b80      	ldr	r3, [pc, #512]	; (8004e90 <MX_LWIP_Init+0x244>)
- 8004c90:	2200      	movs	r2, #0
+ 8004c90:	2201      	movs	r2, #1
  8004c92:	709a      	strb	r2, [r3, #2]
   GATEWAY_ADDRESS[3] = 1;
  8004c94:	4b7e      	ldr	r3, [pc, #504]	; (8004e90 <MX_LWIP_Init+0x244>)
