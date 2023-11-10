@@ -33,23 +33,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  14 .comment      00000086  00000000  00000000  000302ce  2**0
                   CONTENTS, READONLY
- 15 .debug_info   0002f37e  00000000  00000000  00030354  2**0
+ 15 .debug_info   0002f541  00000000  00000000  00030354  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_abbrev 00006195  00000000  00000000  0005f6d2  2**0
+ 16 .debug_abbrev 00006238  00000000  00000000  0005f895  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_aranges 000023f8  00000000  00000000  00065868  2**3
+ 17 .debug_aranges 000023f8  00000000  00000000  00065ad0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_rnglists 00001bbc  00000000  00000000  00067c60  2**0
+ 18 .debug_rnglists 00001bbc  00000000  00000000  00067ec8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_macro  0000ada5  00000000  00000000  0006981c  2**0
+ 19 .debug_macro  00030646  00000000  00000000  00069a84  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_line   0002c1cd  00000000  00000000  000745c1  2**0
+ 20 .debug_line   0002c59b  00000000  00000000  0009a0ca  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_str    00118021  00000000  00000000  000a078e  2**0
+ 21 .debug_str    00118021  00000000  00000000  000c6665  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_frame  00009c74  00000000  00000000  001b87b0  2**2
+ 22 .debug_frame  00009c74  00000000  00000000  001de688  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 23 .debug_line_str 0000007c  00000000  00000000  001c2424  2**0
+ 23 .debug_line_str 0000007c  00000000  00000000  001e82fc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -3960,7 +3960,7 @@ bool CheckCRC(const uint8_t *Buff, const uint32_t Len)
  8001be0:	d101      	bne.n	8001be6 <CheckCRC+0x1a>
 		return false;
  8001be2:	2300      	movs	r3, #0
- 8001be4:	e03e      	b.n	8001c64 <CheckCRC+0x98>
+ 8001be4:	e03d      	b.n	8001c62 <CheckCRC+0x96>
 	}
 	//Use HAL provided CRC32 module to calculate sum
 	uint32_t result = HAL_CRC_Calculate(&hcrc, (uint32_t*)Buff, 4);
@@ -3968,87 +3968,87 @@ bool CheckCRC(const uint8_t *Buff, const uint32_t Len)
  8001be8:	6879      	ldr	r1, [r7, #4]
  8001bea:	4820      	ldr	r0, [pc, #128]	; (8001c6c <CheckCRC+0xa0>)
  8001bec:	f001 f95a 	bl	8002ea4 <HAL_CRC_Calculate>
- 8001bf0:	4603      	mov	r3, r0
- 8001bf2:	613b      	str	r3, [r7, #16]
+ 8001bf0:	6138      	str	r0, [r7, #16]
 	result = result ^ ~0U;
- 8001bf4:	693b      	ldr	r3, [r7, #16]
- 8001bf6:	43db      	mvns	r3, r3
- 8001bf8:	613b      	str	r3, [r7, #16]
+ 8001bf2:	693b      	ldr	r3, [r7, #16]
+ 8001bf4:	43db      	mvns	r3, r3
+ 8001bf6:	613b      	str	r3, [r7, #16]
 
 	if(!result){
- 8001bfa:	693b      	ldr	r3, [r7, #16]
- 8001bfc:	2b00      	cmp	r3, #0
- 8001bfe:	d101      	bne.n	8001c04 <CheckCRC+0x38>
+ 8001bf8:	693b      	ldr	r3, [r7, #16]
+ 8001bfa:	2b00      	cmp	r3, #0
+ 8001bfc:	d101      	bne.n	8001c02 <CheckCRC+0x36>
 		return false;
- 8001c00:	2300      	movs	r3, #0
- 8001c02:	e02f      	b.n	8001c64 <CheckCRC+0x98>
+ 8001bfe:	2300      	movs	r3, #0
+ 8001c00:	e02f      	b.n	8001c62 <CheckCRC+0x96>
 	}
 	//for each byte of crc32 in packet, ensure equality with crc32 calculated on packet contents
 	for (int i = 0; i < 4; i++)
- 8001c04:	2300      	movs	r3, #0
- 8001c06:	617b      	str	r3, [r7, #20]
- 8001c08:	e028      	b.n	8001c5c <CheckCRC+0x90>
+ 8001c02:	2300      	movs	r3, #0
+ 8001c04:	617b      	str	r3, [r7, #20]
+ 8001c06:	e028      	b.n	8001c5a <CheckCRC+0x8e>
 	{
 		uint32_t hashresult = result & (0x000000FF << (8 * i));
- 8001c0a:	697b      	ldr	r3, [r7, #20]
- 8001c0c:	00db      	lsls	r3, r3, #3
- 8001c0e:	22ff      	movs	r2, #255	; 0xff
- 8001c10:	fa02 f303 	lsl.w	r3, r2, r3
- 8001c14:	461a      	mov	r2, r3
- 8001c16:	693b      	ldr	r3, [r7, #16]
- 8001c18:	4013      	ands	r3, r2
- 8001c1a:	60fb      	str	r3, [r7, #12]
+ 8001c08:	697b      	ldr	r3, [r7, #20]
+ 8001c0a:	00db      	lsls	r3, r3, #3
+ 8001c0c:	22ff      	movs	r2, #255	; 0xff
+ 8001c0e:	fa02 f303 	lsl.w	r3, r2, r3
+ 8001c12:	461a      	mov	r2, r3
+ 8001c14:	693b      	ldr	r3, [r7, #16]
+ 8001c16:	4013      	ands	r3, r2
+ 8001c18:	60fb      	str	r3, [r7, #12]
 		char hex[3];
 		//first 2 digits of each hash result is used; all other digits are significant but always 0
 		sprintf(hex, "%02x", hashresult >> (8 * i));
- 8001c1c:	697b      	ldr	r3, [r7, #20]
- 8001c1e:	00db      	lsls	r3, r3, #3
- 8001c20:	68fa      	ldr	r2, [r7, #12]
- 8001c22:	40da      	lsrs	r2, r3
- 8001c24:	f107 0308 	add.w	r3, r7, #8
- 8001c28:	4911      	ldr	r1, [pc, #68]	; (8001c70 <CheckCRC+0xa4>)
- 8001c2a:	4618      	mov	r0, r3
- 8001c2c:	f00d fdfe 	bl	800f82c <siprintf>
+ 8001c1a:	697b      	ldr	r3, [r7, #20]
+ 8001c1c:	00db      	lsls	r3, r3, #3
+ 8001c1e:	68fa      	ldr	r2, [r7, #12]
+ 8001c20:	40da      	lsrs	r2, r3
+ 8001c22:	f107 0308 	add.w	r3, r7, #8
+ 8001c26:	4912      	ldr	r1, [pc, #72]	; (8001c70 <CheckCRC+0xa4>)
+ 8001c28:	4618      	mov	r0, r3
+ 8001c2a:	f00d fdff 	bl	800f82c <siprintf>
 
 		uint8_t uint8_value = strtoul(hex, NULL, 16);
- 8001c30:	f107 0308 	add.w	r3, r7, #8
- 8001c34:	2210      	movs	r2, #16
- 8001c36:	2100      	movs	r1, #0
- 8001c38:	4618      	mov	r0, r3
- 8001c3a:	f00d fded 	bl	800f818 <strtoul>
- 8001c3e:	4603      	mov	r3, r0
- 8001c40:	72fb      	strb	r3, [r7, #11]
+ 8001c2e:	f107 0308 	add.w	r3, r7, #8
+ 8001c32:	2210      	movs	r2, #16
+ 8001c34:	2100      	movs	r1, #0
+ 8001c36:	4618      	mov	r0, r3
+ 8001c38:	f00d fdee 	bl	800f818 <strtoul>
+ 8001c3c:	4603      	mov	r3, r0
+ 8001c3e:	72fb      	strb	r3, [r7, #11]
 
 		if (uint8_value != Buff[i + 5])
- 8001c42:	697b      	ldr	r3, [r7, #20]
- 8001c44:	3305      	adds	r3, #5
- 8001c46:	687a      	ldr	r2, [r7, #4]
- 8001c48:	4413      	add	r3, r2
- 8001c4a:	781b      	ldrb	r3, [r3, #0]
- 8001c4c:	7afa      	ldrb	r2, [r7, #11]
- 8001c4e:	429a      	cmp	r2, r3
- 8001c50:	d001      	beq.n	8001c56 <CheckCRC+0x8a>
+ 8001c40:	697b      	ldr	r3, [r7, #20]
+ 8001c42:	3305      	adds	r3, #5
+ 8001c44:	687a      	ldr	r2, [r7, #4]
+ 8001c46:	4413      	add	r3, r2
+ 8001c48:	781b      	ldrb	r3, [r3, #0]
+ 8001c4a:	7afa      	ldrb	r2, [r7, #11]
+ 8001c4c:	429a      	cmp	r2, r3
+ 8001c4e:	d001      	beq.n	8001c54 <CheckCRC+0x88>
 		{
 			return false;
- 8001c52:	2300      	movs	r3, #0
- 8001c54:	e006      	b.n	8001c64 <CheckCRC+0x98>
+ 8001c50:	2300      	movs	r3, #0
+ 8001c52:	e006      	b.n	8001c62 <CheckCRC+0x96>
 	for (int i = 0; i < 4; i++)
- 8001c56:	697b      	ldr	r3, [r7, #20]
- 8001c58:	3301      	adds	r3, #1
- 8001c5a:	617b      	str	r3, [r7, #20]
- 8001c5c:	697b      	ldr	r3, [r7, #20]
- 8001c5e:	2b03      	cmp	r3, #3
- 8001c60:	ddd3      	ble.n	8001c0a <CheckCRC+0x3e>
+ 8001c54:	697b      	ldr	r3, [r7, #20]
+ 8001c56:	3301      	adds	r3, #1
+ 8001c58:	617b      	str	r3, [r7, #20]
+ 8001c5a:	697b      	ldr	r3, [r7, #20]
+ 8001c5c:	2b03      	cmp	r3, #3
+ 8001c5e:	ddd3      	ble.n	8001c08 <CheckCRC+0x3c>
 		}
 	}
 
 	return true;
- 8001c62:	2301      	movs	r3, #1
+ 8001c60:	2301      	movs	r3, #1
 }
- 8001c64:	4618      	mov	r0, r3
- 8001c66:	3718      	adds	r7, #24
- 8001c68:	46bd      	mov	sp, r7
- 8001c6a:	bd80      	pop	{r7, pc}
+ 8001c62:	4618      	mov	r0, r3
+ 8001c64:	3718      	adds	r7, #24
+ 8001c66:	46bd      	mov	sp, r7
+ 8001c68:	bd80      	pop	{r7, pc}
+ 8001c6a:	bf00      	nop
  8001c6c:	20000d6c 	.word	0x20000d6c
  8001c70:	08010140 	.word	0x08010140
 

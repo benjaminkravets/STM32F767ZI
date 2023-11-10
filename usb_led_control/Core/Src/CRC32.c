@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <CRC32.h>
+#include <main.h>
 extern hcrc;
 
 /**
