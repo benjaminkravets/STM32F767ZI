@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "lwip/apps/httpd.h"
 #include "httpd.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
