@@ -109,7 +109,7 @@ int main(void)
   {
 	  MX_LWIP_Process();
     /* USER CODE END WHILE */
-	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
