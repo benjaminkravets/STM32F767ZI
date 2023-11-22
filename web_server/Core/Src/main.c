@@ -76,7 +76,6 @@ const char *LedControlCgiHandler(int iIndex, int iNumParams, char *pcParam[], ch
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  tCGI LED_CGI = {"/LEDControl.cgi", LedControlCgiHandler};
 
   /* USER CODE END 1 */
 
