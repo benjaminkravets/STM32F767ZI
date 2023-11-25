@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "lwip/apps/httpd.h"
 #include "httpd.h"
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -61,7 +62,6 @@ static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE BEGIN PFP */
 const char *LedControlCgiHandler(int iIndex, int iNumParams, char *pcParam[], char *pcValue[]);
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -76,7 +76,7 @@ const char *LedControlCgiHandler(int iIndex, int iNumParams, char *pcParam[], ch
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  tCGI LED_CGI = {"/LEDControl.cgi", LedControlCgiHandler};
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -103,7 +103,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   httpd_init();
-
+  http_set_cgi_handlers(&LED_CGI, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -112,7 +112,9 @@ int main(void)
   {
 	  MX_LWIP_Process();
     /* USER CODE END WHILE */
-
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GreenLED );     //Green LED
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, BlueLED );      //Blue LED
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, RedLED );      //Red LED
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -301,7 +303,49 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+const char *LedControlCgiHandler(int index, int numParams, char *pcParam[], char *pcValue[])
+{
+  if(index == 0)
+  {
+    for(int i=0; i < numParams; i++)
+    {
+      if(strcmp(pcParam[i], "green") == 0)
+      {
+        if(strcmp(pcValue[i], "ON") == 0)
+        {
+          GreenLED = 1;
+        }
+        else
+        {
+          GreenLED = 0;
+        }
+      }
+      else if(strcmp(pcParam[i], "blue") == 0)
+      {
+        if(strcmp(pcValue[i], "ON") == 0)
+        {
+          BlueLED = 1;
+        }
+        else
+        {
+          BlueLED = 0;
+        }
+      }
+      else if(strcmp(pcParam[i], "red") == 0)
+      {
+        if(strcmp(pcValue[i], "ON") == 0)
+        {
+          RedLED = 1;
+        }
+        else
+        {
+          RedLED = 0;
+        }
+      }
+    }
+  }
+  return "/index.html";
+}
 /* USER CODE END 4 */
 
 /**
