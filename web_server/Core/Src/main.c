@@ -112,9 +112,7 @@ int main(void)
   {
 	  MX_LWIP_Process();
     /* USER CODE END WHILE */
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GreenLED );     //Green LED
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, BlueLED );      //Blue LED
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, RedLED );      //Red LED
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
