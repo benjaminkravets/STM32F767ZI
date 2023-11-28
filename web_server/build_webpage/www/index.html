@@ -1,82 +1,27 @@
 <html>
 <head>
-   <style>
-       body{
-        font-size:25px;
-        color: #065535;
-        background-size: cover;
-       }
-      .wd{
-          height: 100vh;
-          background: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .1)), url('https://embetronicx.com/wp-content/uploads/2021/10/cropped-Logo-trans.png');
-          background-repeat: no-repeat;
-          padding: 100px;
-      }
-      .wd h1{
-          text-align: center;
-          font-weight: 300px;
-      }
-      .wd h4{
-          text-align: center;
-          color:#990000;
-          font-weight: 100px;
-      }
-      .wd h5{
-        text-align: center;
-        font-weight: 50px;
-        color:#840074;
-      }
-      p {
-        font-size: 1.5rem;
-        text-align: center;
-        font-weight: 500px;
-        color: #fff;
-        font-weight: 700;
-        margin-bottom: 1rem;
-      }
-      a {
-        padding: 15px 20px;
-        background: #52caee;
-        font-size: 1rem;
-        text-decoration: none;
-        color: #333333;
-        border-radius: .25rem;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.808)
-      }
-      form {
-        padding: 40px 20px;
-        text-align: center;
-      }
-      .green {
-        color: #13FF00;
-      }
-      .blue {
-        color: #002EFF;
-      }
-      .red {
-        color: #FF0000;
-      }
-  </style>
+
 </head>
 <body>
   <div class="wd">
-    <h1>EmbeTronicX</h1>
-    <h4> <i>---Embedded Tutorials Zone---</i></h4>
-    <h5> STM32F767Zi Ethernet HTTP Tutorial - Part 2 (LED Control using CGI)</h5>
-    <p><a href="https://www.embetronicx.com/">Visit EmbeTronicX</a></p>
+    <h1>LED HMI</h1>
+
     <FORM ACTION="LEDControl.cgi" METHOD="GET">
+
     <div class="green">
       Green LED <SELECT NAME="green" SIZE=1>
       <OPTION SELECTED>ON
       <OPTION>OFF
       </SELECT>
     </div>
+
     <div class="blue">
       Blue LED <SELECT NAME="blue" SIZE=1>
       <OPTION SELECTED>ON
       <OPTION>OFF
       </SELECT>
     </div>
+
     <div class="red">
       Red LED <SELECT NAME="red" SIZE=1>
       <OPTION SELECTED>ON
