@@ -65,8 +65,8 @@ all: main-build
 main-build: TJA1050_can_chip.elf secondary-outputs
 
 # Tool invocations
-TJA1050_can_chip.elf TJA1050_can_chip.map: $(OBJS) $(USER_OBJS) C:\projects\packtBookRTOS\TJA1050_can_chip\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TJA1050_can_chip.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\projects\packtBookRTOS\TJA1050_can_chip\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TJA1050_can_chip.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TJA1050_can_chip.elf TJA1050_can_chip.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\TJA1050_can_chip\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TJA1050_can_chip.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\TJA1050_can_chip\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TJA1050_can_chip.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

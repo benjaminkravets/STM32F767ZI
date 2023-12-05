@@ -69,8 +69,8 @@ all: main-build
 main-build: usb_led_control.elf secondary-outputs
 
 # Tool invocations
-usb_led_control.elf usb_led_control.map: $(OBJS) $(USER_OBJS) C:\projects\packtBookRTOS\usb_led_control\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "usb_led_control.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\projects\packtBookRTOS\usb_led_control\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="usb_led_control.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+usb_led_control.elf usb_led_control.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\usb_led_control\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "usb_led_control.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\usb_led_control\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="usb_led_control.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
