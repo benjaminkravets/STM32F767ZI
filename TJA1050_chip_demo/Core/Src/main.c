@@ -483,6 +483,9 @@ void StartDefaultTask(void *argument)
     if (HAL_CAN_AddTxMessage(&hcan1,&txHeader,csend,&canMailbox) != HAL_OK){
         SEGGER_SYSVIEW_PrintfHost("fail");
     }
+    else{
+        SEGGER_SYSVIEW_PrintfHost("fail");
+    }
 
   }
   /* USER CODE END 5 */
