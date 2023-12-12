@@ -93,14 +93,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_CAN_Start(&hcan1);
 
-  TxHeader.DLC = 1;
-  TxHeader.ExtId = 0;
+  TxHeader.DLC = 2;  // data length
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x103;
-  TxHeader.TransmitGlobalTime = DISABLE;
+  TxHeader.StdId = 0x446;  // ID
 
-  TxData[0] = 0xf4;
+  TxData[0] = 100;
+  TxData[1] = 40;
 
 
   /* USER CODE END 2 */
