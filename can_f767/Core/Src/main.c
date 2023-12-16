@@ -95,7 +95,7 @@ int main(void)
   TxHeader.DLC = 2;  // data length
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x101;  // ID
+  TxHeader.StdId = 0x446;  // ID
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -185,7 +185,7 @@ static void MX_CAN1_Init(void)
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
   hcan1.Init.Prescaler = 16;
-  hcan1.Init.Mode = CAN_MODE_LOOPBACK;
+  hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
   hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;

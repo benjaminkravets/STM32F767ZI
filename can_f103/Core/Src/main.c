@@ -57,8 +57,19 @@ static void MX_CAN_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+
 uint8_t TxData[8];
+uint8_t RxData[8];
+
 uint32_t TxMailbox;
+
+
+
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, RxData);
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+}
 /* USER CODE END 0 */
 
 /**
@@ -92,6 +103,8 @@ int main(void)
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
   HAL_CAN_Start(&hcan);
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO1_MSG_PENDING);
+
   TxHeader.DLC = 2;  // data length
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
@@ -102,9 +115,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-	HAL_Delay(100);
-    HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
+	//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	//HAL_Delay(100);
+    //HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -168,7 +181,7 @@ static void MX_CAN_Init(void)
   /* USER CODE END CAN_Init 1 */
   hcan.Instance = CAN1;
   hcan.Init.Prescaler = 18;
-  hcan.Init.Mode = CAN_MODE_LOOPBACK;
+  hcan.Init.Mode = CAN_MODE_NORMAL;
   hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan.Init.TimeSeg1 = CAN_BS1_2TQ;
   hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
@@ -183,7 +196,20 @@ static void MX_CAN_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
+  CAN_FilterTypeDef canfilterconfig;
 
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig.FilterBank = 10;  // which filter bank to use from the assigned ones
+  canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO1;
+  canfilterconfig.FilterIdHigh = 0x446<<5;
+  canfilterconfig.FilterIdLow = 0;
+  canfilterconfig.FilterMaskIdHigh = 0x446<<5;
+  canfilterconfig.FilterMaskIdLow = 0x0000;
+  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig.SlaveStartFilterBank = 0;  // doesn't matter in single can controllers
+
+  HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
   /* USER CODE END CAN_Init 2 */
 
 }
