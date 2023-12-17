@@ -64,11 +64,19 @@ uint8_t RxData[8];
 
 uint32_t TxMailbox;
 
+int datacheck = 0;
 
 
-void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, RxData);
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+
+	//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	if (RxHeader.DLC == 2)
+	{
+		datacheck = 1;
+	}
+
 }
 /* USER CODE END 0 */
 
@@ -102,6 +110,7 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_CAN_Start(&hcan);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO1_MSG_PENDING);
 
@@ -115,9 +124,16 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-	//HAL_Delay(100);
-    //HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
+	HAL_Delay(1000);
+	if (datacheck){
+		for (int i=0; i<RxData[1]; i++)
+		{
+			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+			HAL_Delay(RxData[0]);
+		}
+		datacheck = 0;
+	}
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -196,6 +212,7 @@ static void MX_CAN_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN_Init 2 */
+
   CAN_FilterTypeDef canfilterconfig;
 
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
@@ -210,6 +227,7 @@ static void MX_CAN_Init(void)
   canfilterconfig.SlaveStartFilterBank = 0;  // doesn't matter in single can controllers
 
   HAL_CAN_ConfigFilter(&hcan, &canfilterconfig);
+
   /* USER CODE END CAN_Init 2 */
 
 }

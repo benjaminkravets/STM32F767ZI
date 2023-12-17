@@ -59,6 +59,21 @@ static void MX_CAN1_Init(void);
 CAN_TxHeaderTypeDef TxHeader;
 uint8_t TxData[8];
 uint32_t TxMailbox;
+int16_t irq_cooldown = 0;
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+
+	if (GPIO_Pin == GPIO_PIN_13 && irq_cooldown == 0){
+		TxData[0] = 100;   // ms Delay
+		TxData[1] = 10;    // loop rep
+
+		//TxData[0] = 0b0000100;
+		//TxData[1] = 0b0000100;
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
+		irq_cooldown = 20000;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -96,17 +111,20 @@ int main(void)
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
   TxHeader.StdId = 0x446;  // ID
+  //TxData[0] = 100;
+  //TxData[1] = 20;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	TxData[0] = 0x01;
-	TxData[1] = 0x01;
-    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-    HAL_Delay(100);
-	HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
+	if (irq_cooldown > 0){
+		irq_cooldown -= 1;
+	}
+    //HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+    //HAL_Delay(100);
+	//HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -187,8 +205,8 @@ static void MX_CAN1_Init(void)
   hcan1.Init.Prescaler = 16;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-  hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
-  hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_2TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_3TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
   hcan1.Init.AutoWakeUp = DISABLE;
@@ -259,6 +277,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PB1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
   /*Configure GPIO pin : RMII_TXD1_Pin */
   GPIO_InitStruct.Pin = RMII_TXD1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -309,6 +333,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
