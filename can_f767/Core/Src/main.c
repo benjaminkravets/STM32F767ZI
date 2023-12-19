@@ -57,21 +57,38 @@ static void MX_CAN1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 CAN_TxHeaderTypeDef TxHeader;
+CAN_RxHeaderTypeDef RxHeader;
+
 uint8_t TxData[8];
+uint8_t RxData[8];
+
 uint32_t TxMailbox;
 int16_t irq_cooldown = 0;
+
+int reply_received = 0;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 	if (GPIO_Pin == GPIO_PIN_13 && irq_cooldown == 0){
-		TxData[0] = 100;   // ms Delay
-		TxData[1] = 10;    // loop rep
+		//TxData[0] = 100;   // ms Delay
+		//TxData[1] = 10;    // loop rep
 
 		//TxData[0] = 0b0000100;
 		//TxData[1] = 0b0000100;
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
 		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
 		irq_cooldown = 20000;
+	}
+}
+
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData);
+	if (RxHeader.DLC == 2)
+	{
+		reply_received = 1;
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+
 	}
 }
 /* USER CODE END 0 */
@@ -106,13 +123,18 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_CAN_Start(&hcan1);
+  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+
   TxHeader.DLC = 2;  // data length
   TxHeader.IDE = CAN_ID_STD;
   TxHeader.RTR = CAN_RTR_DATA;
   TxHeader.StdId = 0x446;  // ID
-  //TxData[0] = 100;
-  //TxData[1] = 20;
+
+  TxData[0] = 100;
+  TxData[1] = 20;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,9 +144,13 @@ int main(void)
 	if (irq_cooldown > 0){
 		irq_cooldown -= 1;
 	}
-    //HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-    //HAL_Delay(100);
-	//HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
+
+    HAL_Delay(3000);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
+	HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -155,18 +181,11 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 192;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLN = 144;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Activate the Over-Drive mode
-  */
-  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
@@ -176,11 +195,11 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -202,11 +221,11 @@ static void MX_CAN1_Init(void)
 
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
-  hcan1.Init.Prescaler = 16;
+  hcan1.Init.Prescaler = 18;
   hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan1.Init.TimeSeg1 = CAN_BS1_2TQ;
-  hcan1.Init.TimeSeg2 = CAN_BS2_3TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
   hcan1.Init.AutoBusOff = DISABLE;
   hcan1.Init.AutoWakeUp = DISABLE;
@@ -218,6 +237,21 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+
+  CAN_FilterTypeDef canfilterconfig;
+
+  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
+  canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+  canfilterconfig.FilterIdHigh = 0x103<<5;
+  canfilterconfig.FilterIdLow = 0;
+  canfilterconfig.FilterMaskIdHigh = 0x103<<5;
+  canfilterconfig.FilterMaskIdLow = 0x0000;
+  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig.SlaveStartFilterBank = 20;  // how many filters to assign to the CAN1 (master can)
+
+  HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
 
   /* USER CODE END CAN1_Init 2 */
 

@@ -124,7 +124,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_Delay(1000);
+
 	if (datacheck){
 		for (int i=0; i<RxData[1]; i++)
 		{
@@ -132,6 +132,8 @@ int main(void)
 			HAL_Delay(RxData[0]);
 		}
 		datacheck = 0;
+
+		HAL_CAN_AddTxMessage(&hcan, &TxHeader, TxData, &TxMailbox);
 	}
 
     /* USER CODE END WHILE */
