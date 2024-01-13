@@ -509,9 +509,9 @@ int main(void)
  8000610:	4b18      	ldr	r3, [pc, #96]	; (8000674 <main+0xa0>)
  8000612:	2264      	movs	r2, #100	; 0x64
  8000614:	701a      	strb	r2, [r3, #0]
-  TxData[1] = 20;
+  TxData[1] = 9;
  8000616:	4b17      	ldr	r3, [pc, #92]	; (8000674 <main+0xa0>)
- 8000618:	2214      	movs	r2, #20
+ 8000618:	2209      	movs	r2, #9
  800061a:	705a      	strb	r2, [r3, #1]
 
   /* Infinite loop */

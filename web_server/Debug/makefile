@@ -71,8 +71,8 @@ all: main-build
 main-build: web_server.elf secondary-outputs
 
 # Tool invocations
-web_server.elf web_server.map: $(OBJS) $(USER_OBJS) C:\projects\packtBookRTOS\web_server\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "web_server.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\projects\packtBookRTOS\web_server\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="web_server.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+web_server.elf web_server.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\web_server\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "web_server.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\web_server\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="web_server.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

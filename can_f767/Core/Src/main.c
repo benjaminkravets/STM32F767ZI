@@ -133,7 +133,7 @@ int main(void)
   TxHeader.StdId = 0x446;  // ID
 
   TxData[0] = 100;
-  TxData[1] = 20;
+  TxData[1] = 9;
 
   /* USER CODE END 2 */
 
