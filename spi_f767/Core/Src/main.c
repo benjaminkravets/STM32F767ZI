@@ -132,7 +132,7 @@ int main(void)
 
   char uart_buff[50];
   int uart_buf_len;
-  char spi_buf[20];
+  char spi_buf[100];
   uint8_t addr = 0x05;
   uint8_t wip;
   uint8_t state = 0;
@@ -147,22 +147,28 @@ int main(void)
   while (1)
   {
 	HAL_UART_Transmit(&huart2, (uint8_t *)uart_buff, uart_buf_len, 100);
-	HAL_Delay(200);
+	HAL_Delay(100);
 
 	spi_buf[0] = EEPROM_WRITE;
 	spi_buf[1] = addr;
 
-	for (int i = 0; i < 10; i++){
-		spi_buf[2 + i] = 8;
+	for (int i = 0; i < 100; i++){
+		spi_buf[i] = 36;
 	}
 
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	HAL_SPI_Transmit(&hspi1, (uint8_t*)&EEPROM_WREN, 1, 100);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+
+	//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+	//HAL_SPI_Transmit(&hspi1, (uint8_t*)&EEPROM_WREN, 1, 100);
+	//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	HAL_SPI_Transmit_IT(&hspi1, (uint8_t*)spi_buf, 12);
+	//HAL_SPI_Transmit_IT(&hspi1, (uint8_t*)spi_buf, 50);
+	HAL_SPI_Transmit(&hspi1, (uint8_t*)spi_buf, 100, 100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+
+	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 
 
     /* USER CODE END WHILE */
