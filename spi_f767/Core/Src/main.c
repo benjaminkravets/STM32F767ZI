@@ -87,12 +87,7 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-const uint8_t EEPROM_READ = 0b00000011;
-const uint8_t EEPROM_WRITE = 0b00000010;
-const uint8_t EEPROM_WRDI = 0b00000100;
-const uint8_t EEPROM_WREN = 0b00000110;
-const uint8_t EEPROM_RDSR = 0b00000101;
-const uint8_t EEPROM_WRSR = 0b00000001;
+
 /* USER CODE END 0 */
 
 /**
@@ -132,10 +127,7 @@ int main(void)
 
   char uart_buff[50];
   int uart_buf_len;
-  char spi_buf[100];
-  uint8_t addr = 0x05;
-  uint8_t wip;
-  uint8_t state = 0;
+  char spi_buf[20];
 
   uart_buf_len = sprintf(uart_buff, "SPI Interupt\r\n");
   HAL_UART_Transmit(&huart2, (uint8_t *)uart_buff, uart_buf_len, 100);
@@ -147,13 +139,11 @@ int main(void)
   while (1)
   {
 	HAL_UART_Transmit(&huart2, (uint8_t *)uart_buff, uart_buf_len, 100);
-	HAL_Delay(100);
+	HAL_Delay(500);
 
-	spi_buf[0] = EEPROM_WRITE;
-	spi_buf[1] = addr;
 
-	for (int i = 0; i < 100; i++){
-		spi_buf[i] = 36;
+	for (int i = 0; i < sizeof(spi_buf); i++){
+		spi_buf[i] = i + 48;
 	}
 
 	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
@@ -164,7 +154,7 @@ int main(void)
 
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
 	//HAL_SPI_Transmit_IT(&hspi1, (uint8_t*)spi_buf, 50);
-	HAL_SPI_Transmit(&hspi1, (uint8_t*)spi_buf, 100, 100);
+	HAL_SPI_Transmit(&hspi1, (uint8_t*)spi_buf, sizeof(spi_buf), 100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 
 	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);

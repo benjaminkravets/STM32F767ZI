@@ -13,6 +13,8 @@ PD5 USART2_TX RED > GREY WIRE
 1
 7
 
+Black cable is chip select
+
 F103
 
 
