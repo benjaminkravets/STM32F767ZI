@@ -1,3 +1,6 @@
 1. CAN communication (can_f103 and can_f767)
 	1.1. Every 3 seconds the F767 transmits a CAN packet where the first data byte is an ON/OFF delay and the second byte is the ON/OFF count (the F767 will flash it's red LED to indicate the send). This is read by the F103 which completes the ON/OFF sequence (with its LED), then sends back an acknowledgement CAN packet. When the F767 gets the acknowledgement packet, it will toggle its green LED.
 	1.2. The F103 has pin PA12 connected to its CAN transciever TX pin and PA11 connected to its CAN transciever RX pin. This CAN transciever is connected to the other (F767) CAN transciever CANH to CANH and CANL to CANL. The F767 has pin PD1 connected to its CAN transciever TX pin and PD0 connected to its CAN transciever RX pin. Both CAN transcievers are TJA1050 that get common 5V power.
+
+2. SPI communication (spi_f767 and either spi_f103_irq or spi_f103_dma)
+	2.1 
