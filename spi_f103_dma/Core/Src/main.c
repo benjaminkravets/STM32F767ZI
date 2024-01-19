@@ -63,6 +63,17 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 #define SPI_DMA_BUFFER_LENGTH 20
 uint8_t SPI_DMA_RX_BUFFER[SPI_DMA_BUFFER_LENGTH] = {0};
+uint8_t uart_transmit = 0;
+uint8_t newline_buffer[2] = {0};
+
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	HAL_SPI_Receive_DMA(&hspi1, SPI_DMA_RX_BUFFER, SPI_DMA_BUFFER_LENGTH);
+	uart_transmit = 1;
+
+}
+
 
 /* USER CODE END 0 */
 
@@ -98,16 +109,21 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_SPI_Receive_DMA(&hspi1, &SPI_DMA_RX_BUFFER, SPI_DMA_BUFFER_LENGTH);
 
+  HAL_SPI_Receive_DMA(&hspi1, SPI_DMA_RX_BUFFER, SPI_DMA_BUFFER_LENGTH);
+  sprintf(newline_buffer, "\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-	HAL_Delay(100);
+	if (uart_transmit == 1){
+
+		HAL_UART_Transmit(&huart1, &newline_buffer, 2, 100);
+		HAL_UART_Transmit(&huart1, &SPI_DMA_RX_BUFFER, SPI_DMA_BUFFER_LENGTH, 100);
+		uart_transmit = 0;
+	}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

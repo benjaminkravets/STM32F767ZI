@@ -332,44 +332,43 @@ static void MX_SPI1_Init(void)
  80002a2:	4b0e      	ldr	r3, [pc, #56]	; (80002dc <MX_SPI1_Init+0x5c>)
  80002a4:	2200      	movs	r2, #0
  80002a6:	615a      	str	r2, [r3, #20]
-  hspi1.Init.NSS = SPI_NSS_HARD_INPUT;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
  80002a8:	4b0c      	ldr	r3, [pc, #48]	; (80002dc <MX_SPI1_Init+0x5c>)
- 80002aa:	2200      	movs	r2, #0
- 80002ac:	619a      	str	r2, [r3, #24]
+ 80002aa:	f44f 7200 	mov.w	r2, #512	; 0x200
+ 80002ae:	619a      	str	r2, [r3, #24]
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
- 80002ae:	4b0b      	ldr	r3, [pc, #44]	; (80002dc <MX_SPI1_Init+0x5c>)
- 80002b0:	2200      	movs	r2, #0
- 80002b2:	621a      	str	r2, [r3, #32]
+ 80002b0:	4b0a      	ldr	r3, [pc, #40]	; (80002dc <MX_SPI1_Init+0x5c>)
+ 80002b2:	2200      	movs	r2, #0
+ 80002b4:	621a      	str	r2, [r3, #32]
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
- 80002b4:	4b09      	ldr	r3, [pc, #36]	; (80002dc <MX_SPI1_Init+0x5c>)
- 80002b6:	2200      	movs	r2, #0
- 80002b8:	625a      	str	r2, [r3, #36]	; 0x24
+ 80002b6:	4b09      	ldr	r3, [pc, #36]	; (80002dc <MX_SPI1_Init+0x5c>)
+ 80002b8:	2200      	movs	r2, #0
+ 80002ba:	625a      	str	r2, [r3, #36]	; 0x24
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
- 80002ba:	4b08      	ldr	r3, [pc, #32]	; (80002dc <MX_SPI1_Init+0x5c>)
- 80002bc:	2200      	movs	r2, #0
- 80002be:	629a      	str	r2, [r3, #40]	; 0x28
+ 80002bc:	4b07      	ldr	r3, [pc, #28]	; (80002dc <MX_SPI1_Init+0x5c>)
+ 80002be:	2200      	movs	r2, #0
+ 80002c0:	629a      	str	r2, [r3, #40]	; 0x28
   hspi1.Init.CRCPolynomial = 10;
- 80002c0:	4b06      	ldr	r3, [pc, #24]	; (80002dc <MX_SPI1_Init+0x5c>)
- 80002c2:	220a      	movs	r2, #10
- 80002c4:	62da      	str	r2, [r3, #44]	; 0x2c
+ 80002c2:	4b06      	ldr	r3, [pc, #24]	; (80002dc <MX_SPI1_Init+0x5c>)
+ 80002c4:	220a      	movs	r2, #10
+ 80002c6:	62da      	str	r2, [r3, #44]	; 0x2c
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
- 80002c6:	4805      	ldr	r0, [pc, #20]	; (80002dc <MX_SPI1_Init+0x5c>)
- 80002c8:	f001 f9e6 	bl	8001698 <HAL_SPI_Init>
- 80002cc:	4603      	mov	r3, r0
- 80002ce:	2b00      	cmp	r3, #0
- 80002d0:	d001      	beq.n	80002d6 <MX_SPI1_Init+0x56>
+ 80002c8:	4804      	ldr	r0, [pc, #16]	; (80002dc <MX_SPI1_Init+0x5c>)
+ 80002ca:	f001 f9e5 	bl	8001698 <HAL_SPI_Init>
+ 80002ce:	4603      	mov	r3, r0
+ 80002d0:	2b00      	cmp	r3, #0
+ 80002d2:	d001      	beq.n	80002d8 <MX_SPI1_Init+0x58>
   {
     Error_Handler();
- 80002d2:	f000 f87d 	bl	80003d0 <Error_Handler>
+ 80002d4:	f000 f87c 	bl	80003d0 <Error_Handler>
   }
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
 
 }
- 80002d6:	bf00      	nop
- 80002d8:	bd80      	pop	{r7, pc}
- 80002da:	bf00      	nop
+ 80002d8:	bf00      	nop
+ 80002da:	bd80      	pop	{r7, pc}
  80002dc:	20000078 	.word	0x20000078
  80002e0:	40013000 	.word	0x40013000
 
@@ -676,13 +675,13 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
  8000488:	f003 0304 	and.w	r3, r3, #4
  800048c:	60bb      	str	r3, [r7, #8]
  800048e:	68bb      	ldr	r3, [r7, #8]
-    PA4     ------> SPI1_NSS
+    /**SPI1 GPIO Configuration
     PA5     ------> SPI1_SCK
     PA6     ------> SPI1_MISO
     PA7     ------> SPI1_MOSI
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
- 8000490:	23b0      	movs	r3, #176	; 0xb0
+    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+ 8000490:	23a0      	movs	r3, #160	; 0xa0
  8000492:	613b      	str	r3, [r7, #16]
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
  8000494:	2300      	movs	r3, #0

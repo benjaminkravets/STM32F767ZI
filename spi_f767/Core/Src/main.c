@@ -143,7 +143,7 @@ int main(void)
 
 
 	for (int i = 0; i < sizeof(spi_buf); i++){
-		spi_buf[i] = i + 48;
+		spi_buf[i] = 33;
 	}
 
 	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
