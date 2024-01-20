@@ -59,17 +59,15 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#define BUFFER_SIZE 20
-uint8_t RX_Buffer[BUFFER_SIZE] = {0};
-uint8_t RX_dummy[BUFFER_SIZE] = {0};
+#define SPI_IRQ_BUFFER_LENGTH 20
+uint8_t SPI_IRQ_RX_BUFFER[SPI_IRQ_BUFFER_LENGTH] = {0};
 uint8_t newline_buffer[2] = {0};
 uint8_t uart_transmit = 0;
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
+	HAL_SPI_Receive_IT(&hspi1, SPI_IRQ_RX_BUFFER, SPI_IRQ_BUFFER_LENGTH);
 	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-	HAL_SPI_Receive_IT(&hspi1, RX_Buffer, BUFFER_SIZE);
 	uart_transmit = 1;
-
 }
 /* USER CODE END 0 */
 
@@ -104,7 +102,7 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_SPI_Receive_IT(&hspi1, RX_Buffer, BUFFER_SIZE);
+  HAL_SPI_Receive_IT(&hspi1, SPI_IRQ_RX_BUFFER, SPI_IRQ_BUFFER_LENGTH);
   sprintf(newline_buffer, "\r\n");
 
   /* USER CODE END 2 */
@@ -116,7 +114,7 @@ int main(void)
 	if (uart_transmit == 1){
 
 		HAL_UART_Transmit(&huart1, &newline_buffer, 2, 100);
-		HAL_UART_Transmit(&huart1, &RX_Buffer, sizeof(RX_Buffer), 100);
+		HAL_UART_Transmit(&huart1, &SPI_IRQ_RX_BUFFER, SPI_IRQ_BUFFER_LENGTH, 100);
 		uart_transmit = 0;
 	}
 

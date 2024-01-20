@@ -196,6 +196,7 @@ int main(void)
 
   /* Start scheduler */
   osKernelStart();
+
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -565,7 +566,6 @@ void startUart2TrafficEntry(void *argument)
 /* sendUart2TrafficEntry function */
 void sendUart2TrafficEntry(void *argument)
 {
-
   /* USER CODE BEGIN sendUart2TrafficEntry */
 	SEGGER_SYSVIEW_PrintfHost("traffic");
 	HAL_UART_Transmit(&huart2, uart2Msg, sizeof(uart2Msg), 100);

@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .comment      00000043  00000000  00000000  00020085  2**0
                   CONTENTS, READONLY
- 13 .debug_info   0000903a  00000000  00000000  000200c8  2**0
+ 13 .debug_info   00009029  00000000  00000000  000200c8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 000018d2  00000000  00000000  00029102  2**0
+ 14 .debug_abbrev 000018d2  00000000  00000000  000290f1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00000890  00000000  00000000  0002a9d8  2**3
+ 15 .debug_aranges 00000890  00000000  00000000  0002a9c8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00000692  00000000  00000000  0002b268  2**0
+ 16 .debug_rnglists 00000692  00000000  00000000  0002b258  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0001665a  00000000  00000000  0002b8fa  2**0
+ 17 .debug_macro  0001665a  00000000  00000000  0002b8ea  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0000a4c0  00000000  00000000  00041f54  2**0
+ 18 .debug_line   0000a4c0  00000000  00000000  00041f44  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00081f04  00000000  00000000  0004c414  2**0
+ 19 .debug_str    00081f0d  00000000  00000000  0004c404  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00002754  00000000  00000000  000ce318  2**2
+ 20 .debug_frame  00002754  00000000  00000000  000ce314  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000060  00000000  00000000  000d0a6c  2**0
+ 21 .debug_line_str 00000060  00000000  00000000  000d0a68  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -79,8 +79,8 @@ Disassembly of section .text:
  8000148:	08003720 	.word	0x08003720
 
 0800014c <HAL_SPI_RxCpltCallback>:
-uint8_t RX_Buffer[BUFFER_SIZE] = {0};
-uint8_t RX_dummy[BUFFER_SIZE] = {0};
+#define SPI_IRQ_BUFFER_LENGTH 20
+uint8_t SPI_IRQ_RX_BUFFER[SPI_IRQ_BUFFER_LENGTH] = {0};
 uint8_t newline_buffer[2] = {0};
 uint8_t uart_transmit = 0;
 
@@ -89,29 +89,28 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
  800014e:	b082      	sub	sp, #8
  8000150:	af00      	add	r7, sp, #0
  8000152:	6078      	str	r0, [r7, #4]
+	HAL_SPI_Receive_IT(&hspi1, SPI_IRQ_RX_BUFFER, SPI_IRQ_BUFFER_LENGTH);
+ 8000154:	2214      	movs	r2, #20
+ 8000156:	4908      	ldr	r1, [pc, #32]	; (8000178 <HAL_SPI_RxCpltCallback+0x2c>)
+ 8000158:	4808      	ldr	r0, [pc, #32]	; (800017c <HAL_SPI_RxCpltCallback+0x30>)
+ 800015a:	f001 fb21 	bl	80017a0 <HAL_SPI_Receive_IT>
 	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
- 8000154:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8000158:	4807      	ldr	r0, [pc, #28]	; (8000178 <HAL_SPI_RxCpltCallback+0x2c>)
- 800015a:	f000 fe73 	bl	8000e44 <HAL_GPIO_TogglePin>
-	HAL_SPI_Receive_IT(&hspi1, RX_Buffer, BUFFER_SIZE);
- 800015e:	2214      	movs	r2, #20
- 8000160:	4906      	ldr	r1, [pc, #24]	; (800017c <HAL_SPI_RxCpltCallback+0x30>)
+ 800015e:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000162:	4807      	ldr	r0, [pc, #28]	; (8000180 <HAL_SPI_RxCpltCallback+0x34>)
- 8000164:	f001 fb1c 	bl	80017a0 <HAL_SPI_Receive_IT>
+ 8000164:	f000 fe6e 	bl	8000e44 <HAL_GPIO_TogglePin>
 	uart_transmit = 1;
  8000168:	4b06      	ldr	r3, [pc, #24]	; (8000184 <HAL_SPI_RxCpltCallback+0x38>)
  800016a:	2201      	movs	r2, #1
  800016c:	701a      	strb	r2, [r3, #0]
-
 }
  800016e:	bf00      	nop
  8000170:	3708      	adds	r7, #8
  8000172:	46bd      	mov	sp, r7
  8000174:	bd80      	pop	{r7, pc}
  8000176:	bf00      	nop
- 8000178:	40011000 	.word	0x40011000
- 800017c:	20000118 	.word	0x20000118
- 8000180:	20000078 	.word	0x20000078
+ 8000178:	20000118 	.word	0x20000118
+ 800017c:	20000078 	.word	0x20000078
+ 8000180:	40011000 	.word	0x40011000
  8000184:	2000012e 	.word	0x2000012e
 
 08000188 <main>:
@@ -149,7 +148,7 @@ int main(void)
   MX_USART1_UART_Init();
  800019c:	f000 f8a2 	bl	80002e4 <MX_USART1_UART_Init>
   /* USER CODE BEGIN 2 */
-  HAL_SPI_Receive_IT(&hspi1, RX_Buffer, BUFFER_SIZE);
+  HAL_SPI_Receive_IT(&hspi1, SPI_IRQ_RX_BUFFER, SPI_IRQ_BUFFER_LENGTH);
  80001a0:	2214      	movs	r2, #20
  80001a2:	490e      	ldr	r1, [pc, #56]	; (80001dc <main+0x54>)
  80001a4:	480e      	ldr	r0, [pc, #56]	; (80001e0 <main+0x58>)
@@ -175,7 +174,7 @@ int main(void)
  80001be:	490a      	ldr	r1, [pc, #40]	; (80001e8 <main+0x60>)
  80001c0:	480b      	ldr	r0, [pc, #44]	; (80001f0 <main+0x68>)
  80001c2:	f002 f828 	bl	8002216 <HAL_UART_Transmit>
-		HAL_UART_Transmit(&huart1, &RX_Buffer, sizeof(RX_Buffer), 100);
+		HAL_UART_Transmit(&huart1, &SPI_IRQ_RX_BUFFER, SPI_IRQ_BUFFER_LENGTH, 100);
  80001c6:	2364      	movs	r3, #100	; 0x64
  80001c8:	2214      	movs	r2, #20
  80001ca:	4904      	ldr	r1, [pc, #16]	; (80001dc <main+0x54>)

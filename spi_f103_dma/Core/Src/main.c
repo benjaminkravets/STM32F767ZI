@@ -63,17 +63,14 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 #define SPI_DMA_BUFFER_LENGTH 20
 uint8_t SPI_DMA_RX_BUFFER[SPI_DMA_BUFFER_LENGTH] = {0};
-uint8_t uart_transmit = 0;
 uint8_t newline_buffer[2] = {0};
-
+uint8_t uart_transmit = 0;
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 	HAL_SPI_Receive_DMA(&hspi1, SPI_DMA_RX_BUFFER, SPI_DMA_BUFFER_LENGTH);
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 	uart_transmit = 1;
-
 }
-
 
 /* USER CODE END 0 */
 

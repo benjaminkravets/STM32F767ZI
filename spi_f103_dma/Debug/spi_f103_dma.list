@@ -21,9 +21,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   8 .data         0000005c  20000000  08003b9c  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000026c  2000005c  08003bf8  0002005c  2**2
+  9 .bss          00000268  2000005c  08003bf8  0002005c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  200002c8  08003bf8  000202c8  2**0
+ 10 ._user_heap_stack 00000604  200002c4  08003bf8  000202c4  2**0
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002005c  2**0
                   CONTENTS, READONLY
@@ -79,40 +79,39 @@ Disassembly of section .text:
  8000148:	08003b18 	.word	0x08003b18
 
 0800014c <HAL_SPI_RxCpltCallback>:
+#define SPI_DMA_BUFFER_LENGTH 20
 uint8_t SPI_DMA_RX_BUFFER[SPI_DMA_BUFFER_LENGTH] = {0};
-uint8_t uart_transmit = 0;
 uint8_t newline_buffer[2] = {0};
-
+uint8_t uart_transmit = 0;
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
  800014c:	b580      	push	{r7, lr}
  800014e:	b082      	sub	sp, #8
  8000150:	af00      	add	r7, sp, #0
  8000152:	6078      	str	r0, [r7, #4]
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
- 8000154:	f44f 5100 	mov.w	r1, #8192	; 0x2000
- 8000158:	4807      	ldr	r0, [pc, #28]	; (8000178 <HAL_SPI_RxCpltCallback+0x2c>)
- 800015a:	f001 f8b7 	bl	80012cc <HAL_GPIO_TogglePin>
 	HAL_SPI_Receive_DMA(&hspi1, SPI_DMA_RX_BUFFER, SPI_DMA_BUFFER_LENGTH);
- 800015e:	2214      	movs	r2, #20
- 8000160:	4906      	ldr	r1, [pc, #24]	; (800017c <HAL_SPI_RxCpltCallback+0x30>)
+ 8000154:	2214      	movs	r2, #20
+ 8000156:	4908      	ldr	r1, [pc, #32]	; (8000178 <HAL_SPI_RxCpltCallback+0x2c>)
+ 8000158:	4808      	ldr	r0, [pc, #32]	; (800017c <HAL_SPI_RxCpltCallback+0x30>)
+ 800015a:	f001 fd65 	bl	8001c28 <HAL_SPI_Receive_DMA>
+	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+ 800015e:	f44f 5100 	mov.w	r1, #8192	; 0x2000
  8000162:	4807      	ldr	r0, [pc, #28]	; (8000180 <HAL_SPI_RxCpltCallback+0x34>)
- 8000164:	f001 fd60 	bl	8001c28 <HAL_SPI_Receive_DMA>
+ 8000164:	f001 f8b2 	bl	80012cc <HAL_GPIO_TogglePin>
 	uart_transmit = 1;
  8000168:	4b06      	ldr	r3, [pc, #24]	; (8000184 <HAL_SPI_RxCpltCallback+0x38>)
  800016a:	2201      	movs	r2, #1
  800016c:	701a      	strb	r2, [r3, #0]
-
 }
  800016e:	bf00      	nop
  8000170:	3708      	adds	r7, #8
  8000172:	46bd      	mov	sp, r7
  8000174:	bd80      	pop	{r7, pc}
  8000176:	bf00      	nop
- 8000178:	40011000 	.word	0x40011000
- 800017c:	2000015c 	.word	0x2000015c
- 8000180:	20000078 	.word	0x20000078
- 8000184:	20000170 	.word	0x20000170
+ 8000178:	2000015c 	.word	0x2000015c
+ 800017c:	20000078 	.word	0x20000078
+ 8000180:	40011000 	.word	0x40011000
+ 8000184:	20000172 	.word	0x20000172
 
 08000188 <main>:
 /**
@@ -194,8 +193,8 @@ int main(void)
  80001e0:	2000015c 	.word	0x2000015c
  80001e4:	20000078 	.word	0x20000078
  80001e8:	08003b30 	.word	0x08003b30
- 80001ec:	20000174 	.word	0x20000174
- 80001f0:	20000170 	.word	0x20000170
+ 80001ec:	20000170 	.word	0x20000170
+ 80001f0:	20000172 	.word	0x20000172
  80001f4:	20000114 	.word	0x20000114
 
 080001f8 <SystemClock_Config>:
@@ -1251,7 +1250,7 @@ void *_sbrk(ptrdiff_t incr)
  8000706:	bd80      	pop	{r7, pc}
  8000708:	20005000 	.word	0x20005000
  800070c:	00000400 	.word	0x00000400
- 8000710:	20000178 	.word	0x20000178
+ 8000710:	20000174 	.word	0x20000174
  8000714:	200002c8 	.word	0x200002c8
 
 08000718 <SystemInit>:
@@ -1358,7 +1357,7 @@ LoopFillZerobss:
   ldr r2, =_sbss
  8000764:	2000005c 	.word	0x2000005c
   ldr r4, =_ebss
- 8000768:	200002c8 	.word	0x200002c8
+ 8000768:	200002c4 	.word	0x200002c4
 
 0800076c <ADC1_2_IRQHandler>:
  * @retval : None
@@ -1506,7 +1505,7 @@ __weak void HAL_IncTick(void)
  8000814:	bc80      	pop	{r7}
  8000816:	4770      	bx	lr
  8000818:	20000008 	.word	0x20000008
- 800081c:	2000017c 	.word	0x2000017c
+ 800081c:	20000178 	.word	0x20000178
 
 08000820 <HAL_GetTick>:
   * @note  This function is declared as __weak to be overwritten in case of other
@@ -1525,7 +1524,7 @@ __weak uint32_t HAL_GetTick(void)
  800082a:	46bd      	mov	sp, r7
  800082c:	bc80      	pop	{r7}
  800082e:	4770      	bx	lr
- 8000830:	2000017c 	.word	0x2000017c
+ 8000830:	20000178 	.word	0x20000178
 
 08000834 <__NVIC_SetPriorityGrouping>:
            In case of a conflict between priority grouping and available
@@ -9070,7 +9069,7 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  80032e2:	6054      	str	r4, [r2, #4]
  80032e4:	e7cb      	b.n	800327e <_free_r+0x22>
  80032e6:	bd38      	pop	{r3, r4, r5, pc}
- 80032e8:	200002c0 	.word	0x200002c0
+ 80032e8:	200002bc 	.word	0x200002bc
 
 080032ec <sbrk_aligned>:
  80032ec:	b570      	push	{r4, r5, r6, lr}
@@ -9098,7 +9097,7 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8003320:	f04f 34ff 	mov.w	r4, #4294967295
  8003324:	4620      	mov	r0, r4
  8003326:	bd70      	pop	{r4, r5, r6, pc}
- 8003328:	200002c4 	.word	0x200002c4
+ 8003328:	200002c0 	.word	0x200002c0
 
 0800332c <_malloc_r>:
  800332c:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -9209,19 +9208,19 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8003422:	605b      	str	r3, [r3, #4]
  8003424:	deff      	udf	#255	; 0xff
  8003426:	bf00      	nop
- 8003428:	200002c0 	.word	0x200002c0
+ 8003428:	200002bc 	.word	0x200002bc
 
 0800342c <__malloc_lock>:
  800342c:	4801      	ldr	r0, [pc, #4]	; (8003434 <__malloc_lock+0x8>)
  800342e:	f7ff bf13 	b.w	8003258 <__retarget_lock_acquire_recursive>
  8003432:	bf00      	nop
- 8003434:	200002bc 	.word	0x200002bc
+ 8003434:	200002b8 	.word	0x200002b8
 
 08003438 <__malloc_unlock>:
  8003438:	4801      	ldr	r0, [pc, #4]	; (8003440 <__malloc_unlock+0x8>)
  800343a:	f7ff bf0e 	b.w	800325a <__retarget_lock_release_recursive>
  800343e:	bf00      	nop
- 8003440:	200002bc 	.word	0x200002bc
+ 8003440:	200002b8 	.word	0x200002b8
 
 08003444 <__ssputs_r>:
  8003444:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -9877,7 +9876,7 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8003a66:	b103      	cbz	r3, 8003a6a <_sbrk_r+0x1a>
  8003a68:	6023      	str	r3, [r4, #0]
  8003a6a:	bd38      	pop	{r3, r4, r5, pc}
- 8003a6c:	200002b8 	.word	0x200002b8
+ 8003a6c:	200002b4 	.word	0x200002b4
 
 08003a70 <memchr>:
  8003a70:	4603      	mov	r3, r0
