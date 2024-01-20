@@ -146,18 +146,14 @@ int main(void)
 		spi_buf[i] = 33;
 	}
 
-	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-
+	//Chip select not needed for this demo since there is only one worker
 	//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	//HAL_SPI_Transmit(&hspi1, (uint8_t*)&EEPROM_WREN, 1, 100);
+
+	HAL_SPI_Transmit(&hspi1, (uint8_t*)spi_buf, sizeof(spi_buf), 100);
+
 	//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	//HAL_SPI_Transmit_IT(&hspi1, (uint8_t*)spi_buf, 50);
-	HAL_SPI_Transmit(&hspi1, (uint8_t*)spi_buf, sizeof(spi_buf), 100);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 
-	//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 
 
@@ -303,7 +299,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
