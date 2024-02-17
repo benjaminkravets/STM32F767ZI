@@ -60,8 +60,8 @@ all: main-build
 main-build: user_button_demo.elf secondary-outputs
 
 # Tool invocations
-user_button_demo.elf user_button_demo.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\user_button_demo\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "user_button_demo.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\user_button_demo\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="user_button_demo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+user_button_demo.elf user_button_demo.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\user_button_demo\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "user_button_demo.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\user_button_demo\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="user_button_demo.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

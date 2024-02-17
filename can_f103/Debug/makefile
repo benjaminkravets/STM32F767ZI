@@ -60,8 +60,8 @@ all: main-build
 main-build: can_f103.elf secondary-outputs
 
 # Tool invocations
-can_f103.elf can_f103.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\can_f103\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "can_f103.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\bakra\Desktop\packtBookRTOS\can_f103\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f103.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+can_f103.elf can_f103.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\can_f103\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "can_f103.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f103\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f103.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

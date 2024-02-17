@@ -60,8 +60,8 @@ all: main-build
 main-build: serial_debug_demo.elf secondary-outputs
 
 # Tool invocations
-serial_debug_demo.elf serial_debug_demo.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\serial_debug_demo\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "serial_debug_demo.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\bakra\Desktop\packtBookRTOS\serial_debug_demo\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="serial_debug_demo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+serial_debug_demo.elf serial_debug_demo.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\serial_debug_demo\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "serial_debug_demo.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\bakra\Desktop\STM32F767ZI\serial_debug_demo\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="serial_debug_demo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -65,8 +65,8 @@ all: main-build
 main-build: uart_queue.elf secondary-outputs
 
 # Tool invocations
-uart_queue.elf uart_queue.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\uart_queue\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "uart_queue.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\uart_queue\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="uart_queue.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+uart_queue.elf uart_queue.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\uart_queue\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "uart_queue.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\uart_queue\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="uart_queue.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

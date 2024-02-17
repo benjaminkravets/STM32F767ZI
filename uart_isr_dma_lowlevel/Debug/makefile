@@ -65,8 +65,8 @@ all: main-build
 main-build: uart_isr_dma_lowlevel.elf secondary-outputs
 
 # Tool invocations
-uart_isr_dma_lowlevel.elf uart_isr_dma_lowlevel.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\uart_isr_dma_lowlevel\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "uart_isr_dma_lowlevel.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\uart_isr_dma_lowlevel\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="uart_isr_dma_lowlevel.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+uart_isr_dma_lowlevel.elf uart_isr_dma_lowlevel.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\uart_isr_dma_lowlevel\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "uart_isr_dma_lowlevel.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\uart_isr_dma_lowlevel\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="uart_isr_dma_lowlevel.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

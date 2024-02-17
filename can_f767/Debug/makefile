@@ -60,8 +60,8 @@ all: main-build
 main-build: can_f767.elf secondary-outputs
 
 # Tool invocations
-can_f767.elf can_f767.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\packtBookRTOS\can_f767\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "can_f767.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\packtBookRTOS\can_f767\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+can_f767.elf can_f767.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\can_f767\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "can_f767.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
