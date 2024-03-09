@@ -63,21 +63,16 @@ uint8_t TxData[8];
 uint8_t RxData[8];
 
 uint32_t TxMailbox;
-int16_t irq_cooldown = 0;
 
 int reply_received = 0;
 
+//This callback is for a button press to activate a send for debugging
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
-	if (GPIO_Pin == GPIO_PIN_13 && irq_cooldown == 0){
-		//TxData[0] = 100;   // ms Delay
-		//TxData[1] = 10;    // loop rep
-
-		//TxData[0] = 0b0000100;
-		//TxData[1] = 0b0000100;
+	if (GPIO_Pin == GPIO_PIN_13){
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
 		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
-		irq_cooldown = 20000;
+
 	}
 }
 
@@ -128,12 +123,12 @@ int main(void)
   HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 
   TxHeader.DLC = 2;  // data length
-  TxHeader.IDE = CAN_ID_STD;
+  TxHeader.IDE = CAN_ID_STD; //Use standard ID, not extended
   TxHeader.RTR = CAN_RTR_DATA;
-  TxHeader.StdId = 0x446;  // ID
+  TxHeader.StdId = 0x123;  // ID
 
   TxData[0] = 100;
-  TxData[1] = 9;
+  TxData[1] = 3;
 
   /* USER CODE END 2 */
 
@@ -141,11 +136,16 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	if (irq_cooldown > 0){
-		irq_cooldown -= 1;
+
+	//Flip between transmitting as 123 and 432
+
+	if(TxHeader.StdId == 0x123){
+		TxHeader.StdId = 0x321;
+	} else {
+		TxHeader.StdId = 0x123;
 	}
 
-    HAL_Delay(3000);
+    HAL_Delay(2000);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
 	HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);
 	HAL_Delay(50);
@@ -238,20 +238,34 @@ static void MX_CAN1_Init(void)
   }
   /* USER CODE BEGIN CAN1_Init 2 */
 
-  CAN_FilterTypeDef canfilterconfig;
+  //First can filter is for the bluepill board
+  CAN_FilterTypeDef canfilterconfig1;
+  canfilterconfig1.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig1.FilterBank = 18;  // Use filter bank 18 of the 20 allocated
+  canfilterconfig1.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+  canfilterconfig1.FilterIdHigh = 0x103<<5;
+  canfilterconfig1.FilterIdLow = 0;
+  canfilterconfig1.FilterMaskIdHigh = 0x103<<5;
+  canfilterconfig1.FilterMaskIdLow = 0x0000;
+  canfilterconfig1.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig1.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig1.SlaveStartFilterBank = 20;  // Allocate first 20 filter banks for CAN0
+  HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig1);
 
-  canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
-  canfilterconfig.FilterBank = 18;  // which filter bank to use from the assigned ones
-  canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-  canfilterconfig.FilterIdHigh = 0x103<<5;
-  canfilterconfig.FilterIdLow = 0;
-  canfilterconfig.FilterMaskIdHigh = 0x103<<5;
-  canfilterconfig.FilterMaskIdLow = 0x0000;
-  canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canfilterconfig.SlaveStartFilterBank = 20;  // how many filters to assign to the CAN1 (master can)
+  //Second can filter is for the KW45 board
+  CAN_FilterTypeDef canfilterconfig2;
+  canfilterconfig2.FilterActivation = CAN_FILTER_ENABLE;
+  canfilterconfig2.FilterBank = 19;  // Use filter bank 19 of the 20 allocated
+  canfilterconfig2.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+  canfilterconfig2.FilterIdHigh = 0x45<<5;
+  canfilterconfig2.FilterIdLow = 0;
+  canfilterconfig2.FilterMaskIdHigh = 0x45<<5;
+  canfilterconfig2.FilterMaskIdLow = 0x0000;
+  canfilterconfig2.FilterMode = CAN_FILTERMODE_IDMASK;
+  canfilterconfig2.FilterScale = CAN_FILTERSCALE_32BIT;
+  canfilterconfig2.SlaveStartFilterBank = 20;  // Allocate first 20 filter banks for CAN0
+  HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig2);
 
-  HAL_CAN_ConfigFilter(&hcan1, &canfilterconfig);
 
   /* USER CODE END CAN1_Init 2 */
 

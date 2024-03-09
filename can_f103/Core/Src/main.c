@@ -64,14 +64,18 @@ uint8_t RxData[8];
 
 uint32_t TxMailbox;
 
-int datacheck = 0;
+uint8_t datacheck = 0;
+uint8_t led_blink_delay;
+uint8_t led_blink_count;
 
 
 void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, RxData);
 
-	//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	led_blink_delay = RxData[0];
+	led_blink_count = RxData[1];
+
 	if (RxHeader.DLC == 2)
 	{
 		datacheck = 1;
@@ -126,10 +130,10 @@ int main(void)
   {
 
 	if (datacheck){
-		for (int i=0; i<RxData[1]; i++)
+		for (int i=0; i<led_blink_count; i++)
 		{
 			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-			HAL_Delay(RxData[0]);
+			HAL_Delay(led_blink_delay);
 		}
 		datacheck = 0;
 
@@ -220,9 +224,9 @@ static void MX_CAN_Init(void)
   canfilterconfig.FilterActivation = CAN_FILTER_ENABLE;
   canfilterconfig.FilterBank = 10;  // which filter bank to use from the assigned ones
   canfilterconfig.FilterFIFOAssignment = CAN_FILTER_FIFO1;
-  canfilterconfig.FilterIdHigh = 0x446<<5;
+  canfilterconfig.FilterIdHigh = 0x123<<5;
   canfilterconfig.FilterIdLow = 0;
-  canfilterconfig.FilterMaskIdHigh = 0x446<<5;
+  canfilterconfig.FilterMaskIdHigh = 0x123<<5;
   canfilterconfig.FilterMaskIdLow = 0x0000;
   canfilterconfig.FilterMode = CAN_FILTERMODE_IDMASK;
   canfilterconfig.FilterScale = CAN_FILTERSCALE_32BIT;
