@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <math.h>
+#include "string.h"
+#include "EEPROM.h"
 
 /* USER CODE END Includes */
 
@@ -58,6 +59,14 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#define DEV_ADDR 0xa0
+uint8_t dataw1[] = "hello world from EEPROM";
+uint8_t dataw2[] = "This is the second string from EEPROM";
+float dataw3 = 1234.5678;
+
+uint8_t datar1[100];
+uint8_t datar2[100];
+float datar3;
 
 /* USER CODE END 0 */
 
@@ -91,6 +100,23 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+  for (int i=0; i<512; i++)
+  {
+	  EEPROM_PageErase(i);
+  }
+
+  EEPROM_Write(3, 0, dataw1, strlen((char *)dataw1));
+
+  EEPROM_Write(5, 20, dataw2, strlen((char *)dataw2));
+
+  EEPROM_Write_NUM (6, 0, dataw3);
+
+
+  EEPROM_Read(3, 0, datar1, 50);
+
+  EEPROM_Read(5, 15, datar2, 50);
+
+  datar3 = EEPROM_Read_NUM (6, 0);
 
   /* USER CODE END 2 */
 
