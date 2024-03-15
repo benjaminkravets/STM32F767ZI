@@ -70,7 +70,7 @@ float dataw3 = 1234.5678;
 uint8_t datar1[100];
 uint8_t datar2[100];
 float datar3;
-
+char float_str[10];
 /* USER CODE END 0 */
 
 /**
@@ -104,6 +104,7 @@ int main(void)
   MX_I2C1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
+  /*
   for (int i=0; i<512; i++)
   {
 	  EEPROM_PageErase(i);
@@ -114,7 +115,7 @@ int main(void)
   EEPROM_Write(5, 20, dataw2, strlen((char *)dataw2));
 
   EEPROM_Write_NUM (6, 0, dataw3);
-
+  */
 
   EEPROM_Read(3, 0, datar1, 50);
 
@@ -143,7 +144,10 @@ int main(void)
 	HAL_UART_Transmit(&huart4, &datar3, sizeof(datar3), 200);
 	HAL_UART_Transmit(&huart4, &newline, sizeof(newline), 200);
 
+	snprintf(&float_str, sizeof(float_str), "%f\r\n", datar3);
 
+	HAL_UART_Transmit(&huart4, &float_str, sizeof(float_str), 200);
+	HAL_UART_Transmit(&huart4, &newline, sizeof(newline), 200);
 
 
     /* USER CODE END WHILE */

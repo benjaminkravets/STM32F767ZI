@@ -61,7 +61,7 @@ main-build: AT24C256_eeprom.elf secondary-outputs
 
 # Tool invocations
 AT24C256_eeprom.elf AT24C256_eeprom.map: $(OBJS) $(USER_OBJS) C:\Users\bakra\Desktop\STM32F767ZI\AT24C256_eeprom\STM32F767ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "AT24C256_eeprom.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\AT24C256_eeprom\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AT24C256_eeprom.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "AT24C256_eeprom.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\AT24C256_eeprom\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AT24C256_eeprom.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

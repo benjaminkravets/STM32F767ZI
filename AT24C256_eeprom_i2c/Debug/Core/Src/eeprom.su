@@ -1,0 +1,2 @@
+../Core/Src/eeprom.c:24:10:remaining_bytes	16	static
+../Core/Src/eeprom.c:39:6:eeprom_write_bytes	32	static
