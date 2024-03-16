@@ -193,14 +193,16 @@ Discarded input sections
  .text.remaining_bytes
                 0x0000000000000000       0x32 ./Core/Src/eeprom.o
  .text.eeprom_write_bytes
-                0x0000000000000000       0x26 ./Core/Src/eeprom.o
- .debug_info    0x0000000000000000      0x154 ./Core/Src/eeprom.o
- .debug_abbrev  0x0000000000000000       0x9d ./Core/Src/eeprom.o
+                0x0000000000000000       0xcc ./Core/Src/eeprom.o
+ .text.eeprom_read_bytes
+                0x0000000000000000       0xc4 ./Core/Src/eeprom.o
+ .debug_info    0x0000000000000000      0x892 ./Core/Src/eeprom.o
+ .debug_abbrev  0x0000000000000000      0x1c1 ./Core/Src/eeprom.o
  .debug_aranges
-                0x0000000000000000       0x28 ./Core/Src/eeprom.o
+                0x0000000000000000       0x30 ./Core/Src/eeprom.o
  .debug_rnglists
-                0x0000000000000000       0x19 ./Core/Src/eeprom.o
- .debug_macro   0x0000000000000000      0x2c6 ./Core/Src/eeprom.o
+                0x0000000000000000       0x21 ./Core/Src/eeprom.o
+ .debug_macro   0x0000000000000000      0x2cc ./Core/Src/eeprom.o
  .debug_macro   0x0000000000000000      0xac0 ./Core/Src/eeprom.o
  .debug_macro   0x0000000000000000       0x22 ./Core/Src/eeprom.o
  .debug_macro   0x0000000000000000       0x8e ./Core/Src/eeprom.o
@@ -261,10 +263,10 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x16 ./Core/Src/eeprom.o
  .debug_macro   0x0000000000000000       0x35 ./Core/Src/eeprom.o
  .debug_macro   0x0000000000000000       0x20 ./Core/Src/eeprom.o
- .debug_line    0x0000000000000000      0x8cf ./Core/Src/eeprom.o
- .debug_str     0x0000000000000000    0xee770 ./Core/Src/eeprom.o
+ .debug_line    0x0000000000000000      0x9c4 ./Core/Src/eeprom.o
+ .debug_str     0x0000000000000000    0xeed47 ./Core/Src/eeprom.o
  .comment       0x0000000000000000       0x44 ./Core/Src/eeprom.o
- .debug_frame   0x0000000000000000       0x60 ./Core/Src/eeprom.o
+ .debug_frame   0x0000000000000000       0x88 ./Core/Src/eeprom.o
  .ARM.attributes
                 0x0000000000000000       0x32 ./Core/Src/eeprom.o
  .group         0x0000000000000000        0xc ./Core/Src/main.o
