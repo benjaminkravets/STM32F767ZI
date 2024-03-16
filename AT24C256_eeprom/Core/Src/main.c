@@ -104,7 +104,7 @@ int main(void)
   MX_I2C1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-  /*
+
   for (int i=0; i<512; i++)
   {
 	  EEPROM_PageErase(i);
@@ -115,7 +115,7 @@ int main(void)
   EEPROM_Write(5, 20, dataw2, strlen((char *)dataw2));
 
   EEPROM_Write_NUM (6, 0, dataw3);
-  */
+
 
   EEPROM_Read(3, 0, datar1, 50);
 

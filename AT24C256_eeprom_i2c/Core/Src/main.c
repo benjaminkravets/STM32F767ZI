@@ -21,6 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "string.h"
+#include "EEPROM.h"
 
 /* USER CODE END Includes */
 
@@ -60,6 +62,17 @@ static void MX_UART4_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#define DEV_ADDR 0xa0
+uint8_t dataw1[] = "hello from STM32 to EEPROM!";
+uint8_t dataw2[] = "goodbye from STM32 to EEPROM!";
+
+uint8_t datar1[100];
+uint8_t datar2[100];
+
+void print_to_uart(uint8_t* str){
+	HAL_UART_Transmit(&huart4, str, strlen(str), 500);
+	HAL_UART_Transmit(&huart4, "\r\n", 2, 500);
+}
 
 /* USER CODE END 0 */
 
@@ -95,14 +108,38 @@ int main(void)
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
 
+
+  for (int i = 0; i < PAGE_SIZE; i++){
+	  eeprom_erasepage(&hi2c1, i);
+  }
+
+  eeprom_write_bytes(&hi2c1, 26, 7, dataw1, strlen((char *)dataw1));
+
+  eeprom_write_bytes(&hi2c1, 42, 20, dataw2, strlen((char *)dataw2));
+
+
+  eeprom_read_bytes(&hi2c1, 26, 0, datar1, 50);
+
+  eeprom_read_bytes(&hi2c1, 42, 15, datar2, 50);
+
+
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	HAL_Delay(1000);
+
+	print_to_uart(&datar1);
+	print_to_uart(&datar2);
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
