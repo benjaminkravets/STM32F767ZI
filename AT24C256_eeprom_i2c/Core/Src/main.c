@@ -82,6 +82,7 @@ void print_to_uart(uint8_t* str){
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
