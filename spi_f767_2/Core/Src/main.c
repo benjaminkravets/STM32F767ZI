@@ -61,7 +61,7 @@ static void MX_UART4_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-#define TRANSFER_SIZE 64
+#define TRANSFER_SIZE 32
 
 void print_to_uart(uint8_t* str){
 	HAL_UART_Transmit(&huart4, str, strlen(str), 500);
@@ -69,7 +69,6 @@ void print_to_uart(uint8_t* str){
 }
 
 uint8_t test_str[30] = "my test str";
-
 
 /* USER CODE END 0 */
 
@@ -109,8 +108,13 @@ int main(void)
   char funny_bytes[TRANSFER_SIZE];
 
   for (int8_t i = 0; i < TRANSFER_SIZE; i++){
+	  //transfer_bytes[i] = 67;
+
 	  transfer_bytes[i] = i;
+
   }
+  //transfer_bytes[62] = 255;
+  //transfer_bytes[63] = 255;
 
   for (int8_t i = 0; i < TRANSFER_SIZE; i++){
 	  funny_bytes[i] = (i);
@@ -125,10 +129,13 @@ int main(void)
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	HAL_Delay(1000);
 	print_to_uart(funny_bytes);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
-	//HAL_SPI_Transmit(&hspi1, transfer_bytes, TRANSFER_SIZE, 500);
-	HAL_SPI_Transmit_IT(&hspi1, transfer_bytes, TRANSFER_SIZE);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi1, transfer_bytes, TRANSFER_SIZE, 500);
+	//HAL_SPI_Transmit_IT(&hspi1, transfer_bytes, TRANSFER_SIZE);
+
+
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
     /* USER CODE END WHILE */
 
@@ -207,7 +214,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -273,13 +280,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_15, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LD1_Pin|LD3_Pin|GPIO_PIN_4|LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : USER_Btn_Pin */
   GPIO_InitStruct.Pin = USER_Btn_Pin;
@@ -301,6 +308,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA4 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD1_Pin LD3_Pin PB4 LD2_Pin */
@@ -352,13 +366,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USB_VBUS_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_15;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : RMII_TX_EN_Pin RMII_TXD0_Pin */
   GPIO_InitStruct.Pin = RMII_TX_EN_Pin|RMII_TXD0_Pin;
