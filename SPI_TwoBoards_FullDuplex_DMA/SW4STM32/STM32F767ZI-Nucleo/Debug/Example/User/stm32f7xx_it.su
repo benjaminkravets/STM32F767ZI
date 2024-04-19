@@ -1,0 +1,12 @@
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:49:6:NMI_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:58:6:HardFault_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:71:6:MemManage_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:84:6:BusFault_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:97:6:UsageFault_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:110:6:SVC_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:119:6:DebugMon_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:128:6:PendSV_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:137:6:SysTick_Handler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:153:6:EXTI15_10_IRQHandler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:170:6:DMA2_Stream2_IRQHandler	0	static
+C:/Users/bakra/Desktop/STM32F767ZI/SPI_TwoBoards_FullDuplex_DMA/Src/stm32f7xx_it.c:192:6:DMA2_Stream3_IRQHandler	0	static

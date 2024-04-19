@@ -80,6 +80,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */

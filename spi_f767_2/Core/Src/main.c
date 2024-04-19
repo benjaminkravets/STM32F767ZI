@@ -42,8 +42,12 @@
 /* Private variables ---------------------------------------------------------*/
 
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_spi1_tx;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 UART_HandleTypeDef huart4;
+DMA_HandleTypeDef hdma_uart4_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -52,8 +56,10 @@ UART_HandleTypeDef huart4;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
+static void MX_DMA_Init(void);
 static void MX_UART4_Init(void);
+static void MX_SPI1_Init(void);
+static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -61,11 +67,16 @@ static void MX_UART4_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-#define TRANSFER_SIZE 32
+#define TRANSFER_SIZE 64
 
 void print_to_uart(uint8_t* str){
 	HAL_UART_Transmit(&huart4, str, strlen(str), 500);
 	HAL_UART_Transmit(&huart4, "\r\n", 2, 500);
+
+	//HAL_UART_Transmit_DMA(&huart4, str, strlen(str));
+	//HAL_UART_Transmit_DMA(&huart4, "\r\n", 2);
+
+
 }
 
 uint8_t test_str[30] = "my test str";
@@ -101,11 +112,15 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI1_Init();
+  MX_DMA_Init();
   MX_UART4_Init();
+  MX_SPI1_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
+
   uint8_t transfer_bytes[TRANSFER_SIZE];
-  char funny_bytes[TRANSFER_SIZE];
+
+
 
   for (int8_t i = 0; i < TRANSFER_SIZE; i++){
 	  //transfer_bytes[i] = 67;
@@ -113,12 +128,9 @@ int main(void)
 	  transfer_bytes[i] = i;
 
   }
-  //transfer_bytes[62] = 255;
-  //transfer_bytes[63] = 255;
 
-  for (int8_t i = 0; i < TRANSFER_SIZE; i++){
-	  funny_bytes[i] = (i);
-  }
+  //HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi1, transfer_bytes, TRANSFER_SIZE);
+
 
   /* USER CODE END 2 */
 
@@ -128,13 +140,19 @@ int main(void)
   {
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 	HAL_Delay(1000);
-	print_to_uart(funny_bytes);
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
-	HAL_SPI_Transmit(&hspi1, transfer_bytes, TRANSFER_SIZE, 500);
+	//HAL_StatusTypeDef here = HAL_SPI_Transmit(&hspi1, transfer_bytes, TRANSFER_SIZE, 500);
 	//HAL_SPI_Transmit_IT(&hspi1, transfer_bytes, TRANSFER_SIZE);
 
+	//HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi1, test_str, TRANSFER_SIZE);
+	HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
 
+	if (here == HAL_ERROR) {
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+	}
+
+	print_to_uart(test_str);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
     /* USER CODE END WHILE */
@@ -207,7 +225,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
   hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
@@ -222,6 +240,46 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 7;
+  hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi2.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
 
 }
 
@@ -257,6 +315,29 @@ static void MX_UART4_Init(void)
   /* USER CODE BEGIN UART4_Init 2 */
 
   /* USER CODE END UART4_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+  /* DMA1_Stream6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
+  /* DMA2_Stream3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
 
 }
 
