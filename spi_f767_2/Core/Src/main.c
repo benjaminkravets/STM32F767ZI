@@ -43,6 +43,7 @@
 
 SPI_HandleTypeDef hspi2;
 DMA_HandleTypeDef hdma_spi2_tx;
+DMA_HandleTypeDef hdma_spi2_rx;
 
 UART_HandleTypeDef huart4;
 DMA_HandleTypeDef hdma_uart4_tx;
@@ -66,6 +67,9 @@ static void MX_SPI2_Init(void);
 
 #define TRANSFER_SIZE 64
 
+uint8_t transfer_bytes[TRANSFER_SIZE];
+uint8_t receive_bytes[TRANSFER_SIZE] = {0};
+
 void print_to_uart(uint8_t* str){
 	HAL_UART_Transmit(&huart4, str, strlen(str), 500);
 	HAL_UART_Transmit(&huart4, "\r\n", 2, 500);
@@ -74,12 +78,19 @@ void print_to_uart(uint8_t* str){
 	//HAL_UART_Transmit_DMA(&huart4, "\r\n", 2);
 
 
+
 }
 
 uint8_t test_str[30] = "my test str";
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+}
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+	//HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
+
 }
 /* USER CODE END 0 */
 
@@ -117,20 +128,12 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
 
-  uint8_t transfer_bytes[TRANSFER_SIZE];
-
-
-
   for (int8_t i = 0; i < TRANSFER_SIZE; i++){
-	  //transfer_bytes[i] = 67;
-
 	  transfer_bytes[i] = i;
-
   }
 
   //HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi1, transfer_bytes, TRANSFER_SIZE);
-
-
+  HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -145,13 +148,17 @@ int main(void)
 	//HAL_StatusTypeDef here =  HAL_SPI_Transmit_IT(&hspi1, transfer_bytes, TRANSFER_SIZE);
 	//HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi1, transfer_bytes, TRANSFER_SIZE);
 	HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
-
+	HAL_Delay(10);
+	//HAL_SPI_Receive(&hspi2, receive_bytes, TRANSFER_SIZE, 100);
+	here = HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
+	HAL_Delay(10);
 	if (here == HAL_ERROR) {
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
 	}
 
 	print_to_uart(test_str);
-
+	//HAL_Delay(10);
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
     /* USER CODE END WHILE */
 
@@ -286,6 +293,9 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
+  /* DMA1_Stream1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream1_IRQn);
   /* DMA1_Stream4_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
