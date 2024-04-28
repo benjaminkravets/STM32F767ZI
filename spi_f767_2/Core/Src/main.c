@@ -42,8 +42,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 SPI_HandleTypeDef hspi2;
-DMA_HandleTypeDef hdma_spi2_tx;
 DMA_HandleTypeDef hdma_spi2_rx;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 UART_HandleTypeDef huart4;
 DMA_HandleTypeDef hdma_uart4_tx;
@@ -67,31 +67,28 @@ static void MX_SPI2_Init(void);
 
 #define TRANSFER_SIZE 64
 
-uint8_t transfer_bytes[TRANSFER_SIZE];
+uint8_t transfer_bytes[TRANSFER_SIZE] = {0};
 uint8_t receive_bytes[TRANSFER_SIZE] = {0};
 
 void print_to_uart(uint8_t* str){
-	HAL_UART_Transmit(&huart4, str, strlen(str), 500);
-	HAL_UART_Transmit(&huart4, "\r\n", 2, 500);
-
-	//HAL_UART_Transmit_DMA(&huart4, str, strlen(str));
-	//HAL_UART_Transmit_DMA(&huart4, "\r\n", 2);
-
-
-
+	HAL_UART_Transmit(&huart4, str, 64, 500);
+	HAL_UART_Transmit(&huart4, " ", 1, 500);
 }
 
 uint8_t test_str[30] = "my test str";
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 {
+	//HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
 	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 }
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 	//HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
 
 }
+
 /* USER CODE END 0 */
 
 /**
@@ -129,11 +126,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   for (int8_t i = 0; i < TRANSFER_SIZE; i++){
-	  transfer_bytes[i] = i;
+	  transfer_bytes[i] = i + 0;
   }
 
   //HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi1, transfer_bytes, TRANSFER_SIZE);
-  HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
+  //HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -144,21 +141,24 @@ int main(void)
 	HAL_Delay(1000);
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
-	//HAL_StatusTypeDef here = HAL_SPI_Transmit(&hspi1, transfer_bytes, TRANSFER_SIZE, 500);
+	//HAL_StatusTypeDef here = HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 500);
 	//HAL_StatusTypeDef here =  HAL_SPI_Transmit_IT(&hspi1, transfer_bytes, TRANSFER_SIZE);
-	//HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi1, transfer_bytes, TRANSFER_SIZE);
 	HAL_StatusTypeDef here = HAL_SPI_Transmit_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
-	HAL_Delay(10);
-	//HAL_SPI_Receive(&hspi2, receive_bytes, TRANSFER_SIZE, 100);
-	here = HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
-	HAL_Delay(10);
+
+	//print_to_uart(transfer_bytes);
+	HAL_Delay(30);
+	//HAL_SPI_Receive(&hspi2, receive_bytes, TRANSFER_SIZE, 200);
+	HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
+	HAL_Delay(30);
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+	//print_to_uart(receive_bytes);
+
 	if (here == HAL_ERROR) {
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
 	}
 
-	print_to_uart(test_str);
-	//HAL_Delay(10);
-	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+	print_to_uart(receive_bytes);
 
     /* USER CODE END WHILE */
 
@@ -231,7 +231,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;

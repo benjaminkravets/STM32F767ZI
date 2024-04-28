@@ -58,6 +58,7 @@ void SysTick_Handler(void);
 void DMA1_Stream1_IRQHandler(void);
 void DMA1_Stream4_IRQHandler(void);
 void DMA1_Stream6_IRQHandler(void);
+void SPI2_IRQHandler(void);
 void UART4_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
