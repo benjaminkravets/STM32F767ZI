@@ -64,13 +64,13 @@ static void MX_UART4_Init(void);
 /* USER CODE BEGIN 0 */
 #define TRANSFER_SIZE 64
 
-uint8_t receive_bytes[TRANSFER_SIZE] = {0};
+uint8_t transfer_bytes[TRANSFER_SIZE] = {0};
 uint8_t receive_queued = 0;
 uint8_t rcpts = 65;
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-	//HAL_SPI_Receive_IT(&hspi2, receive_bytes, TRANSFER_SIZE);
+	//HAL_SPI_Receive_IT(&hspi2, transfer_bytes, TRANSFER_SIZE);
 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
 	receive_queued = 1;
 	rcpts += 1;
@@ -78,7 +78,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 }
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-	HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
+	HAL_SPI_Receive_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
 
 }
 
@@ -94,7 +94,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   for (uint8_t i = 0; i < 64; i++){
-	  receive_bytes[i] = i + 64;
+	  transfer_bytes[i] = i + 64;
   }
 
   /* USER CODE END 1 */
@@ -122,7 +122,7 @@ int main(void)
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_SPI_Receive_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
+  HAL_SPI_Receive_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
 
   /* USER CODE END 2 */
 
@@ -133,26 +133,25 @@ int main(void)
 
 	  if (receive_queued == 1){
 
-		  HAL_UART_Transmit_IT(&huart4, receive_bytes, TRANSFER_SIZE);
+		  HAL_UART_Transmit_IT(&huart4, transfer_bytes, TRANSFER_SIZE);
 		  //HAL_UART_Transmit_IT(&huart4, &rcpts, 1);
 		  /*
-		  if (HAL_SPI_Transmit(&hspi2, receive_bytes, TRANSFER_SIZE, 1000) != HAL_OK){
+		  if (HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 1000) != HAL_OK){
 			  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 		  } */
 
+		  for(uint8_t i = 0; i < TRANSFER_SIZE; i++){
+			  transfer_bytes[i] += 1;
+		  }
 
+		  HAL_SPI_Transmit_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
 
-		  HAL_SPI_Transmit_DMA(&hspi2, receive_bytes, TRANSFER_SIZE);
-
-
-
-		  //HAL_SPI_Transmit(&hspi2, receive_bytes, TRANSFER_SIZE, 100);
 
 		  receive_queued = 0;
 	  }
 	  //HAL_Delay(1000);
-	  //HAL_SPI_Transmit(&hspi2, receive_bytes, TRANSFER_SIZE, 500);
-	  //HAL_UART_Transmit_IT(&huart4, receive_bytes, TRANSFER_SIZE);
+	  //HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 500);
+	  //HAL_UART_Transmit_IT(&huart4, transfer_bytes, TRANSFER_SIZE);
 	  //
 
     /* USER CODE END WHILE */

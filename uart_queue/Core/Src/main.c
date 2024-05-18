@@ -58,9 +58,9 @@ __attribute__((at(0x2007c000))) ETH_DMADescTypeDef  DMARxDscrTab[ETH_RX_DESC_CNT
 __attribute__((at(0x2007c0a0))) ETH_DMADescTypeDef  DMATxDscrTab[ETH_TX_DESC_CNT]; /* Ethernet Tx DMA Descriptors */
 
 #elif defined ( __GNUC__ ) /* GNU Compiler */
+
 ETH_DMADescTypeDef DMARxDscrTab[ETH_RX_DESC_CNT] __attribute__((section(".RxDecripSection"))); /* Ethernet Rx DMA Descriptors */
 ETH_DMADescTypeDef DMATxDscrTab[ETH_TX_DESC_CNT] __attribute__((section(".TxDecripSection")));   /* Ethernet Tx DMA Descriptors */
-
 #endif
 
 ETH_TxPacketConfig TxConfig;
@@ -136,6 +136,7 @@ void sendTimerEntry(void *argument);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -191,7 +192,6 @@ int main(void)
   /* Create the queue(s) */
   /* creation of uart2_queue */
   uart2_queueHandle = osMessageQueueNew (16, sizeof(uint16_t), &uart2_queue_attributes);
-  //uart2_queueHandle = xQueueCreate(10, sizeof(char));
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -217,7 +217,9 @@ int main(void)
 
   /* Start scheduler */
   osKernelStart();
+
   /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)

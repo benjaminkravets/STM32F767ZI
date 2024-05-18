@@ -10,6 +10,7 @@
 	3.1. The F767 erases all memory on the AT24C256, then maked two writes to do different pages (at two different byte offsets in each page). This data is read back from the same places, then printed to UART every second, with the blue LED blinking to confirm completion.
 	3.2. The F767 has pin PB9 set as SDA to the EEPROM's SDA and pin PB6 set as the SCL to the EEPROM's SCL. The EEPROM is powered by the board's 5V power (higher EEPROM clock speeds available here rather than 3.3V). Pin PA0 set as the UART output.
 
+4. SPI communication (spi_f767_2 and spi_kw45)
 
 spi_f767_2 Sends spi to nxp
 spi_f767_2_rx receives from nxp
