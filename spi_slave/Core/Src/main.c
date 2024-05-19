@@ -93,10 +93,6 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-  for (uint8_t i = 0; i < 64; i++){
-	  transfer_bytes[i] = i + 64;
-  }
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/

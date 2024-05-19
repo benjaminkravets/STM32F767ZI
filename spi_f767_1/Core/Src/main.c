@@ -42,12 +42,28 @@
 
 /* Private variables ---------------------------------------------------------*/
 
+SPI_HandleTypeDef hspi2;
+DMA_HandleTypeDef hdma_spi2_rx;
+DMA_HandleTypeDef hdma_spi2_tx;
+
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for spi_handler */
+osThreadId_t spi_handlerHandle;
+const osThreadAttr_t spi_handler_attributes = {
+  .name = "spi_handler",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal1,
+};
+/* Definitions for spi_data */
+osSemaphoreId_t spi_dataHandle;
+const osSemaphoreAttr_t spi_data_attributes = {
+  .name = "spi_data"
 };
 /* USER CODE BEGIN PV */
 
@@ -56,7 +72,10 @@ const osThreadAttr_t defaultTask_attributes = {
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_SPI2_Init(void);
 void StartDefaultTask(void *argument);
+void spi_handler_entry(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -64,7 +83,22 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#define TRANSFER_SIZE 64
 
+uint8_t transfer_bytes[TRANSFER_SIZE] = {0};
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+	//HAL_SPI_Receive_IT(&hspi2, transfer_bytes, TRANSFER_SIZE);
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+	osSemaphoreRelease(spi_dataHandle);
+
+}
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+	HAL_SPI_Receive_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
+
+}
 /* USER CODE END 0 */
 
 /**
@@ -96,7 +130,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
+  HAL_SPI_Receive_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
 
   /* USER CODE END 2 */
 
@@ -106,6 +143,10 @@ int main(void)
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
+
+  /* Create the semaphores(s) */
+  /* creation of spi_data */
+  spi_dataHandle = osSemaphoreNew(1, 0, &spi_data_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -122,6 +163,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+
+  /* creation of spi_handler */
+  spi_handlerHandle = osThreadNew(spi_handler_entry, NULL, &spi_handler_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -186,6 +230,64 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_SLAVE;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_HARD_INPUT;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 7;
+  hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi2.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream1_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream1_IRQn);
+  /* DMA1_Stream4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+
 }
 
 /**
@@ -315,8 +417,52 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
+	//vTaskDelay(500 / portTICK_PERIOD_MS);
+
+	//osSemaphoreRelease(spi_dataHandle);
+
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_spi_handler_entry */
+/**
+* @brief Function implementing the spi_handler thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_spi_handler_entry */
+void spi_handler_entry(void *argument)
+{
+  /* USER CODE BEGIN spi_handler_entry */
+  /* Infinite loop */
+  for(;;)
+  {
+
+	osSemaphoreAcquire(spi_dataHandle, portMAX_DELAY);
+
+	/*
+	if (HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 1000) != HAL_OK){
+	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+	} */
+
+	for(uint8_t i = 0; i < TRANSFER_SIZE; i++){
+	  transfer_bytes[i] += 1;
+	}
+
+	HAL_SPI_Transmit_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
+
+
+
+	//HAL_Delay(1000);
+	//HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 500);
+	//HAL_UART_Transmit_IT(&huart4, transfer_bytes, TRANSFER_SIZE);
+	//
+	//osDelay(1);
+	//osSemaphoreAcquire(spi_dataHandle, portMAX_DELAY);
+	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+  }
+  /* USER CODE END spi_handler_entry */
 }
 
 /**

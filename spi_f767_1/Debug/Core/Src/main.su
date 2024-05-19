@@ -1,5 +1,10 @@
-../Core/Src/main.c:74:5:main	8	static
-../Core/Src/main.c:154:6:SystemClock_Config	88	static
-../Core/Src/main.c:196:13:MX_GPIO_Init	56	static
-../Core/Src/main.c:311:6:StartDefaultTask	16	static
-../Core/Src/main.c:326:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:90:6:HAL_SPI_RxCpltCallback	16	static
+../Core/Src/main.c:97:6:HAL_SPI_TxCpltCallback	16	static
+../Core/Src/main.c:108:5:main	8	static
+../Core/Src/main.c:198:6:SystemClock_Config	88	static
+../Core/Src/main.c:240:13:MX_SPI2_Init	8	static
+../Core/Src/main.c:277:13:MX_DMA_Init	16	static
+../Core/Src/main.c:298:13:MX_GPIO_Init	56	static
+../Core/Src/main.c:413:6:StartDefaultTask	16	static
+../Core/Src/main.c:435:6:spi_handler_entry	24	static
+../Core/Src/main.c:472:6:Error_Handler	4	static,ignoring_inline_asm
