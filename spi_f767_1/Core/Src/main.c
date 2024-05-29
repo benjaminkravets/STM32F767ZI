@@ -417,9 +417,6 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1);
-	//vTaskDelay(500 / portTICK_PERIOD_MS);
-
-	//osSemaphoreRelease(spi_dataHandle);
 
   }
   /* USER CODE END 5 */
