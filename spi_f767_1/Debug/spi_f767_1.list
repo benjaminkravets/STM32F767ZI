@@ -1137,10 +1137,7 @@ void spi_handler_entry(void *argument)
  80009c4:	f04f 31ff 	mov.w	r1, #4294967295
  80009c8:	4618      	mov	r0, r3
  80009ca:	f002 ffcf 	bl	800396c <osSemaphoreAcquire>
-	/*
-	if (HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 1000) != HAL_OK){
-	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-	} */
+
 
 	for(uint8_t i = 0; i < TRANSFER_SIZE; i++){
  80009ce:	2300      	movs	r3, #0

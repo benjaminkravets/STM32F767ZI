@@ -7,4 +7,4 @@
 ../Core/Src/main.c:298:13:MX_GPIO_Init	1
 ../Core/Src/main.c:413:6:StartDefaultTask	1
 ../Core/Src/main.c:432:6:spi_handler_entry	2
-../Core/Src/main.c:469:6:Error_Handler	1
+../Core/Src/main.c:457:6:Error_Handler	1

@@ -694,9 +694,9 @@ static void MX_SPI2_Init(void)
  800071a:	4b13      	ldr	r3, [pc, #76]	@ (8000768 <MX_SPI2_Init+0x74>)
  800071c:	2200      	movs	r2, #0
  800071e:	615a      	str	r2, [r3, #20]
-  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.NSS = SPI_NSS_HARD_OUTPUT;
  8000720:	4b11      	ldr	r3, [pc, #68]	@ (8000768 <MX_SPI2_Init+0x74>)
- 8000722:	f44f 7200 	mov.w	r2, #512	@ 0x200
+ 8000722:	f44f 2280 	mov.w	r2, #262144	@ 0x40000
  8000726:	619a      	str	r2, [r3, #24]
   hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
  8000728:	4b0f      	ldr	r3, [pc, #60]	@ (8000768 <MX_SPI2_Init+0x74>)
@@ -1385,10 +1385,10 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
  8000b3c:	f003 0302 	and.w	r3, r3, #2
  8000b40:	60bb      	str	r3, [r7, #8]
  8000b42:	68bb      	ldr	r3, [r7, #8]
-    /**SPI2 GPIO Configuration
     PC2     ------> SPI2_MISO
     PC3     ------> SPI2_MOSI
     PB10     ------> SPI2_SCK
+    PB12     ------> SPI2_NSS
     */
     GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3;
  8000b44:	230c      	movs	r3, #12
@@ -1411,8 +1411,8 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
  8000b5e:	4840      	ldr	r0, [pc, #256]	@ (8000c60 <HAL_SPI_MspInit+0x188>)
  8000b60:	f000 ff8c 	bl	8001a7c <HAL_GPIO_Init>
 
-    GPIO_InitStruct.Pin = GPIO_PIN_10;
- 8000b64:	f44f 6380 	mov.w	r3, #1024	@ 0x400
+    GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_12;
+ 8000b64:	f44f 53a0 	mov.w	r3, #5120	@ 0x1400
  8000b68:	617b      	str	r3, [r7, #20]
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
  8000b6a:	2302      	movs	r3, #2

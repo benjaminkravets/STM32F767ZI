@@ -438,10 +438,6 @@ void spi_handler_entry(void *argument)
 
 	osSemaphoreAcquire(spi_dataHandle, portMAX_DELAY);
 
-	/*
-	if (HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 1000) != HAL_OK){
-	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-	} */
 
 	for(uint8_t i = 0; i < TRANSFER_SIZE; i++){
 	  transfer_bytes[i] += 1;
@@ -450,14 +446,6 @@ void spi_handler_entry(void *argument)
 	HAL_SPI_Transmit_DMA(&hspi2, transfer_bytes, TRANSFER_SIZE);
 
 
-
-	//HAL_Delay(1000);
-	//HAL_SPI_Transmit(&hspi2, transfer_bytes, TRANSFER_SIZE, 500);
-	//HAL_UART_Transmit_IT(&huart4, transfer_bytes, TRANSFER_SIZE);
-	//
-	//osDelay(1);
-	//osSemaphoreAcquire(spi_dataHandle, portMAX_DELAY);
-	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
   }
   /* USER CODE END spi_handler_entry */
 }
