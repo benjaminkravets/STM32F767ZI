@@ -12,4 +12,4 @@
 
 4. SPI communication (spi_f767_1 and spi_kw45_1)
 	4.1 Every second the KW45 task transmits 64 bytes over SPI from it's buffer using DMA, then blocks on a sempaphore which is given when the SPI transmission is complete. It then begins receiving with SPI via DMA. It waits on the semaphore again until this reception is complete. The F767 SPI DMA RX IRQ is called when data reception is complete, this releases a semaphore which frees a task to add 1 to each byte of the buffer, then begin a SPI DMA transmission of this back to the KW45. When the transmission is complete, the SPI DMA TX IRQ is called which begins SPI DMA reception again.
-	4.2 The KW4 has pins A16, A17, A18, and A19 are chip select, data in (MISO), data out (MOSI), and clock respectively. The F767 has pins PC2, PC3, PB10, and PB12 set as data out (MISO), data in (MOSI), clock, and chip select respectively.
+	4.2 The KW4 has pins A16, A17, A18, and A19 set as chip select, data in (MISO), data out (MOSI), and clock respectively. The F767 has pins PC2, PC3, PB10, and PB12 set as data out (MISO), data in (MOSI), clock, and chip select respectively.
