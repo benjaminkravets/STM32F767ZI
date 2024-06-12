@@ -88,6 +88,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+  HAL_Delay(2000);
 
   goto_application();
   /* USER CODE END 2 */
@@ -256,7 +258,8 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 static void goto_application(void){
-	void (*app_reset_handler) (void) = (void*) (volatile uint32_t *) (0x08000000 + 4);
+	void (*app_reset_handler) (void) = (void*) (*(volatile uint32_t *) (0x08040000 + 4));
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 	app_reset_handler();
 }
 /* USER CODE END 4 */
