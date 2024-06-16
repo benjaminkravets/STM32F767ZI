@@ -89,14 +89,22 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
+
+  for(int8_t i = 0; i < 10; i++){
+	HAL_Delay(1000);
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+  }
+
+	void (*app_reset_handler) (void) = (void*) (*(volatile uint32_t *) (0x080c0000 + 4));
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+	app_reset_handler();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_Delay(1000);
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
