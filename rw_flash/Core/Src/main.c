@@ -90,9 +90,10 @@ int main(void)
 
   HAL_FLASH_Unlock();
 
-  char data_to_write[10] = "Hello";
+  char data_to_write = "H";
+  char * data_to_write_ptr = &data_to_write;
 
-  HAL_StatusTypeDef ret = HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE, 0x08040000, 'a');
+  HAL_StatusTypeDef ret = HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE, 0x08040000, *data_to_write_ptr);
 
   HAL_FLASH_Lock();
   volatile char read_from_flash;
