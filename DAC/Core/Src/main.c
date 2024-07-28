@@ -91,13 +91,23 @@ int main(void)
   MX_GPIO_Init();
   MX_DAC_Init();
   /* USER CODE BEGIN 2 */
+  HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint32_t LED_LEVELS[4] = {0, 621, 1242, 1863, 2484, 3105};
+  uint8_t i = 0;
   while (1)
   {
+	DAC1->DHR12R1 = (440 * (i++));
+
+	//HAL_DAC_SetValue(DAC1,DAC_CHANNEL_1, 0, LED_LEVELS[i++]);
+	if(i == 7){
+		i = 0;
+	}
+	HAL_Delay(50);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
