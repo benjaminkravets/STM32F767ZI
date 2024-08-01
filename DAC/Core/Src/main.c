@@ -97,17 +97,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint32_t LED_LEVELS[4] = {0, 621, 1242, 1863, 2484, 3105};
-  uint8_t i = 0;
+  //uint32_t LED_LEVELS[4] = {0, 621, 1242, 1863, 2484, 3105};
+  uint32_t LED_LEVELS[4] = {0, 1241, 2482, 3723};
+  uint32_t i = 0;
   while (1)
   {
-	DAC1->DHR12R1 = (440 * (i++));
+	DAC1->DHR12R1 = i++;
 
-	//HAL_DAC_SetValue(DAC1,DAC_CHANNEL_1, 0, LED_LEVELS[i++]);
-	if(i == 7){
+	//HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1, DAC_ALIGN_12B_R, i++);
+	if(i == 3723){
 		i = 0;
 	}
-	HAL_Delay(50);
+	HAL_Delay(1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
