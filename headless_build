@@ -1,0 +1,1 @@
+.\headless-build.bat -data "C:\Users\bakra\Desktop\STM32F767ZI" -build 'DAC/Release'
