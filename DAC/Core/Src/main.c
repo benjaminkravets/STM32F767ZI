@@ -103,6 +103,8 @@ int main(void)
   while (1)
   {
 	DAC1->DHR12R1 = i++;
+  int a = 1;
+  a++;
 
 	//HAL_DAC_SetValue(&hdac,DAC_CHANNEL_1, DAC_ALIGN_12B_R, i++);
 	if(i == 3723){

@@ -76,6 +76,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 DAC.list \
 
+OBJCOPY_HEX += \
+DAC.hex \
+
+OBJCOPY_BIN += \
+DAC.bin \
+
 
 # All Target
 all: main-build
@@ -99,12 +105,22 @@ DAC.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+DAC.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "DAC.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+DAC.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "DAC.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) DAC.elf DAC.list DAC.map default.size.stdout
+	-$(RM) DAC.bin DAC.elf DAC.hex DAC.list DAC.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
