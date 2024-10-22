@@ -1,0 +1,10 @@
+19:50:53 **** Incremental Build of configuration Debug for project can_f767_kw45 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_kw45.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10560	     20	   1692	  12272	   2ff0	can_f767_kw45.elf
+Finished building: default.size.stdout
+ 
+
+19:50:53 Build Finished. 0 errors, 0 warnings. (took 194ms)
+

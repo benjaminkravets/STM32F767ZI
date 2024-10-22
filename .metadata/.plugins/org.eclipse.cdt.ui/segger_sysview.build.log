@@ -1,0 +1,11 @@
+18:43:48 **** Incremental Build of configuration Debug for project segger_sysview ****
+make -j16 all 
+arm-none-eabi-gcc -o "segger_sysview.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\segger_sysview\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="segger_sysview.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.11.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: ./Core/Src/main.o: in function `main':
+C:/Users/bakra/Desktop/STM32F767ZI/segger_sysview/Debug/../Core/Src/main.c:91: undefined reference to `SEGGER_SYSVIEW_Conf'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: segger_sysview.elf] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+
+18:43:49 Build Failed. 2 errors, 0 warnings. (took 703ms)
+

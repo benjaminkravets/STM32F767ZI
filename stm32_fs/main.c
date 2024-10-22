@@ -1,5 +1,6 @@
 
 #include <stdint.h>
+
 #define PERIPHERAL_BASE (0x40000000U)
 #define AHB1_BASE (PERIPHERAL_BASE + 0x20000U)
 #define GPIOB_BASE (AHB1_BASE + 0x400U)

@@ -1,0 +1,10 @@
+19:54:53 **** Incremental Build of configuration Debug for project spi_f767 ****
+make -j16 all 
+arm-none-eabi-size  spi_f767.elf 
+   text	   data	    bss	    dec	    hex	filename
+  22268	    420	   3804	  26492	   677c	spi_f767.elf
+Finished building: default.size.stdout
+ 
+
+19:54:53 Build Finished. 0 errors, 0 warnings. (took 191ms)
+

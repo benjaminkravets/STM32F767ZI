@@ -74,5 +74,3 @@ void reset_handler(void)
 
     main();
 }
-//compile  arm-none-eabi-gcc main.c startup.c -T linker.ld -o blink.elf -mcpu=cortex-m7 -mthumb -nostdlib
-//to bin    arm-none-eabi-objcopy  -O binary blink.elf "blink.bin"

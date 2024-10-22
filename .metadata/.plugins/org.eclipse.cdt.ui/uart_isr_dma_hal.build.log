@@ -1,0 +1,10 @@
+20:22:17 **** Incremental Build of configuration Debug for project uart_isr_dma_hal ****
+make -j16 all 
+arm-none-eabi-size  uart_isr_dma_hal.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38968	    424	  25536	  64928	   fda0	uart_isr_dma_hal.elf
+Finished building: default.size.stdout
+ 
+
+20:22:17 Build Finished. 0 errors, 0 warnings. (took 266ms)
+

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;custom_bootloader&apos;" deleteContents="true" description="Delete resource &apos;custom_bootloader&apos;" element1="/custom_bootloader" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1718067106327"/>&#x0A;<refactoring comment="Delete resource &apos;bootloader&apos;" deleteContents="true" description="Delete resource &apos;bootloader&apos;" element1="/bootloader" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1718067425167"/>
+</session>

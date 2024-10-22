@@ -1,0 +1,10 @@
+20:22:16 **** Incremental Build of configuration Debug for project spi_f103_irq ****
+make -j16 all 
+arm-none-eabi-size  spi_f103_irq.elf 
+   text	   data	    bss	    dec	    hex	filename
+  14240	    100	   2084	  16424	   4028	spi_f103_irq.elf
+Finished building: default.size.stdout
+ 
+
+20:22:16 Build Finished. 0 errors, 0 warnings. (took 188ms)
+

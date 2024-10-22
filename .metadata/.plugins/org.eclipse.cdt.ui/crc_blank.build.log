@@ -1,0 +1,10 @@
+20:08:36 **** Incremental Build of configuration Debug for project crc_blank ****
+make -j16 all 
+arm-none-eabi-size  crc_blank.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16552	    340	   3268	  20160	   4ec0	crc_blank.elf
+Finished building: default.size.stdout
+ 
+
+20:08:36 Build Finished. 0 errors, 0 warnings. (took 201ms)
+

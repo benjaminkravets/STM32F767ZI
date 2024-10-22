@@ -1,0 +1,14 @@
+16:49:16 **** Build of configuration Debug for project DAC ****
+make -j16 all 
+arm-none-eabi-size  DAC.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7232	     12	   1588	   8832	   2280	DAC.elf
+Finished building: default.size.stdout
+ 
+16:49:38 **** Incremental Build of configuration Debug for project DAC ****
+make -j16 all 
+arm-none-eabi-size  DAC.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7232	     12	   1588	   8832	   2280	DAC.elf
+Finished building: default.size.stdout
+ 
