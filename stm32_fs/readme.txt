@@ -20,3 +20,12 @@ to copy to bin:
 
 vendor\cmsis_device_f7\Source\Templates\system_stm32f7xx.c
 vendor\CMSIS_6-6.1.0\CMSIS\Core\Include
+
+how andy dir was made:
+    add all .c/.h from vendor code: 
+        find mints -type f -exec cp {} andy/ \;
+    copy m-profile dir to andy
+
+making sure type names resolve correctly for vscode:
+
+    make sure ' "__CC_ARM"' is under 'defines' in C/C++ JSON configuration (may need created)
