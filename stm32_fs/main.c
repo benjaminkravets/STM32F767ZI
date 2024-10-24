@@ -9,6 +9,7 @@ int main()
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN_Msk;
     volatile uint32_t dummy;
 
+    
     GPIOB->MODER |= (1 << GPIO_MODER_MODER0_Pos);
 
     while (1)

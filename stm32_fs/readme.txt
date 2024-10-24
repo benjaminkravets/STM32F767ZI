@@ -12,14 +12,12 @@ install gcc tools:
 
 to compile:
 arm-none-eabi-gcc main.c startup.c -T linker.ld -o blink.elf -mcpu=cortex-m7 -mthumb -nostdlib
+
 to copy to bin:
     arm-none-eabi-objcopy  -O binary blink.elf "blink.bin"
 
     arm-none-eabi-gcc main.c startup.c vendor/CMSIS/Device/ST/STM32F4/Source/Templates/system_stm32f4xx.c -T linker_script.ld -o blink.elf -Ivendor/CMSIS/CMSIS/Core/Include -Ivendor/CMSIS/Device/ST/STM32F4/Include -mcpu=cortex-m4 -mthumb -nostdlib -DSTM32F410Rx
 
-
-vendor\cmsis_device_f7\Source\Templates\system_stm32f7xx.c
-vendor\CMSIS_6-6.1.0\CMSIS\Core\Include
 
 how andy dir was made:
     add all .c/.h from vendor code: 
