@@ -3437,9 +3437,9 @@ LOAD C:/ST/STM32CubeIDE_1.11.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
 .comment        0x00000000       0x86
  .comment       0x00000000       0x43 ./Core/Src/main.o
                                  0x44 (size before relaxing)
- .comment       0x00000043       0x43 ./Core/Src/stm32f7xx_hal_msp.o
+ .comment       0x00000043       0x44 ./Core/Src/stm32f7xx_hal_msp.o
+ .comment       0x00000043       0x43 ./Core/Src/stm32f7xx_it.o
                                  0x44 (size before relaxing)
- .comment       0x00000086       0x44 ./Core/Src/stm32f7xx_it.o
  .comment       0x00000086       0x44 ./Core/Src/system_stm32f7xx.o
  .comment       0x00000086       0x44 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.o
  .comment       0x00000086       0x44 ./Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.o

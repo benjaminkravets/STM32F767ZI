@@ -1,13 +1,14 @@
-14:51:41 **** Build of configuration Debug for project bootloader_application ****
+18:22:15 **** Build of configuration Debug for project bootloader_application ****
 make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "bootloader_application.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\bootloader_application\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bootloader_application.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: bootloader_application.elf
  
 arm-none-eabi-size  bootloader_application.elf 
 arm-none-eabi-objdump -h -S bootloader_application.elf  > "bootloader_application.list"
-arm-none-eabi-objcopy  -O ihex bootloader_application.elf  "bootloader_application.hex"
    text	   data	    bss	    dec	    hex	filename
    6644	     12	   1572	   8228	   2024	bootloader_application.elf
+arm-none-eabi-objcopy  -O ihex bootloader_application.elf  "bootloader_application.hex"
 arm-none-eabi-objcopy  -O binary bootloader_application.elf  "bootloader_application.bin"
 Finished building: default.size.stdout
  
@@ -18,5 +19,5 @@ Finished building: bootloader_application.bin
 Finished building: bootloader_application.list
  
 
-14:51:42 Build Finished. 0 errors, 0 warnings. (took 1s.438ms)
+18:22:17 Build Finished. 0 errors, 0 warnings. (took 2s.193ms)
 

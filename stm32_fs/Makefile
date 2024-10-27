@@ -3,7 +3,7 @@
 #here, explicit rules are used
 
 CC=arm-none-eabi-gcc
-CFLAGS=-mcpu=cortex-m7 -mthumb -nostdlib
+CFLAGS=-mcpu=cortex-m7 -mthumb -nostdlib -DSTM32F767xx
 CPPFLAGS=-Iandy
 
 LINKER_FILE=linker.ld
@@ -17,7 +17,7 @@ PROGRAMMER= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\
 all: blink.elf
 
 #$^ is an automatic variable and means "all prerequisites". $@ means the name of the target of the rule
-blink.elf: main.o startup.o 
+blink.elf: main.o startup.o system_stm32f7xx.o
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o blink.elf
 
 main.o: main.c
@@ -26,9 +26,16 @@ main.o: main.c
 startup.o: startup.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) startup.c -c
 
+system_stm32f7xx.o: andy/system_stm32f7xx.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) andy/system_stm32f7xx.c -c
+
 flash: blink.elf
 	$(PROGRAMMER)
 #a phony target has no outputs, it will just run a command
 .PHONY: clean
 clean:
 	rm -f *.o *.elf
+
+.PHONY: addpath
+addpath:
+	export PATH="/home/ben/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/:$PATH"
