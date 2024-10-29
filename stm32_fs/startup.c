@@ -51,6 +51,12 @@ void default_handler(void) //waits in busy loop (common out-of-box implementatio
 
 void main(void);
 
+void GPIOB_init();
+
+void blinker();
+
+void clock_init();
+
 void reset_handler(void)
 {
     // copy .data from whereever it ended up in FLASH to SRAM

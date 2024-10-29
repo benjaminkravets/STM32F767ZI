@@ -1,4 +1,5 @@
 
+
 #CC, CFLAGS, etc. are implicit variables used by implicit rules for automatic compilation/linking which allow, for instance, just running 'make file.c' and getting an .elf (check out implicits using make -p)
 #here, explicit rules are used
 
@@ -36,6 +37,5 @@ flash: blink.elf
 clean:
 	rm -f *.o *.elf
 
-.PHONY: addpath
 addpath:
-	export PATH="/home/ben/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/:$PATH"
+	 export PATH="/home/ben/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/:$PATH"

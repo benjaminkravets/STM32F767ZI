@@ -9916,3 +9916,12 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-24 19:34:10.242
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2024-10-28 21:17:00.760 -----------------------------------------------
+eclipse.buildId=Version 1.16.1
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-10-28 21:17:12.279
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
