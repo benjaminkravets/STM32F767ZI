@@ -88,18 +88,7 @@ void GPIOB_init()
     GPIOB->MODER |= (1 << GPIO_MODER_MODER0_Pos);
 }
 
-void SPI_init()
-{
-    //AF5
-    //SPI1
-    //e11 nss
-    //e12 sck
-    //e13 miso
-    //e14 mosi
 
-    GPIOE->AFR |= GPIO_AFRH_AFRH0
-
-}
 
 int main()
 {

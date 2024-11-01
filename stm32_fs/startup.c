@@ -51,11 +51,7 @@ void default_handler(void) //waits in busy loop (common out-of-box implementatio
 
 void main(void);
 
-void GPIOB_init();
-
-void blinker();
-
-void clock_init();
+void __libc_init_array();
 
 void reset_handler(void)
 {
@@ -78,5 +74,6 @@ void reset_handler(void)
         bss[i] = 0;
     }
 
+    __libc_init_array();
     main();
 }
