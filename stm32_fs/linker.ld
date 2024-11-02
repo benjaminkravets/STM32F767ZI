@@ -16,11 +16,20 @@ SECTIONS
         . = ALIGN(4); /*ALIGN inserts padding bytes until the current location is aligned*/
 
         *(.text)
+        *(.text.*)
         *(.rodata)
+        *(.rodata.*)
+        KEEP(*(.init))
+        KEEP(*(.fini))
+        *(.eh_frame)
+        *(.ARM.exidx)
+
 
         . = ALIGN(4);
         _etext = .; /*of type uintptr_t which is architecture word size*/
     } > FLASH
+
+    _sidata = LOADADDR(.data);
 
     .data :
     {
@@ -28,6 +37,10 @@ SECTIONS
         _sdata = .;
 
         *(.data)
+        *(.data.*)
+
+        KEEP(*(.init_array))
+        KEEP(*(.fini_array))
 
         . = ALIGN(4);
         _edata = .;
@@ -40,6 +53,7 @@ SECTIONS
         __bss_start__ = _sbss;
 
         *(.bss)
+        *(.bss.*)
 
         . = ALIGN(4);
         _ebss = .;

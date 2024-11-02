@@ -22,17 +22,16 @@ blink.elf: main.o startup.o system_stm32f7xx.o syscalls.o
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o blink.elf
 
 main.o: main.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) main.c -c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
 startup.o: startup.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) startup.c -c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
 system_stm32f7xx.o: andy/system_stm32f7xx.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) andy/system_stm32f7xx.c -c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
 syscalls.o: syscalls.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
-
 
 flash: blink.elf
 	$(PROGRAMMER)

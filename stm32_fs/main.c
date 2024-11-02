@@ -1,6 +1,10 @@
 
 #include <stdint.h>
 
+// stdio.h has line extern int printf (const char *__restrict __format, ...);
+
+#include <stdio.h>
+
 #include "stm32f767xx.h"
 #include "system_stm32f7xx.h"
 
@@ -15,13 +19,13 @@ void delay_ms(uint32_t milliseconds)
 {
     uint32_t start = ticks;
     uint32_t end = start + milliseconds;
-    //if end time is less than start, wait until this is not the case (ticks will wrap around to 0)
+    // if end time is less than start, wait until this is not the case (ticks will wrap around to 0)
     if (end < start)
     {
         while (ticks > start)
             ;
     }
-    //wait until end time is reached
+    // wait until end time is reached
     while (ticks < end)
         ;
 }
@@ -33,6 +37,11 @@ void blinker()
         GPIOB->ODR ^= (1 << LED_PIN);
         delay_ms(500);
     }
+}
+
+void blink()
+{
+    GPIOB->ODR ^= (1 << LED_PIN);
 }
 
 void clock_init()
@@ -88,13 +97,36 @@ void GPIOB_init()
     GPIOB->MODER |= (1 << GPIO_MODER_MODER0_Pos);
 }
 
+void USART_init()
+{
+    RCC->APB1ENR |= (1 << RCC_APB1ENR_USART3EN_Pos);
+    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIODEN);
 
+    GPIOD->MODER &= ~(GPIO_MODER_MODER8_Msk | GPIO_MODER_MODER9_Msk);
+    GPIOD->MODER |= (0b10 << GPIO_MODER_MODER8_Pos | 0b10 << GPIO_MODER_MODER9_Pos);
 
+    GPIOD->AFR[1] &= ~(GPIO_AFRH_AFRH0 | GPIO_AFRH_AFRH1);
+    GPIOD->AFR[1] |= (7 << GPIO_AFRH_AFRH0_Pos) | (7 << GPIO_AFRH_AFRH1_Pos);
+
+    USART3->BRR = 434;
+    USART3->CR1 |= USART_CR1_UE | USART_CR1_TE;
+}
+
+void usart_write(USART_TypeDef *usart, char c)
+{
+    usart->TDR = c;
+    while(!(usart->ISR & USART_ISR_TC_Pos));
+}
 int main()
 {
     clock_init();
 
     GPIOB_init();
+    USART_init();
+    // while(1){
+    //     printf("12");
+    //     delay_ms(100);
+    // }
 
     // set ticks between interrupts as 100000
     SysTick_Config(100000);
@@ -103,5 +135,3 @@ int main()
 
     blinker();
 }
-
-

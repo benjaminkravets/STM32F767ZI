@@ -30,7 +30,7 @@ int fork(void)
     return -1;
 }
 
-int fstat(int file, struct stat *st)
+int _fstat(int file, struct stat *st)
 {
     st->st_mode = S_IFCHR;
     return 0;
@@ -41,7 +41,7 @@ int getpid(void)
     return 1;
 }
 
-int isatty(int file)
+int _isatty(int file)
 {
     return 1;
 }
@@ -121,7 +121,16 @@ int wait(int *status)
     return -1;
 }
 
+extern void blink();
+void usart_write(USART_TypeDef *usart, char c)
+
 int _write(int file, char *ptr, int len)
 {
+    //blink();
+
+    for(uint32_t i = 0; i < len; i++){
+        usart_write(USART3, *ptr++);
+    }
     return 0;
+
 }
