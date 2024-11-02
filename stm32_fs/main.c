@@ -2,9 +2,7 @@
 #include <stdint.h>
 
 // stdio.h has line extern int printf (const char *__restrict __format, ...);
-
 #include <stdio.h>
-
 #include "stm32f767xx.h"
 #include "system_stm32f7xx.h"
 
@@ -70,7 +68,7 @@ void clock_init()
                      (1 << RCC_PLLCFGR_PLLP_Pos) |
                      (1 << RCC_PLLCFGR_PLLSRC_Pos));
 
-    // APB clock divide by 2
+    // APB clock prescalar = 2
     RCC->CFGR |= (0b100 << RCC_CFGR_PPRE1_Pos);
 
     // PLL on
@@ -85,25 +83,24 @@ void clock_init()
     // wait while PLL is not selected as the system clock
     while (!(RCC->CFGR & RCC_CFGR_SWS_PLL))
         ;
-    // change CMSIS internal clock variable
-    SystemCoreClockUpdate();
 }
 
 void GPIOB_init()
 {
-    // GPIO port B clock enable
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN_Msk;
+    // GPIO port B RCC enable
+    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOBEN_Pos);
     // set pin 0 as mode general purpose output
     GPIOB->MODER |= (1 << GPIO_MODER_MODER0_Pos);
 }
 
-void USART_init()
+void USART3_init()
 {
     RCC->APB1ENR |= (1 << RCC_APB1ENR_USART3EN_Pos);
-    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIODEN);
+    // GPIO port D RCC enable
+    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIODEN_Pos);
 
     GPIOD->MODER &= ~(GPIO_MODER_MODER8_Msk | GPIO_MODER_MODER9_Msk);
-    GPIOD->MODER |= (0b10 << GPIO_MODER_MODER8_Pos | 0b10 << GPIO_MODER_MODER9_Pos);
+    GPIOD->MODER |= (0b10 << GPIO_MODER_MODER8_Pos) | (0b10 << GPIO_MODER_MODER9_Pos);
 
     GPIOD->AFR[1] &= ~(GPIO_AFRH_AFRH0 | GPIO_AFRH_AFRH1);
     GPIOD->AFR[1] |= (7 << GPIO_AFRH_AFRH0_Pos) | (7 << GPIO_AFRH_AFRH1_Pos);
@@ -114,24 +111,32 @@ void USART_init()
 
 void usart_write(USART_TypeDef *usart, char c)
 {
+
     usart->TDR = c;
-    while(!(usart->ISR & USART_ISR_TC_Pos));
+    while (!(usart->ISR & USART_ISR_TC))
+        ;
 }
 int main()
 {
     clock_init();
-
-    GPIOB_init();
-    USART_init();
-    // while(1){
-    //     printf("12");
-    //     delay_ms(100);
-    // }
+    // change CMSIS internal clock variable
+    SystemCoreClockUpdate();
 
     // set ticks between interrupts as 100000
     SysTick_Config(100000);
     // enable interrupts
     __enable_irq();
 
-    blinker();
+    GPIOB_init();
+    USART3_init();
+
+    while (1)
+    {
+        uint8_t txs[] = "hi";
+        printf("%s \r\n", txs);
+        blink();
+        delay_ms(500);
+    }
+
+
 }

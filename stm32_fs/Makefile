@@ -10,7 +10,7 @@ CPPFLAGS=-Iandy
 LINKER_FILE=linker.ld
 LDFLAGS=-T $(LINKER_FILE)
 
-PROGRAMMER= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\blink.elf 0x08000000"
+PROGRAMMER= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\blink.elf 0x08000000 -rst"
 
 #target: prerequisites
 #	command

@@ -3,6 +3,7 @@
         "stdint.h": "c",
         "stat.h": "c",
         "cstdio": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "time.h": "c"
     }
 }

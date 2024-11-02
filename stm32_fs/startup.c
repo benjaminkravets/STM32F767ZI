@@ -8,6 +8,10 @@
 
 extern uint32_t _etext, _sdata, _edata, _sbss, _ebss;
 
+void main(void);
+
+void __libc_init_array();
+
 //https://developer.arm.com/documentation/dui0646/c/The-Cortex-M7-Processor/Exception-model/Exception-types
 
 void default_handler(void); //catches unexpected interrupts or exceptions- will be called if another interrupt is not implemented
@@ -49,9 +53,7 @@ void default_handler(void) //waits in busy loop (common out-of-box implementatio
     while (1);
 }
 
-void main(void);
 
-void __libc_init_array();
 
 void reset_handler(void)
 {

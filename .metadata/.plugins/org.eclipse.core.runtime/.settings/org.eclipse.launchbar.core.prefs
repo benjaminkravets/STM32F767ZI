@@ -1,7 +1,7 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:DAC,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:bootloader_application,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:sd_card,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:spi_f767_1 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:spi_read_registers Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:spi_read_registers Debug
 eclipse.preferences.version=1
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:DAC/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:DAC/activeLaunchTarget=null\:---

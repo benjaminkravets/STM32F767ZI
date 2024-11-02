@@ -1,5 +1,7 @@
 #include <sys/stat.h>
 #include <errno.h>
+#include "andy/stm32f7xx.h"
+
 #undef errno
 extern int errno;
 
@@ -73,7 +75,7 @@ int _read(int file, char *ptr, int len)
     return 0;
 }
 
-char *_sbrk(int incr)
+caddr_t *_sbrk(int incr)
 {
 
     register char *stack_ptr asm("sp");
@@ -95,7 +97,7 @@ char *_sbrk(int incr)
         }
     }
     heap_end += incr;
-    return (char *)prev_heap_end;
+    return (caddr_t *)prev_heap_end;
 }
 
 int _stat(char *file, struct stat *st)
@@ -120,17 +122,19 @@ int wait(int *status)
     errno = ECHILD;
     return -1;
 }
-
 extern void blink();
-void usart_write(USART_TypeDef *usart, char c)
+void usart_write(USART_TypeDef *usart, char c);
 
 int _write(int file, char *ptr, int len)
 {
+    //(void)file;
     //blink();
 
     for(uint32_t i = 0; i < len; i++){
         usart_write(USART3, *ptr++);
     }
-    return 0;
+
+
+    return len;
 
 }
