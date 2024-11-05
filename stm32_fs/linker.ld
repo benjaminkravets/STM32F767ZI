@@ -29,7 +29,7 @@ SECTIONS
         _etext = .; /*of type uintptr_t which is architecture word size*/
     } > FLASH
 
-    _sidata = LOADADDR(.data);
+    _sidata = LOADADDR(.data); /*LOADADDR returns the load address of the named section */
 
     .data :
     {
@@ -39,8 +39,8 @@ SECTIONS
         *(.data)
         *(.data.*)
 
-        KEEP(*(.init_array))
-        KEEP(*(.fini_array))
+        KEEP(*(.init_array)) /*array of function pointers that is called at program start*/
+        KEEP(*(.fini_array)) /*array of function pointers that is called at program end*/
 
         . = ALIGN(4);
         _edata = .;
@@ -50,13 +50,13 @@ SECTIONS
     {
         . = ALIGN(4);
         _sbss = .;
-        __bss_start__ = _sbss;
+        __bss_start__ = _sbss;  /*neexed by _mainCRTStartup*/
 
         *(.bss)
         *(.bss.*)
 
         . = ALIGN(4);
         _ebss = .;
-        __bss_end__ = _ebss;
+        __bss_end__ = _ebss; /*needed by _mainCRTStartup */
     } > SRAM
 }
