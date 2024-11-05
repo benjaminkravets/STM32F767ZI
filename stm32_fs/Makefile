@@ -4,10 +4,12 @@
 #here, explicit rules are used
 
 CC=arm-none-eabi-gcc
+#nano.specs will use nanolib instead of stdlib or newlib
 CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx
 CPPFLAGS=-Iandy
 
-LINKER_FILE=linker.ld
+#nanolib doesn't support floats for printf/scanf by default
+LINKER_FILE=linker.ld -u _printf_float
 LDFLAGS=-T $(LINKER_FILE)
 
 PROGRAMMER= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\blink.elf 0x08000000 -rst"
