@@ -7,6 +7,10 @@
 		<item key="size.y" value="376"/>
 	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+		<item key="size.width" value="592"/>
+		<item key="size.height" value="348"/>
+		<item key="location.x" value="427"/>
+		<item key="location.y" value="308"/>
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item key="askReindex.detail" value="0"/>

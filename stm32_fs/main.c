@@ -53,7 +53,7 @@ void clock_init()
     RCC->APB1ENR |= RCC_APB1ENR_PWREN_Msk;
 
     // scale 1 mode (higher performance and power consumption)
-    PWR->CR1 != (0b11 << PWR_CR1_VOS_Pos);
+    PWR->CR1 |= (0b11 << PWR_CR1_VOS_Pos);
 
     // set # of wait states (clock cycles required between CPU flash read dispatch (CPU provides read address) and a stable flash memory controller output.)
     FLASH->ACR |= FLASH_ACR_LATENCY_3WS;
@@ -68,8 +68,9 @@ void clock_init()
                      (1 << RCC_PLLCFGR_PLLP_Pos) |
                      (1 << RCC_PLLCFGR_PLLSRC_Pos));
 
-    // APB clock prescalar = 2
-    RCC->CFGR |= (0b100 << RCC_CFGR_PPRE1_Pos);
+    // APB1 clock prescalar = 4, APB2 clock prescalar = 4
+    RCC->CFGR |= (0b101 << RCC_CFGR_PPRE1_Pos);
+    RCC->CFGR |= (0b110 << RCC_CFGR_PPRE2_Pos); // SPI
 
     // PLL on
     RCC->CR |= RCC_CR_PLLON_Msk;
@@ -95,38 +96,106 @@ void GPIOB_init()
 
 void USART3_init()
 {
-    //checklist in 34.5.2
+    // checklist in 34.5.2
 
-    //enable USART 3 at RCC
+    // enable USART 3 at RCC
     RCC->APB1ENR |= (1 << RCC_APB1ENR_USART3EN_Pos);
     // GPIO port D RCC enable
     RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIODEN_Pos);
 
-    //reset input/output mode and set to alternate function (AF) mode
+    // reset input/output mode and set to alternate function (AF) mode
     GPIOD->MODER &= ~(GPIO_MODER_MODER8_Msk | GPIO_MODER_MODER9_Msk);
     GPIOD->MODER |= (0b10 << GPIO_MODER_MODER8_Pos) | (0b10 << GPIO_MODER_MODER9_Pos);
 
-    //reset GPIO AF selection (0 and 1 of high AF register are pins 8 and 9), then choose AF7 for USART3
+    // reset GPIO AF selection (0 and 1 of high AF register are pins 8 and 9), then choose AF7 for USART3
     GPIOD->AFR[1] &= ~(GPIO_AFRH_AFRH0 | GPIO_AFRH_AFRH1);
     GPIOD->AFR[1] |= (0b0111 << GPIO_AFRH_AFRH0_Pos) | (0b0111 << GPIO_AFRH_AFRH1_Pos);
 
-    //BRR is 50 Mhz/115200 baud = 443
-    USART3->BRR = 434;
-    //usart enable and transmitter enable
+    // BRR is 25 Mhz/115200 baud = 217
+    USART3->BRR = 217;
+    // usart enable and transmitter enable
     USART3->CR1 |= USART_CR1_UE | USART_CR1_TE;
 }
 
 void usart_write(USART_TypeDef *usart, char c)
 {
-    //write character to transmission data register
+    // write character to transmission data register
     usart->TDR = c;
-    //wait on transmission complete bit
+    // wait on transmission complete bit
     while (!(usart->ISR & USART_ISR_TC))
         ;
 }
 
-void SPI_init(){
-    //SPI4 on PE11-14
+void SPI_init()
+{
+    // checklist in 35.5.7
+    //  SPI4 on PE11-14 (APB2)
+    // enable SPI4 at RCC
+    RCC->APB2ENR |= (1 << RCC_APB2ENR_SPI4EN_Pos);
+    volatile uint32_t a = RCC->APB2ENR;
+    a = RCC->APB2ENR;
+
+    // GPIO port E RCC enable
+    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOEEN_Pos);
+    volatile uint32_t b = RCC->APB2ENR;
+    b = RCC->APB2ENR;
+
+    // reset input/output mode and set to alternate function (AF) mode
+    GPIOE->MODER &= ~(GPIO_MODER_MODER11_Msk | GPIO_MODER_MODER12_Msk | GPIO_MODER_MODER13_Msk | GPIO_MODER_MODER14_Msk);
+    GPIOE->MODER |= (0b10 << GPIO_MODER_MODER11_Pos) | (0b10 << GPIO_MODER_MODER12_Pos) | (0b10 << GPIO_MODER_MODER13_Pos) | (0b10 << GPIO_MODER_MODER14_Pos);
+
+    // reset GPIO AF selection (3 through 6 of high AF register are pins 11-14), then choose AF5 for SPI4
+    GPIOE->AFR[1] &= ~(GPIO_AFRH_AFRH3 | GPIO_AFRH_AFRH4 | GPIO_AFRH_AFRH5 | GPIO_AFRH_AFRH6);
+    GPIOE->AFR[1] |= (0b101 << GPIO_AFRH_AFRH3_Pos) | (0b101 << GPIO_AFRH_AFRH4_Pos) | (0b101 << GPIO_AFRH_AFRH5_Pos) | (0b101 << GPIO_AFRH_AFRH6_Pos);
+
+    SPI4->CR1 |= SPI_CR1_MSTR;
+    SPI4->CR2 |= SPI_CR2_SSOE;
+
+
+    SPI4->CR1 |= SPI_CR1_SPE;
+
+    uint8_t here = 'a';
+    SPI_write(SPI4, &here, 0);
+
+
+}
+
+void SPI_write(SPI_TypeDef* tx_spi, uint8_t * tx_data, uint32_t tx_len){
+    while (1)
+    {
+        printf("%i \r\n", tx_spi->SR);
+
+        tx_spi->CR1 |= SPI_CR1_SPE;
+        //tx_spi->CR1 |= SPI_CR1_SSI;
+        //tx_spi->DR = *((uint8_t *) tx_data);
+        //tx_spi->DR = *((uint16_t *)tx_data);
+
+        uint32_t a = 'a';
+        tx_spi->DR = a;
+        //tx_spi->DR = 'a';
+        
+        while (!(tx_spi->SR & SPI_SR_BSY) & !(tx_spi->SR & SPI_SR_FTLVL))
+        {
+        }
+        tx_spi->CR1 &= ~(SPI_CR1_SPE);
+        //tx_spi->CR1 &= ~(SPI_CR1_SSI);
+
+        delay_ms(1000);
+        blink();
+    }
+}
+
+void plainold()
+{
+    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOEEN_Pos);
+
+    GPIOE->MODER |= (1 << GPIO_MODER_MODER11_Pos);
+
+    while (1)
+    {
+        GPIOE->ODR ^= (1 << GPIO_ODR_OD11_Pos);
+        delay_ms(100);
+    }
 }
 int main()
 {
@@ -141,16 +210,14 @@ int main()
 
     GPIOB_init();
     USART3_init();
+    SPI_init();
+    // plainold();
 
     while (1)
     {
         uint8_t txs[] = "hi";
-        printf("[%.3f] \r\n", (float)ticks/1000.0f);
+        printf("[%.3f] \r\n", (float)ticks / 1000.0f);
         blink();
         delay_ms(500);
-
-
     }
-
-
 }

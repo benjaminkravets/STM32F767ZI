@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="objcopy"/>
+		<item key="selection" value="GPIOE"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="GPIOE"/>
+			<item value="gpioe"/>
 			<item value="objcopy"/>
 			<item value="objco"/>
 			<item value="objdump"/>
@@ -21,8 +23,6 @@
 			<item value="fa34f000"/>
 			<item value="fa34 f000"/>
 			<item value="f000fa34"/>
-			<item value="f000"/>
-			<item value="EXECUTABLES"/>
 		</list>
 		<list key="replacehistory">
 			<item value="transfer_bytes"/>
