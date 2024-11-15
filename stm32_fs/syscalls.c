@@ -1,6 +1,7 @@
 #include <sys/stat.h>
 #include <errno.h>
-#include "andy/stm32f7xx.h"
+#include "vendor/stm32f7xx.h"
+#include "usart.h"
 
 #undef errno
 extern int errno;
@@ -98,12 +99,13 @@ caddr_t *_sbrk(int incr)
     extern char __bss_end__;
     static char *heap_end;
     char *prev_heap_end;
-
+    // if no heap has been initialized, start it at the end of .bss
     if (heap_end == 0)
     {
         heap_end = &__bss_end__;
     }
     prev_heap_end = heap_end;
+    // if the heap is now where stack is, wait
     if (heap_end + incr > stack_ptr)
     {
         while (1)
@@ -111,6 +113,7 @@ caddr_t *_sbrk(int incr)
             // heap/stack collision
         }
     }
+    //increase heap size
     heap_end += incr;
     return (caddr_t *)prev_heap_end;
 }

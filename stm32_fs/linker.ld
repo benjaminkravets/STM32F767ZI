@@ -8,6 +8,7 @@ SECTIONS
 {
     .isr_vector :
     {
+        _sisr_vector = .;
         KEEP(*(.isr_vector)) /*keep, even if not reference in the section. will be "called by hardware" */
     } > FLASH
 
@@ -19,10 +20,10 @@ SECTIONS
         *(.text.*)
         *(.rodata)
         *(.rodata.*)
-        KEEP(*(.init))
-        KEEP(*(.fini))
+        KEEP(*(.init)) /* initialization code run before main */
+        KEEP(*(.fini)) /* executed after main returns */
         *(.eh_frame)
-        *(.ARM.exidx)
+        *(.ARM.exidx) /* contains informaiton for unwinding the stack */
 
 
         . = ALIGN(4);

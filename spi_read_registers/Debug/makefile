@@ -52,6 +52,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 spi_read_registers.list \
 
+OBJCOPY_BIN += \
+spi_read_registers.bin \
+
 
 # All Target
 all: main-build
@@ -75,12 +78,17 @@ spi_read_registers.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DE
 	@echo 'Finished building: $@'
 	@echo ' '
 
+spi_read_registers.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "spi_read_registers.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) default.size.stdout spi_read_registers.elf spi_read_registers.list spi_read_registers.map
+	-$(RM) default.size.stdout spi_read_registers.bin spi_read_registers.elf spi_read_registers.list spi_read_registers.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

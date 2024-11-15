@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "stm32f767xx.h"
 #include "system_stm32f7xx.h"
+#include "usart.h"
 
 #define LED_PIN 0
 
@@ -94,37 +95,6 @@ void GPIOB_init()
     GPIOB->MODER |= (1 << GPIO_MODER_MODER0_Pos);
 }
 
-void USART3_init()
-{
-    // checklist in 34.5.2
-
-    // enable USART 3 at RCC
-    RCC->APB1ENR |= (1 << RCC_APB1ENR_USART3EN_Pos);
-    // GPIO port D RCC enable
-    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIODEN_Pos);
-
-    // reset input/output mode and set to alternate function (AF) mode
-    GPIOD->MODER &= ~(GPIO_MODER_MODER8_Msk | GPIO_MODER_MODER9_Msk);
-    GPIOD->MODER |= (0b10 << GPIO_MODER_MODER8_Pos) | (0b10 << GPIO_MODER_MODER9_Pos);
-
-    // reset GPIO AF selection (0 and 1 of high AF register are pins 8 and 9), then choose AF7 for USART3
-    GPIOD->AFR[1] &= ~(GPIO_AFRH_AFRH0 | GPIO_AFRH_AFRH1);
-    GPIOD->AFR[1] |= (0b0111 << GPIO_AFRH_AFRH0_Pos) | (0b0111 << GPIO_AFRH_AFRH1_Pos);
-
-    // BRR is 25 Mhz/115200 baud = 217
-    USART3->BRR = 217;
-    // usart enable and transmitter enable
-    USART3->CR1 |= USART_CR1_UE | USART_CR1_TE;
-}
-
-void usart_write(USART_TypeDef *usart, char c)
-{
-    // write character to transmission data register
-    usart->TDR = c;
-    // wait on transmission complete bit
-    while (!(usart->ISR & USART_ISR_TC))
-        ;
-}
 
 void SPI_init()
 {
@@ -151,52 +121,42 @@ void SPI_init()
     SPI4->CR1 |= SPI_CR1_MSTR;
     SPI4->CR2 |= SPI_CR2_SSOE;
 
-
     SPI4->CR1 |= SPI_CR1_SPE;
-
-    uint8_t here = 'a';
-    SPI_write(SPI4, &here, 0);
-
-
 }
 
-void SPI_write(SPI_TypeDef* tx_spi, uint8_t * tx_data, uint32_t tx_len){
-    while (1)
+void SPI_write(SPI_TypeDef *tx_spi, uint8_t *tx_data, uint32_t tx_len)
+{
+
+    printf("%i \r\n", tx_spi->SR);
+
+    tx_spi->CR1 |= SPI_CR1_SPE;
+
+    uint8_t *tx_data_cpy = tx_data;
+    for (uint32_t i = 0; i < 3; i++)
     {
-        printf("%i \r\n", tx_spi->SR);
 
-        tx_spi->CR1 |= SPI_CR1_SPE;
-        //tx_spi->CR1 |= SPI_CR1_SSI;
-        //tx_spi->DR = *((uint8_t *) tx_data);
-        //tx_spi->DR = *((uint16_t *)tx_data);
-
-        uint32_t a = 'a';
-        tx_spi->DR = a;
-        //tx_spi->DR = 'a';
-        
-        while (!(tx_spi->SR & SPI_SR_BSY) & !(tx_spi->SR & SPI_SR_FTLVL))
+        while (!(tx_spi->SR & SPI_SR_TXE))
         {
         }
-        tx_spi->CR1 &= ~(SPI_CR1_SPE);
-        //tx_spi->CR1 &= ~(SPI_CR1_SSI);
+        tx_spi->DR = *((uint16_t *)tx_data_cpy);
 
-        delay_ms(1000);
-        blink();
+        tx_data_cpy += 2;
     }
-}
 
-void plainold()
-{
-    RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOEEN_Pos);
-
-    GPIOE->MODER |= (1 << GPIO_MODER_MODER11_Pos);
-
-    while (1)
+    // wait for transmit FIFO to be empty
+    while ((tx_spi->SR & SPI_SR_FTLVL))
     {
-        GPIOE->ODR ^= (1 << GPIO_ODR_OD11_Pos);
-        delay_ms(100);
     }
+    // wait while SPI is busy
+    while (tx_spi->SR & SPI_SR_BSY)
+    {
+    }
+
+    tx_spi->CR1 &= ~(SPI_CR1_SPE);
+    // tx_spi->CR1 &= ~(SPI_CR1_SSI);
 }
+
+
 int main()
 {
     clock_init();
@@ -211,13 +171,12 @@ int main()
     GPIOB_init();
     USART3_init();
     SPI_init();
-    // plainold();
 
     while (1)
     {
-        uint8_t txs[] = "hi";
-        printf("[%.3f] \r\n", (float)ticks / 1000.0f);
-        blink();
+        uint8_t here[] = "abcdefgh";
+        SPI_write(SPI4, here, 0);
         delay_ms(500);
+        blink();
     }
 }

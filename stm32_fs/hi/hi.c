@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 int main() {
-  char *a = "hi";
-  a = "bye";
+  int a = 0b10000001;
+  int b = 0b10000000;
 
-  printf("%s \r\n", a);
+  printf("%i \r\n", a & b);
 }

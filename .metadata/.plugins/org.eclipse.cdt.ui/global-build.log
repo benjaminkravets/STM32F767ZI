@@ -2406,3 +2406,47 @@ arm-none-eabi-size  spi_read_registers.elf
    8752	     12	   1668	  10432	   28c0	spi_read_registers.elf
 Finished building: default.size.stdout
  
+16:20:54 **** Build of configuration Debug for project spi_read_registers ****
+make -j16 all 
+arm-none-eabi-size  spi_read_registers.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8752	     12	   1668	  10432	   28c0	spi_read_registers.elf
+Finished building: default.size.stdout
+ 
+16:20:55 **** Build of configuration Debug for project uart ****
+make -j16 all 
+arm-none-eabi-size  uart.elf 
+   text	   data	    bss	    dec	    hex	filename
+  36312	    424	  25392	  62128	   f2b0	uart.elf
+Finished building: default.size.stdout
+ 
+21:11:47 **** Incremental Build of configuration Debug for project spi_read_registers ****
+make -j16 all 
+arm-none-eabi-gcc -o "spi_read_registers.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\spi_read_registers\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="spi_read_registers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: spi_read_registers.elf
+ 
+arm-none-eabi-size  spi_read_registers.elf 
+arm-none-eabi-objdump -h -S spi_read_registers.elf  > "spi_read_registers.list"
+arm-none-eabi-objcopy  -O binary spi_read_registers.elf  "spi_read_registers.bin"
+   text	   data	    bss	    dec	    hex	filename
+   8752	     12	   1668	  10432	   28c0	spi_read_registers.elf
+Finished building: default.size.stdout
+ 
+Finished building: spi_read_registers.bin
+ 
+Finished building: spi_read_registers.list
+ 
+21:11:48 **** Incremental Build of configuration Debug for project uart ****
+make -j16 all 
+arm-none-eabi-size  uart.elf 
+   text	   data	    bss	    dec	    hex	filename
+  36312	    424	  25392	  62128	   f2b0	uart.elf
+Finished building: default.size.stdout
+ 
+20:21:41 **** Incremental Build of configuration Debug for project spi_read_registers ****
+make -j16 all 
+arm-none-eabi-size  spi_read_registers.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8752	     12	   1668	  10432	   28c0	spi_read_registers.elf
+Finished building: default.size.stdout
+ 

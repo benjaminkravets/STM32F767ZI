@@ -1,6 +1,7 @@
 #define SRAM_START (0x20000000U)
 #define SRAM_SIZE (512U * 1024U)
 #define SRAM_END (SRAM_START + SRAM_SIZE)
+// the stack starts at the end of SRAM and grows down
 #define STACK_POINTER_INIT_ADDRESS (SRAM_END)
 
 #include <stdint.h>
@@ -54,9 +55,11 @@ void default_handler(void) // waits in busy loop (common out-of-box implementati
         ;
 }
 
+// abides by the ARM reset behaviour outlined in B1.5.5 of Armv7-M
 void reset_handler(void)
 {
-    // copy .data from whereever it ended up in FLASH to SRAM
+    // linker-provided symbols should be used be their reference, not directly
+    //  copy .data from whereever it ended up in FLASH to SRAM
     uint32_t data_size = (uint32_t)&_edata - (uint32_t)&_sdata;
     uint32_t *flash_data = (uint32_t *)&_sidata; // data load address in flash
     uint32_t *sram_data = (uint32_t *)&_sdata;   // data virtual address in sram
