@@ -29,15 +29,6 @@ void delay_ms(uint32_t milliseconds)
         ;
 }
 
-void blinker()
-{
-    while (1)
-    {
-        GPIOB->ODR ^= (1 << LED_PIN);
-        delay_ms(500);
-    }
-}
-
 void blink()
 {
     GPIOB->ODR ^= (1 << LED_PIN);
@@ -124,7 +115,7 @@ void SPI_init()
     SPI4->CR1 |= SPI_CR1_SPE;
 }
 
-void SPI_write(SPI_TypeDef *tx_spi, uint8_t *tx_data, uint32_t tx_len)
+void SPI_write(SPI_TypeDef *tx_spi, uint8_t *tx_data, uint8_t *rx_data, uint32_t tx_len)
 {
 
     printf("%i \r\n", tx_spi->SR);
@@ -175,7 +166,8 @@ int main()
     while (1)
     {
         uint8_t here[] = "abcdefgh";
-        SPI_write(SPI4, here, 0);
+        SPI_write(SPI4, here, 0, 0);
+        printf("Hello \r\n");
         delay_ms(500);
         blink();
     }

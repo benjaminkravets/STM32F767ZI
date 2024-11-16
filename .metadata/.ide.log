@@ -1,1 +1,5 @@
-2024-11-15 18:22:08,136 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2024-11-16 16:18:23,121 [INFO] Activator:176 - 
+
+
+2024-11-16 16:18:23,127 [INFO] Activator:177 - !SESSION log4j initialized
+2024-11-16 16:18:29,448 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 

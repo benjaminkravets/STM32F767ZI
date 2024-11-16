@@ -1,22 +1,18 @@
 
 #include <stdint.h>
-
-
 #include "stm32f767xx.h"
 #include "system_stm32f7xx.h"
 
 #define LED_PIN 7
 
-
-uint32_t __flash_app_start__ = 0x08008000;
-
-
+// linker variables must be accessed by their address (not value), using an array reference accomplished this too.
+// https://stackoverflow.com/a/54728097/13745806
+extern uint32_t __flash_app_start__[];
 
 void blink()
 {
     GPIOB->ODR ^= (1 << LED_PIN);
 }
-
 
 void GPIOB_init()
 {
@@ -26,13 +22,11 @@ void GPIOB_init()
     GPIOB->MODER |= (1 << GPIO_MODER_MODER7_Pos);
 }
 
-
-
-static void start_app(uint32_t pc, uint32_t sp) 
+static void start_app(uint32_t pc, uint32_t sp)
 {
     __asm("           \n\
-          msr msp, r1 /* load r1 into MSP */\n\
-          bx r0       /* branch to the address at r0 */\n\
+          msr msp, r1 /* load R1 (second argument) into MSP */\n\
+          bx r0       /* branch to address in R0 (first argument)*/\n\
     ");
 }
 
@@ -40,10 +34,9 @@ extern uint32_t isr_vector[];
 int main(void)
 {
     GPIOB_init();
-    for (uint32_t i = 0; i < 5; i++)
+    for (uint32_t i = 0; i < 8; i++)
     {
-
-        for (uint32_t i = 0; i < 1000000; i++)
+        for (uint32_t i = 0; i < 500000; i++)
             ;
         blink();
     }
@@ -55,7 +48,7 @@ int main(void)
 
     while (1)
     {
-        for (uint32_t i = 0; i < 1000000; i++)
+        for (uint32_t i = 0; i < 500000; i++)
             ;
         blink();
     }
