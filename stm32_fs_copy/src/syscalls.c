@@ -1,6 +1,6 @@
 #include <sys/stat.h>
 #include <errno.h>
-#include "vendor/stm32f7xx.h"
+#include "stm32f7xx.h"
 #include "usart.h"
 
 #undef errno
