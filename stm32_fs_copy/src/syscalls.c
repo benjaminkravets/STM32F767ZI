@@ -15,7 +15,7 @@ void _exit(int exit_code)
     };
 }
 
-// close a file
+// close a file - return -1 since there are no files that would have been opened
 int _close(int file)
 {
     return -1;
@@ -42,6 +42,7 @@ int fork(void)
 // status of open file
 int _fstat(int file, struct stat *st)
 {
+    //identify all files as character devices
     st->st_mode = S_IFCHR;
     return 0;
 }
@@ -72,7 +73,7 @@ int link(char *old, char *new)
     return -1;
 }
 
-// set position in a file
+// set position in a file; return 0 to signal file is empty
 int _lseek(int file, int ptr, int dir)
 {
     return 0;
@@ -84,10 +85,14 @@ int open(const char *name, int flags, int mode)
     return -1;
 }
 
-// read a file
+// read a file (only reads one file for getchar())
 int _read(int file, char *ptr, int len)
 {
-    return 0;
+    (void)file;
+
+    *ptr = usart_read(USART3);
+    
+    return 1;
 }
 
 // increase heap space
@@ -145,7 +150,7 @@ int wait(int *status)
     return -1;
 }
 extern void blink();
-void usart_write(USART_TypeDef *usart, char c);
+
 
 // write to a file (including stdout, where debug printf will go)
 int _write(int file, char *ptr, int len)

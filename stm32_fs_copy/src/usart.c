@@ -1,4 +1,6 @@
 #include "usart.h"
+#include "stm32f767xx.h"
+#include "system_stm32f7xx.h"
 
 void USART3_init()
 {
@@ -20,7 +22,7 @@ void USART3_init()
     // BRR is 25 Mhz/115200 baud = 217
     USART3->BRR = 217;
     // usart enable and transmitter enable
-    USART3->CR1 |= USART_CR1_UE | USART_CR1_TE;
+    USART3->CR1 |= USART_CR1_UE | USART_CR1_TE | USART_CR1_RE;
 }
 
 void usart_write(USART_TypeDef *usart, char c)
@@ -30,4 +32,12 @@ void usart_write(USART_TypeDef *usart, char c)
     // wait on transmission complete bit
     while (!(usart->ISR & USART_ISR_TC))
         ;
+}
+
+char usart_read(USART_TypeDef* usart)
+{
+    // wait for character to appear in buffer
+    while (!(USART3->ISR & USART_ISR_RXNE));
+    return USART3->RDR;
+
 }

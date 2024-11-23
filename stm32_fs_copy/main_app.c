@@ -14,6 +14,7 @@ void systick_handler()
 {
     ticks++;
 }
+
 void delay_ms(uint32_t milliseconds)
 {
     uint32_t start = ticks;
@@ -162,13 +163,19 @@ int main()
     GPIOB_init();
     USART3_init();
     SPI_init();
+    
+    uint8_t received[10] = {0};
 
     while (1)
     {
         uint8_t here[] = "abcdefgh";
         SPI_write(SPI4, here, 0, 0);
-        printf("Hello \r\n");
-        delay_ms(500);
+        char z = getchar(); //delay_ms(500);
+        printf("Hello %c \r\n", z);
         blink();
+
+
+
+        
     }
 }

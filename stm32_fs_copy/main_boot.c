@@ -34,7 +34,7 @@ extern uint32_t isr_vector[];
 int main(void)
 {
     GPIOB_init();
-    for (uint32_t i = 0; i < 8; i++)
+    for (uint32_t i = 0; i < 1; i++)
     {
         for (uint32_t i = 0; i < 500000; i++)
             ;

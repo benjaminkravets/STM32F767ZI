@@ -80,9 +80,11 @@ void reset_handler(void)
         bss[i] = 0;
     }
 
-    //modify the System Control Block's Vector Table Offset Register's TBLOFF address to be the location of the start of isr_vector
-    SCB->VTOR = ((uint32_t) &_sisr_vector & SCB_VTOR_TBLOFF_Msk);
+    // modify the System Control Block's Vector Table Offset Register's TBLOFF address to be the location of the start of isr_vector
+    SCB->VTOR = ((uint32_t)&_sisr_vector & SCB_VTOR_TBLOFF_Msk);
 
-    __libc_init_array(); // libc initialization
+    // libc initialization
+    // functions can be added here using __attribute__((constructor))
+    __libc_init_array();
     main();
 }
