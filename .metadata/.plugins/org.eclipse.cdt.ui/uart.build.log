@@ -1,4 +1,4 @@
-21:11:48 **** Incremental Build of configuration Debug for project uart ****
+07:32:21 **** Build of configuration Debug for project uart ****
 make -j16 all 
 arm-none-eabi-size  uart.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  uart.elf
 Finished building: default.size.stdout
  
 
-21:11:49 Build Finished. 0 errors, 0 warnings. (took 309ms)
+07:32:21 Build Finished. 0 errors, 0 warnings. (took 348ms)
 

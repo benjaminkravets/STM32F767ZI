@@ -170,7 +170,9 @@ int main()
     {
         uint8_t here[] = "abcdefgh";
         SPI_write(SPI4, here, 0, 0);
-        char z = getchar(); //delay_ms(500);
+        char z = "0";
+        //char z = getchar(); 
+        delay_ms(500);
         printf("Hello %c \r\n", z);
         blink();
 

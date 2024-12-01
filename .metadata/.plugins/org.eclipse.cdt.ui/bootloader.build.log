@@ -1,10 +1,21 @@
-20:59:12 **** Incremental Build of configuration Debug for project bootloader ****
+07:32:18 **** Build of configuration Debug for project bootloader ****
 make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_hal_msp.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_hal_msp.d" -MT"Core/Src/stm32f7xx_hal_msp.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_hal_msp.o"
+arm-none-eabi-gcc -o "bootloader.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\bootloader\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: bootloader.elf
+ 
 arm-none-eabi-size  bootloader.elf 
+arm-none-eabi-objdump -h -S bootloader.elf  > "bootloader.list"
+arm-none-eabi-objcopy  -O binary bootloader.elf  "bootloader.bin"
    text	   data	    bss	    dec	    hex	filename
    6584	     12	   1572	   8168	   1fe8	bootloader.elf
 Finished building: default.size.stdout
  
+Finished building: bootloader.bin
+ 
+Finished building: bootloader.list
+ 
 
-20:59:12 Build Finished. 0 errors, 0 warnings. (took 195ms)
+07:32:20 Build Finished. 0 errors, 0 warnings. (took 2s.86ms)
 
