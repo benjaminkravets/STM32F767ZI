@@ -1,4 +1,11 @@
-07:32:46 **** Incremental Build of configuration Debug for project spi_read_registers ****
+21:06:14 **** Build of configuration Debug for project spi_read_registers ****
+make -j16 all 
+arm-none-eabi-size  spi_read_registers.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8752	     12	   1668	  10432	   28c0	spi_read_registers.elf
+Finished building: default.size.stdout
+ 
+21:08:23 **** Incremental Build of configuration Debug for project spi_read_registers ****
 make -j16 all 
 arm-none-eabi-size  spi_read_registers.elf 
    text	   data	    bss	    dec	    hex	filename

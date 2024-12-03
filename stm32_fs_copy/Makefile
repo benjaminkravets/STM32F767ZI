@@ -5,14 +5,14 @@
 
 CC=arm-none-eabi-gcc
 #nano.specs will use nanolib instead of stdlib or newlib
-CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx
+CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD
 CPPFLAGS=-Ivendor -Iinc
 
 #nanolib doesn't support floats for printf/scanf by default
-LINKER_FILE_APP=linker_app.ld -u _printf_float -Wl,-Map="app.map" -MM
+LINKER_FILE_APP=linker_app.ld -u _printf_float -Wl,-Map="app.map"
 LDFLAGS_APP=-T $(LINKER_FILE_APP)
 
-LINKER_FILE_BOOT=linker_boot.ld -u _printf_float -Wl,-Map="boot.map"
+LINKER_FILE_BOOT=linker_boot.ld -u _printf_float -Wl,-Map="boot.map" 
 LDFLAGS_BOOT=-T $(LINKER_FILE_BOOT)
 
 OCPY=arm-none-eabi-objcopy
@@ -68,4 +68,4 @@ flash_image: image.bin
 #a phony target has no outputs, it will just run a command
 .PHONY: clean
 clean:
-	rm -f *.o *.elf *.bin *.map
+	rm -f *.o *.elf *.bin *.map *.d

@@ -27,3 +27,17 @@ how vendor dir was made:
 making sure type names resolve correctly for vscode:
 
     make sure ' "__CC_ARM"' is under 'defines' in C/C++ JSON configuration (may need created)
+
+Debugging
+    Run ST-link debug server:
+        ST-LINK_gdbserver.exe -d -v -cp path-to-stm-32-programmer
+        ..or..
+        C:\ST\STM32CubeIDE_1.11.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.1.400.202404281720\tools\bin\ST-LINK_gdbserver.exe -d -v -cp C:\ST\STM32CubeIDE_1.11.2\STM32CubeIDE\plugins\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.1.400.202404281720\tools\bin
+
+    Run GDB:
+        arm-none-eabi-gdb.exe target.elf
+        ..or..
+        C:\Users\bakra\Desktop\arm-none-eabi\arm-gnu-toolchain-13.3.rel1-mingw-w64-i686-arm-none-eabi\arm-gnu-toolchain-13.3.rel1-mingw-w64-i686-arm-none-eabi\bin\arm-none-eabi-gdb.exe C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs_copy\app.elf
+
+        then target remote localhost:61234
+
