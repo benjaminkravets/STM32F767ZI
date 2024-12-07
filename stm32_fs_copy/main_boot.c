@@ -24,7 +24,7 @@ void GPIOB_init()
 
 static void start_app(uint32_t program_counter, uint32_t stack_ptr)
 {
-    __asm("           \n\
+    asm("           \n\
           msr msp, r1 /* load R1 (second argument) into MSP (Main Stack Pointer) */\n\
           bx r0       /* branch to address in R0 (first argument)*/\n\
     ");

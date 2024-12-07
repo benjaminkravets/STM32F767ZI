@@ -4,6 +4,7 @@
         "stat.h": "c",
         "cstdio": "c",
         "stdio.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "20ed144db0b2001f1889c0e2db452143": "cpp"
     }
 }

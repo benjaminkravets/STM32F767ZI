@@ -1,0 +1,10 @@
+19:05:53 **** Incremental Build of configuration Debug for project mem_to_mem_dma ****
+make -j16 all 
+arm-none-eabi-size  mem_to_mem_dma.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13832	     12	   1804	  15648	   3d20	mem_to_mem_dma.elf
+Finished building: default.size.stdout
+ 
+
+19:05:53 Build Finished. 0 errors, 0 warnings. (took 194ms)
+

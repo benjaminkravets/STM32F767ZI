@@ -87,7 +87,6 @@ void GPIOB_init()
     GPIOB->MODER |= (1 << GPIO_MODER_MODER0_Pos);
 }
 
-
 void SPI_init()
 {
     // checklist in 35.5.7
@@ -148,6 +147,29 @@ void SPI_write(SPI_TypeDef *tx_spi, uint8_t *tx_data, uint8_t *rx_data, uint32_t
     // tx_spi->CR1 &= ~(SPI_CR1_SSI);
 }
 
+void DMA2_channel_init()
+{
+    RCC->AHB1ENR |= (RCC_AHB1ENR_DMA2EN);
+}
+
+void DMA_transfer(uint32_t *src, uint32_t *dst, uint32_t size)
+{
+
+    // 8.3.7 EN will need enabled in DMA_SxCR
+
+    // transfer unit size is 1 byte by default (msize)
+    DMA2_Stream0->PAR = src;
+    DMA2_Stream0->M0AR = dst;
+    DMA2_Stream0->NDTR = size;
+    // channel request CHSEL is 0 by default
+    // priority is low by default
+    // fifo en?
+    // set CR to '10' memory-to-memory mode
+    DMA2_Stream0->CR |= DMA_SxCR_DIR_1;
+
+    // start transfer
+    DMA2_Stream0->CR |= DMA_SxCR_EN;
+}
 
 int main()
 {
@@ -163,21 +185,29 @@ int main()
     GPIOB_init();
     USART3_init();
     SPI_init();
-    
+
     uint8_t received[10] = {0};
+
+    // while (1)
+    // {
+    //     uint8_t here[] = "abcdefgh";
+    //     SPI_write(SPI4, here, 0, 0);
+    //     char z = "0";
+    //     //char z = getchar();
+    //     delay_ms(500);
+    //     printf("Hello %c \r\n", z);
+    //     blink();
+
+    // }
+
+    uint8_t tx_buffer_src[] = "hello \r\n";
+    uint8_t tx_buffer_dst[] = "byebye \r\n";
 
     while (1)
     {
-        uint8_t here[] = "abcdefgh";
-        SPI_write(SPI4, here, 0, 0);
-        char z = "0";
-        //char z = getchar(); 
-        delay_ms(500);
-        printf("Hello %c \r\n", z);
-        blink();
-
-
-
-        
+        printf("%s", tx_buffer_dst);
+        DMA_transfer(tx_buffer_src, tx_buffer_dst, 8);
+        delay_ms(1000);
     }
+
 }

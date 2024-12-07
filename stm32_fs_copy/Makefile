@@ -5,7 +5,7 @@
 
 CC=arm-none-eabi-gcc
 #nano.specs will use nanolib instead of stdlib or newlib
-CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD
+CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD -g3
 CPPFLAGS=-Ivendor -Iinc
 
 #nanolib doesn't support floats for printf/scanf by default
