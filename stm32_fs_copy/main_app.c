@@ -155,20 +155,51 @@ void DMA2_channel_init()
 void DMA_transfer(uint32_t *src, uint32_t *dst, uint32_t size)
 {
 
-    // 8.3.7 EN will need enabled in DMA_SxCR
-
+    // instructions in 8.3.18
+    // 1. disable DMA while setting flags
+    DMA2_Stream0->CR &= ~(DMA_SxCR_EN);
     // transfer unit size is 1 byte by default (msize)
+    // 2. set src ptr
     DMA2_Stream0->PAR = src;
+    // 3. set dst ptr
     DMA2_Stream0->M0AR = dst;
+    // 4. set number of data
     DMA2_Stream0->NDTR = size;
-    // channel request CHSEL is 0 by default
-    // priority is low by default
-    // fifo en?
-    // set CR to '10' memory-to-memory mode
-    DMA2_Stream0->CR |= DMA_SxCR_DIR_1;
-
-    // start transfer
+    // 5. channel request CHSEL is 0 by default
+    // 6. DMA is controller (for mem-to-mem) by default (not peripheral)
+    // 7. priority is low by default
+    // 8. ?
+    // 9. increment src and dst pointers,mset CR to '10' memory-to-memory mode
+    DMA2_Stream0->CR |= DMA_SxCR_MINC | DMA_SxCR_PINC | DMA_SxCR_DIR_1;
+    // clear interrupt flags before enabling (8.5.5)
+    DMA2->LIFCR |= DMA_LIFCR_CTCIF0 | DMA_LIFCR_CHTIF0;
+    // 10. start transfer
     DMA2_Stream0->CR |= DMA_SxCR_EN;
+
+    // since this is polling, wait until transfer is over (8.3.7)
+    while (DMA2_Stream0->NDTR)
+    {
+    }
+}
+
+void using_dma()
+{
+    uint8_t tx_buffer_src1[] = "12345 \r\n";
+    uint8_t tx_buffer_src2[] = "abcde \r\n";
+
+    uint8_t tx_buffer_dst[] = "54321 \r\n";
+
+    //printf("%i %i \r\n", DMA2->LISR, DMA2->HISR);
+
+    printf("%s", tx_buffer_dst);
+    DMA_transfer((uint32_t *)tx_buffer_src1, (uint32_t *)tx_buffer_dst, 6);
+
+    printf("%s", tx_buffer_dst);
+    DMA_transfer(tx_buffer_src2, tx_buffer_dst, 6);
+
+    printf("%s", tx_buffer_dst);
+
+
 }
 
 int main()
@@ -185,29 +216,18 @@ int main()
     GPIOB_init();
     USART3_init();
     SPI_init();
+    DMA2_channel_init();
 
-    uint8_t received[10] = {0};
-
-    // while (1)
-    // {
-    //     uint8_t here[] = "abcdefgh";
-    //     SPI_write(SPI4, here, 0, 0);
-    //     char z = "0";
-    //     //char z = getchar();
-    //     delay_ms(500);
-    //     printf("Hello %c \r\n", z);
-    //     blink();
-
-    // }
-
-    uint8_t tx_buffer_src[] = "hello \r\n";
-    uint8_t tx_buffer_dst[] = "byebye \r\n";
+    using_dma();
 
     while (1)
     {
-        printf("%s", tx_buffer_dst);
-        DMA_transfer(tx_buffer_src, tx_buffer_dst, 8);
-        delay_ms(1000);
+        uint8_t here[] = "abcdefgh";
+        SPI_write(SPI4, here, 0, 0);
+        char z = "0";
+        // char z = getchar();
+        delay_ms(500);
+        printf("Hello \r\n");
+        blink();
     }
-
 }
