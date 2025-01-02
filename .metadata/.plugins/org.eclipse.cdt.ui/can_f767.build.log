@@ -1,10 +1,10 @@
-19:50:52 **** Incremental Build of configuration Debug for project can_f767 ****
+17:05:24 **** Incremental Build of configuration Debug for project can_f767 ****
 make -j16 all 
 arm-none-eabi-size  can_f767.elf 
    text	   data	    bss	    dec	    hex	filename
-  10736	     20	   1684	  12440	   3098	can_f767.elf
+  10768	     20	   1684	  12472	   30b8	can_f767.elf
 Finished building: default.size.stdout
  
 
-19:50:53 Build Finished. 0 errors, 0 warnings. (took 190ms)
+17:05:25 Build Finished. 0 errors, 0 warnings. (took 251ms)
 

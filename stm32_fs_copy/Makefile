@@ -69,3 +69,5 @@ flash_image: image.bin
 .PHONY: clean
 clean:
 	rm -f *.o *.elf *.bin *.map *.d
+
+#export PATH="/home/ben/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/:$PATH"
