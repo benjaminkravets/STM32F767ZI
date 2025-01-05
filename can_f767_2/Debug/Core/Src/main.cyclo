@@ -1,6 +1,8 @@
-../Core/Src/main.c:63:6:HAL_CAN_RxFifo0MsgPendingCallback	1
-../Core/Src/main.c:75:5:main	1
-../Core/Src/main.c:125:6:SystemClock_Config	4
-../Core/Src/main.c:180:13:MX_CAN1_Init	2
-../Core/Src/main.c:231:13:MX_GPIO_Init	1
-../Core/Src/main.c:353:6:Error_Handler	1
+../Core/Src/main.c:75:6:HAL_CAN_RxFifo0MsgPendingCallback	1
+../Core/Src/main.c:81:13:CanReceiverTask	2
+../Core/Src/main.c:100:5:main	3
+../Core/Src/main.c:190:6:SystemClock_Config	4
+../Core/Src/main.c:241:13:MX_CAN1_Init	2
+../Core/Src/main.c:290:13:MX_GPIO_Init	1
+../Core/Src/main.c:415:6:StartDefaultTask	1
+../Core/Src/main.c:430:6:Error_Handler	1
