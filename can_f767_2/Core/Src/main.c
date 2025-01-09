@@ -70,9 +70,13 @@ void StartDefaultTask(void *argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 CAN_RxHeaderTypeDef RxHeader;
+CAN_RxHeaderTypeDef TxHeader;
 uint8_t RxData[8];
+uint8_t TxData[8];
 static StreamBufferHandle_t xStreamBuffer0 = NULL;
 static StreamBufferHandle_t xStreamBuffer1 = NULL;
+uint32_t TxMailbox;
+
 
 //9.2.7 Rx FIFO 0 message pending callback.
 
@@ -99,11 +103,16 @@ static void CanReceiverTask() {
 }
 
 static void CanSenderTask() {
-	uint8_t RxDataToSend[8];
+	uint8_t DataToSend[8];
 	uint8_t received = 0;
-	while(1) {
-		received = xStreamBufferReceive(xStreamBuffer1, RxDataToSend, 8, portMAX_DELAY);
 
+	TxHeader.DLC;
+	TxHeader.IDE = CAN_ID_STD;		// use 11 bit identifier
+	TxHeader.RTR = CAN_RTR_DATA;
+	TxHeader.StdId = 0x123;			// ID
+	while(1) {
+		received = xStreamBufferReceive(xStreamBuffer1, DataToSend, 8, portMAX_DELAY);
+		HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
 	}
 }
 /* USER CODE END 0 */
