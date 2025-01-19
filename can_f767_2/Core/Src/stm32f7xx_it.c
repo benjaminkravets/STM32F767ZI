@@ -86,8 +86,7 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-  __BKPT(0);
-  static volatile int junk = 0;
+
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {

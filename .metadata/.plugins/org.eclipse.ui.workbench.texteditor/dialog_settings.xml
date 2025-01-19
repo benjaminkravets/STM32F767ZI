@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="DataToSend"/>
+		<item key="selection" value="HAL_CAN_GetRxMessage"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="RxDataToSend"/>
-			<item value="rxdatato"/>
-			<item value="TxMailbox"/>
-			<item value="sent"/>
-			<item value="vtasksus"/>
-			<item value="suspend"/>
-			<item value="COMMAND_BUFFER_LENGTH"/>
-			<item value="canProcessorTask"/>
-			<item value="asser"/>
-			<item value="assert"/>
-			<item value="init.direction"/>
-			<item value="dma_in"/>
-			<item value="dma_"/>
-			<item value="cplt"/>
-			<item value="it_"/>
+			<item value="HAL_CAN_GetRxMessage"/>
+			<item value="HAL_CAN_AddTxMessage"/>
+			<item value="include &quot;"/>
+			<item value="include"/>
+			<item value="mem"/>
+			<item value="#include"/>
+			<item value="0xff"/>
+			<item value="log"/>
+			<item value="defin"/>
+			<item value="tx_complete"/>
+			<item value="tx_complete_0"/>
+			<item value="TxData"/>
+			<item value="txheader"/>
+			<item value="RxHeader"/>
+			<item value="HAL_CAN_TxMailbox0CompleteCallback"/>
 		</list>
 		<list key="replacehistory">
+			<item value="TxComplete"/>
+			<item value="tx_complete"/>
+			<item value="HAL_CAN_TxMailbox0CompleteCallback"/>
 			<item value="DataToSend"/>
 			<item value="RECEIVE_BUFFER_LENGTH"/>
 			<item value="CanReceiverTask"/>
@@ -39,10 +42,14 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="942"/>
-		<item key="DIALOG_Y_ORIGIN" value="738"/>
+		<item key="DIALOG_X_ORIGIN" value="790"/>
+		<item key="DIALOG_Y_ORIGIN" value="718"/>
 		<item key="DIALOG_WIDTH" value="322"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="724"/>
+		<item key="DIALOG_Y_ORIGIN" value="452"/>
 	</section>
 </section>

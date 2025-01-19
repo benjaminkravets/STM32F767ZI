@@ -1,4 +1,4 @@
-20:31:17 **** Build of configuration Debug for project usb_led_control ****
+14:44:10 **** Incremental Build of configuration Debug for project usb_led_control ****
 make -j16 all 
 arm-none-eabi-size  usb_led_control.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  usb_led_control.elf
 Finished building: default.size.stdout
  
 
-20:31:17 Build Finished. 0 errors, 0 warnings. (took 857ms)
+14:44:10 Build Finished. 0 errors, 0 warnings. (took 344ms)
 

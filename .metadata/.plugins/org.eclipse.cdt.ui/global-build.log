@@ -1,52 +1,38 @@
-21:00:03 **** Incremental Build of configuration Debug for project can_f767_2 ****
+18:41:29 **** Incremental Build of configuration Debug for project can_f767_2 ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/stm32f7xx_hal_msp.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_hal_msp.d" -MT"Core/Src/stm32f7xx_hal_msp.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_hal_msp.o"
-arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
-../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
-../Core/Src/stm32f7xx_it.c:90:23: warning: unused variable 'junk' [-Wunused-variable]
-   90 |   static volatile int junk = 0;
-      |                       ^~~~
-../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
-../Core/Src/main.c:81:16: warning: unused variable 'sent' [-Wunused-variable]
-   81 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
-      |                ^~~~
-../Core/Src/main.c: In function 'CanReceiverTask':
-../Core/Src/main.c:88:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
-   88 |         uint32_t sent = 0;
-      |                  ^~~~
-../Core/Src/main.c: In function 'CanSenderTask':
-../Core/Src/main.c:103:17: warning: variable 'received' set but not used [-Wunused-but-set-variable]
-  103 |         uint8_t received = 0;
-      |                 ^~~~~~~~
-arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: can_f767_2.elf
- 
 arm-none-eabi-size  can_f767_2.elf 
-arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
    text	   data	    bss	    dec	    hex	filename
-  25860	     96	  20888	  46844	   b6fc	can_f767_2.elf
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
 Finished building: default.size.stdout
  
-Finished building: can_f767_2.list
+18:41:41 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
+Finished building: default.size.stdout
  
-21:25:07 **** Incremental Build of configuration Debug for project can_f767_2 ****
+18:24:05 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+19:47:15 **** Incremental Build of configuration Debug for project can_f767_2 ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
-../Core/Src/main.c:85:16: warning: unused variable 'sent' [-Wunused-variable]
-   85 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
       |                ^~~~
 ../Core/Src/main.c: In function 'CanReceiverTask':
-../Core/Src/main.c:92:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
-   92 |         uint32_t sent = 0;
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
       |                  ^~~~
 ../Core/Src/main.c: In function 'CanSenderTask':
-../Core/Src/main.c:109:17: warning: statement with no effect [-Wunused-value]
-  109 |         TxHeader.DLC;
-      |         ~~~~~~~~^~~~
-../Core/Src/main.c:115:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
-  115 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
       |                                              ^~~~~~~~~
       |                                              |
       |                                              CAN_RxHeaderTypeDef *
@@ -57,24 +43,634 @@ In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
   688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
       |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
-../Core/Src/main.c:107:17: warning: variable 'received' set but not used [-Wunused-but-set-variable]
-  107 |         uint8_t received = 0;
-      |                 ^~~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
 arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: can_f767_2.elf
  
 arm-none-eabi-size  can_f767_2.elf 
 arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
    text	   data	    bss	    dec	    hex	filename
-  26324	     96	  20920	  47340	   b8ec	can_f767_2.elf
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
 Finished building: default.size.stdout
  
 Finished building: can_f767_2.list
  
-21:28:17 **** Incremental Build of configuration Debug for project can_f767_2 ****
+19:47:37 **** Incremental Build of configuration Debug for project can_f767_2 ****
 make -j16 all 
 arm-none-eabi-size  can_f767_2.elf 
    text	   data	    bss	    dec	    hex	filename
-  26324	     96	  20920	  47340	   b8ec	can_f767_2.elf
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+19:50:36 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:189:23: warning: initialization of 'volatile int *' from incompatible pointer type 'uint32_t *' {aka 'long unsigned int *'} [-Wincompatible-pointer-types]
+  189 |   volatile int *ptr = (uint32_t *)0x00000001;
+      |                       ^
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+19:51:36 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+20:01:32 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+20:22:45 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+20:28:07 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+21:11:41 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26964	     96	  20920	  47980	   bb6c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+21:16:56 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:89:41: error: initializer element is not constant
+   89 |   static volatile unsigned long _CFSR = (*((volatile unsigned long *)(0xE000ED28)));
+      |                                         ^
+../Core/Src/stm32f7xx_it.c:90:41: error: initializer element is not constant
+   90 |   static volatile unsigned long _UFSR = (*((volatile unsigned long *)(0xE000ED2A)));
+      |                                         ^
+../Core/Src/stm32f7xx_it.c:95:23: warning: unused variable 'junk' [-Wunused-variable]
+   95 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:90:33: warning: unused variable '_UFSR' [-Wunused-variable]
+   90 |   static volatile unsigned long _UFSR = (*((volatile unsigned long *)(0xE000ED2A)));
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:89:33: warning: unused variable '_CFSR' [-Wunused-variable]
+   89 |   static volatile unsigned long _CFSR = (*((volatile unsigned long *)(0xE000ED28)));
+      |                                 ^~~~~
+make: *** [Core/Src/subdir.mk:37: Core/Src/stm32f7xx_it.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+21:17:42 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:96:23: warning: unused variable 'junk' [-Wunused-variable]
+   96 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:89:33: warning: variable '_CFSR' set but not used [-Wunused-but-set-variable]
+   89 |   static volatile unsigned long _CFSR;
+      |                                 ^~~~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26980	     96	  20920	  47996	   bb7c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+21:19:08 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:89:41: error: initializer element is not constant
+   89 |   static volatile unsigned long _CFSR = (*((volatile unsigned long *)(0xE000ED28)));
+      |                                         ^
+../Core/Src/stm32f7xx_it.c:95:23: warning: unused variable 'junk' [-Wunused-variable]
+   95 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:89:33: warning: unused variable '_CFSR' [-Wunused-variable]
+   89 |   static volatile unsigned long _CFSR = (*((volatile unsigned long *)(0xE000ED28)));
+      |                                 ^~~~~
+make: *** [Core/Src/subdir.mk:37: Core/Src/stm32f7xx_it.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+21:23:01 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:101:23: warning: unused variable 'junk' [-Wunused-variable]
+  101 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:91:33: warning: variable '_UFSR' set but not used [-Wunused-but-set-variable]
+   91 |   static volatile unsigned long _UFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:90:33: warning: variable '_HFSR' set but not used [-Wunused-but-set-variable]
+   90 |   static volatile unsigned long _HFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:89:33: warning: variable '_CFSR' set but not used [-Wunused-but-set-variable]
+   89 |   static volatile unsigned long _CFSR;
+      |                                 ^~~~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  27012	     96	  20928	  48036	   bba4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+21:23:45 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  27012	     96	  20928	  48036	   bba4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+21:28:50 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:190:7: warning: unused variable 'result' [-Wunused-variable]
+  190 |   int result = a / b;  // Attempt to divide by zero
+      |       ^~~~~~
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  27012	     96	  20928	  48036	   bba4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+20:18:52 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:101:23: warning: unused variable 'junk' [-Wunused-variable]
+  101 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:91:33: warning: variable '_UFSR' set but not used [-Wunused-but-set-variable]
+   91 |   static volatile unsigned long _UFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:90:33: warning: variable '_HFSR' set but not used [-Wunused-but-set-variable]
+   90 |   static volatile unsigned long _HFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:89:33: warning: variable '_CFSR' set but not used [-Wunused-but-set-variable]
+   89 |   static volatile unsigned long _CFSR;
+      |                                 ^~~~~
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:190:7: warning: unused variable 'result' [-Wunused-variable]
+  190 |   int result = a / b;  // Attempt to divide by zero
+      |       ^~~~~~
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  27012	     96	  20928	  48036	   bba4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+20:19:50 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  27012	     96	  20928	  48036	   bba4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+20:26:44 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:103:23: warning: unused variable 'junk' [-Wunused-variable]
+  103 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:91:33: warning: variable '_UFSR' set but not used [-Wunused-but-set-variable]
+   91 |   static volatile unsigned long _UFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:90:33: warning: variable '_HFSR' set but not used [-Wunused-but-set-variable]
+   90 |   static volatile unsigned long _HFSR;
+      |                                 ^~~~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  27028	     96	  20928	  48052	   bbb4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+20:27:26 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  27028	     96	  20928	  48052	   bbb4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+20:33:57 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+../Core/Src/stm32f7xx_it.c: In function 'HardFault_Handler':
+../Core/Src/stm32f7xx_it.c:100:23: warning: unused variable 'junk' [-Wunused-variable]
+  100 |   static volatile int junk = 0;
+      |                       ^~~~
+../Core/Src/stm32f7xx_it.c:91:33: warning: variable '_UFSR' set but not used [-Wunused-but-set-variable]
+   91 |   static volatile unsigned long _UFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:90:33: warning: variable '_HFSR' set but not used [-Wunused-but-set-variable]
+   90 |   static volatile unsigned long _HFSR;
+      |                                 ^~~~~
+../Core/Src/stm32f7xx_it.c:89:33: warning: variable '_CFSR' set but not used [-Wunused-but-set-variable]
+   89 |   static volatile unsigned long _CFSR;
+      |                                 ^~~~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  27012	     96	  20928	  48036	   bba4	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+20:43:15 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_CAN_RxFifo0MsgPendingCallback':
+../Core/Src/main.c:86:16: warning: unused variable 'sent' [-Wunused-variable]
+   86 |         size_t sent = xStreamBufferSendFromISR(xStreamBuffer0, RxData, 8, NULL);
+      |                ^~~~
+../Core/Src/main.c: In function 'CanReceiverTask':
+../Core/Src/main.c:99:18: warning: variable 'sent' set but not used [-Wunused-but-set-variable]
+   99 |         uint32_t sent = 0;
+      |                  ^~~~
+../Core/Src/main.c: In function 'CanSenderTask':
+../Core/Src/main.c:128:46: warning: passing argument 2 of 'HAL_CAN_AddTxMessage' from incompatible pointer type [-Wincompatible-pointer-types]
+  128 |                 HAL_CAN_AddTxMessage(&hcan1, &TxHeader, DataToSend, &TxMailbox);
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              CAN_RxHeaderTypeDef *
+In file included from ../Core/Inc/stm32f7xx_hal_conf.h:295,
+                 from ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_can.h:688:92: note: expected 'const CAN_TxHeaderTypeDef *' but argument is of type 'CAN_RxHeaderTypeDef *'
+  688 | HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+      |                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+../Core/Src/main.c:117:18: warning: variable 'received' set but not used [-Wunused-but-set-variable]
+  117 |         uint32_t received = 0;
+      |                  ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:169:21: warning: unused variable 'ret' [-Wunused-variable]
+  169 |   HAL_StatusTypeDef ret = HAL_CAN_RegisterCallback(&hcan1, HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID, HAL_CAN_TxMailbox0CompleteCallback);
+      |                     ^~~
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26996	     96	  20928	  48020	   bb94	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+20:43:50 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26996	     96	  20928	  48020	   bb94	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+20:46:09 **** Incremental Build of configuration Debug for project can_f103 ****
+make -j16 all 
+arm-none-eabi-size  can_f103.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8528	     20	   1684	  10232	   27f8	can_f103.elf
+Finished building: default.size.stdout
+ 
+20:46:09 **** Incremental Build of configuration Debug for project can_f767 ****
+make -j16 all 
+arm-none-eabi-size  can_f767.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10768	     20	   1684	  12472	   30b8	can_f767.elf
+Finished building: default.size.stdout
+ 
+20:46:10 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26996	     96	  20928	  48020	   bb94	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+20:46:10 **** Incremental Build of configuration Debug for project usb_led_control ****
+make -j16 all 
+arm-none-eabi-size  usb_led_control.elf 
+   text	   data	    bss	    dec	    hex	filename
+  66688	    680	  30872	  98240	  17fc0	usb_led_control.elf
+Finished building: default.size.stdout
+ 
+20:46:17 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26996	     96	  20928	  48020	   bb94	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+14:39:35 **** Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/stm32f7xx_it.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f7xx_it.d" -MT"Core/Src/stm32f7xx_it.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f7xx_it.o"
+arm-none-eabi-gcc -o "can_f767_2.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\can_f767_2\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="can_f767_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: can_f767_2.elf
+ 
+arm-none-eabi-size  can_f767_2.elf 
+arm-none-eabi-objdump -h -S can_f767_2.elf  > "can_f767_2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: can_f767_2.list
+ 
+14:41:13 **** Build of configuration Debug for project can_f103 ****
+make -j16 all 
+arm-none-eabi-size  can_f103.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8528	     20	   1684	  10232	   27f8	can_f103.elf
+Finished building: default.size.stdout
+ 
+14:41:13 **** Build of configuration Debug for project can_f767 ****
+make -j16 all 
+arm-none-eabi-size  can_f767.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10768	     20	   1684	  12472	   30b8	can_f767.elf
+Finished building: default.size.stdout
+ 
+14:41:14 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+14:41:14 **** Build of configuration Debug for project usb_led_control ****
+make -j16 all 
+arm-none-eabi-size  usb_led_control.elf 
+   text	   data	    bss	    dec	    hex	filename
+  66688	    680	  30872	  98240	  17fc0	usb_led_control.elf
+Finished building: default.size.stdout
+ 
+14:44:09 **** Incremental Build of configuration Debug for project can_f103 ****
+make -j16 all 
+arm-none-eabi-size  can_f103.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8528	     20	   1684	  10232	   27f8	can_f103.elf
+Finished building: default.size.stdout
+ 
+14:44:09 **** Incremental Build of configuration Debug for project can_f767 ****
+make -j16 all 
+arm-none-eabi-size  can_f767.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10768	     20	   1684	  12472	   30b8	can_f767.elf
+Finished building: default.size.stdout
+ 
+14:44:10 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
+Finished building: default.size.stdout
+ 
+14:44:10 **** Incremental Build of configuration Debug for project usb_led_control ****
+make -j16 all 
+arm-none-eabi-size  usb_led_control.elf 
+   text	   data	    bss	    dec	    hex	filename
+  66688	    680	  30872	  98240	  17fc0	usb_led_control.elf
+Finished building: default.size.stdout
+ 
+14:44:45 **** Incremental Build of configuration Debug for project can_f767_2 ****
+make -j16 all 
+arm-none-eabi-size  can_f767_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26948	     96	  20920	  47964	   bb5c	can_f767_2.elf
 Finished building: default.size.stdout
  

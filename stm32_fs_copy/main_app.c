@@ -160,9 +160,9 @@ void DMA_transfer(uint32_t *src, uint32_t *dst, uint32_t size)
     DMA2_Stream0->CR &= ~(DMA_SxCR_EN);
     // transfer unit size is 1 byte by default (msize)
     // 2. set src ptr
-    DMA2_Stream0->PAR = src;
+    DMA2_Stream0->PAR = (uint32_t)src;  //gcc wants this to be a uin32_t but it is an address
     // 3. set dst ptr
-    DMA2_Stream0->M0AR = dst;
+    DMA2_Stream0->M0AR = (uint32_t)dst; //gcc wants this to be a uin32_t but it is an address
     // 4. set number of data
     DMA2_Stream0->NDTR = size;
     // 5. channel request CHSEL is 0 by default
@@ -195,7 +195,7 @@ void using_dma()
     DMA_transfer((uint32_t *)tx_buffer_src1, (uint32_t *)tx_buffer_dst, 6);
 
     printf("%s", tx_buffer_dst);
-    DMA_transfer(tx_buffer_src2, tx_buffer_dst, 6);
+    DMA_transfer((uint32_t *)tx_buffer_src2, (uint32_t *)tx_buffer_dst, 6);
 
     printf("%s", tx_buffer_dst);
 
@@ -220,14 +220,14 @@ int main()
 
     using_dma();
 
-    while (1)
-    {
-        uint8_t here[] = "abcdefgh";
-        SPI_write(SPI4, here, 0, 0);
-        char z = "0";
-        // char z = getchar();
-        delay_ms(500);
-        printf("Hello \r\n");
-        blink();
-    }
+    // while (1)
+    // {
+    //     uint8_t here[] = "abcdefgh";
+    //     SPI_write(SPI4, here, 0, 0);
+    //     char z = "0";
+    //     // char z = getchar();
+    //     delay_ms(500);
+    //     printf("Hello \r\n");
+    //     blink();
+    // }
 }
