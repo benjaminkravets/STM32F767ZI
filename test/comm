@@ -1,0 +1,3 @@
+get .os:        gcc -c inc/inc.c -o inc/inc.o ; gcc -c test.c
+clean:          rm test.o ; rm inc/inc.o
+get final:      gcc test.o inc/inc.o

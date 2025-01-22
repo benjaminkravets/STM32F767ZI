@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="HAL_CAN_GetRxMessage"/>
+		<item key="selection" value="EXTI0"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="exti0"/>
+			<item value="exti"/>
+			<item value="13"/>
+			<item value="pc13"/>
+			<item value="objs"/>
+			<item value="obj"/>
 			<item value="HAL_CAN_GetRxMessage"/>
 			<item value="HAL_CAN_AddTxMessage"/>
 			<item value="include &quot;"/>
@@ -17,12 +23,6 @@
 			<item value="0xff"/>
 			<item value="log"/>
 			<item value="defin"/>
-			<item value="tx_complete"/>
-			<item value="tx_complete_0"/>
-			<item value="TxData"/>
-			<item value="txheader"/>
-			<item value="RxHeader"/>
-			<item value="HAL_CAN_TxMailbox0CompleteCallback"/>
 		</list>
 		<list key="replacehistory">
 			<item value="TxComplete"/>

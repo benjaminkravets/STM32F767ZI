@@ -5,6 +5,9 @@
         "cstdio": "c",
         "stdio.h": "c",
         "time.h": "c",
-        "20ed144db0b2001f1889c0e2db452143": "cpp"
+        "20ed144db0b2001f1889c0e2db452143": "cpp",
+        "charconv": "c",
+        "xlocnum": "c",
+        "stm32f767xx.h": "c"
     }
 }

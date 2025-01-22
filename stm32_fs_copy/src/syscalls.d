@@ -1,4 +1,4 @@
-syscalls.o: src/syscalls.c \
+src/syscalls.o: src/syscalls.c \
  /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/stat.h \
  /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/_ansi.h \
  /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/newlib-nano/newlib.h \
@@ -39,4 +39,4 @@ syscalls.o: src/syscalls.c \
  vendor/cmsis_version.h vendor/cmsis_compiler.h vendor/cmsis_gcc.h \
  /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/14.2.1/include/arm_acle.h \
  vendor/m-profile/cmsis_gcc_m.h vendor/m-profile/armv7m_mpu.h \
- vendor/m-profile/armv7m_cachel1.h vendor/system_stm32f7xx.h inc/usart.h
+ vendor/m-profile/armv7m_cachel1.h vendor/system_stm32f7xx.h src/usart.h

@@ -6,7 +6,7 @@
 CC=arm-none-eabi-gcc
 #nano.specs will use nanolib instead of stdlib or newlib
 CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD -g3 -ggdb
-CPPFLAGS=-Ivendor -Iinc
+CPPFLAGS=-Ivendor -Isrc
 
 #nanolib doesn't support floats for printf/scanf by default
 LINKER_FILE_APP=linker_app.ld -u _printf_float -Wl,-Map="app.map"
@@ -33,30 +33,30 @@ image.bin: all
 
 all: app.elf boot.elf
 
-#$^ is an automatic variable and means "all prerequisites". $@ means the name of the target of the rule
-app.elf: main_app.o startup.o system_stm32f7xx.o syscalls.o usart.o
+OBJS = src/startup.o vendor/system_stm32f7xx.o src/syscalls.o src/usart.o src/dma.o src/spi.o
+       
+#$^ is an automatic variable and means "all prerequisites" ($< is first prerequisite). $@ means the name of the target of the rule
+app.elf: main_app.o $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_APP) $^ -o app.elf
 
-boot.elf: main_boot.o startup.o system_stm32f7xx.o syscalls.o usart.o
+boot.elf: main_boot.o $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_BOOT) $^ -o boot.elf
 
-main_boot.o: main_boot.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# main_boot.o: main_boot.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
-main_app.o: main_app.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# main_app.o: main_app.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
-startup.o: src/startup.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# system_stm32f7xx.o: vendor/system_stm32f7xx.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
-system_stm32f7xx.o: vendor/system_stm32f7xx.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# dma.o: src/dma.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
-syscalls.o: src/syscalls.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
-
-usart.o: src/usart.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# this handles all .o files given their .c, including those in subdirectories src and vendor (instead of above commented rules)
+%.o: %.c 
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c -o $@
 
 flash_app: app.elf
 	$(PROGRAMMER_APP)
@@ -67,7 +67,9 @@ flash_image: image.bin
 
 #a phony target has no outputs, it will just run a command
 .PHONY: clean
+
 clean:
-	rm -f *.o *.elf *.bin *.map *.d
+	find . -type f \( -name "*.o" -o -name "*.d" -o -name "*.bin" -o -name "*.elf" \) -delete
 
 #export PATH="/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/:$PATH"
+

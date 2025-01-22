@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "stm32f767xx.h"
 #include "system_stm32f7xx.h"
+#include "usart.h"
 
 #define LED_PIN 7
 
