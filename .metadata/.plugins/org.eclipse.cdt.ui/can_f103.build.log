@@ -1,4 +1,4 @@
-14:44:09 **** Incremental Build of configuration Debug for project can_f103 ****
+19:28:03 **** Build of configuration Debug for project can_f103 ****
 make -j16 all 
 arm-none-eabi-size  can_f103.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  can_f103.elf
 Finished building: default.size.stdout
  
 
-14:44:09 Build Finished. 0 errors, 0 warnings. (took 191ms)
+19:28:04 Build Finished. 0 errors, 0 warnings. (took 613ms)
 

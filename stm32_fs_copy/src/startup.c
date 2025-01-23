@@ -30,9 +30,13 @@ void debug_monitor_handler(void) __attribute__((weak, alias("default_handler")))
 void pendsv_handler(void) __attribute__((weak, alias("default_handler")));  // interrupt-driven request for system=level service
 void systick_handler(void) __attribute__((weak, alias("default_handler"))); // occurs when system timer reaches 0, but can be triggered by software. used as a system tick in OS environment
 void exti0_handler(void) __attribute__((weak, alias("default_handler")));
-void exti0_handler(void) __attribute__((weak, alias("default_handler")));
-void exti0_handler(void) __attribute__((weak, alias("default_handler")));
-void exti0_handler(void) __attribute__((weak, alias("default_handler")));
+void exti1_handler(void) __attribute__((weak, alias("default_handler")));
+void exti2_handler(void) __attribute__((weak, alias("default_handler")));
+void exti3_handler(void) __attribute__((weak, alias("default_handler")));
+void exti4_handler(void) __attribute__((weak, alias("default_handler")));
+
+void exti15_10_handler(void) __attribute__((weak, alias("default_handler")));
+
 
 // section attribute places this array in the isr_vector sections
 uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector"))) = {
@@ -58,8 +62,43 @@ uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector")
     0,
     0,
     0,
-    (uint32_t)exti0_handler,
+    (uint32_t)&exti0_handler,
+    (uint32_t)&exti1_handler,
+    (uint32_t)&exti2_handler,
+    (uint32_t)&exti3_handler,
+    (uint32_t)&exti4_handler,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    (uint32_t)&exti15_10_handler,
 };
+
 
 void default_handler(void) // waits in busy loop (common out-of-box implementation, should be changed)
 {

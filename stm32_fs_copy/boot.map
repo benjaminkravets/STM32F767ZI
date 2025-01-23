@@ -506,15 +506,21 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
                 0x08000298                GPIOB_init
                 0x080002de                main
  .text          0x08000348       0xa8 src/startup.o
+                0x08000348                exti0_handler
                 0x08000348                svcall_handler
                 0x08000348                systick_handler
+                0x08000348                exti3_handler
                 0x08000348                usage_fault_handler
+                0x08000348                exti1_handler
                 0x08000348                default_handler
+                0x08000348                exti15_10_handler
                 0x08000348                hard_fault_handler
                 0x08000348                debug_monitor_handler
                 0x08000348                pendsv_handler
                 0x08000348                mem_manage_handler
+                0x08000348                exti2_handler
                 0x08000348                nmi_handler
+                0x08000348                exti4_handler
                 0x08000348                bus_fault_handler
                 0x0800034e                reset_handler
  .text          0x080003f0      0x10c vendor/system_stm32f7xx.o
@@ -1580,14 +1586,14 @@ LOAD linker stubs
  .debug_macro   0x0001edf6      0x146 src/dma.o
  .debug_macro   0x0001ef3c      0x1c7 src/spi.o
 
-.debug_line     0x00000000     0x1b91
+.debug_line     0x00000000     0x1b92
  .debug_line    0x00000000      0x357 main_boot.o
- .debug_line    0x00000357      0x339 src/startup.o
- .debug_line    0x00000690      0x361 vendor/system_stm32f7xx.o
- .debug_line    0x000009f1      0x569 src/syscalls.o
- .debug_line    0x00000f5a      0x360 src/usart.o
- .debug_line    0x000012ba      0x42a src/dma.o
- .debug_line    0x000016e4      0x4ad src/spi.o
+ .debug_line    0x00000357      0x33a src/startup.o
+ .debug_line    0x00000691      0x361 vendor/system_stm32f7xx.o
+ .debug_line    0x000009f2      0x569 src/syscalls.o
+ .debug_line    0x00000f5b      0x360 src/usart.o
+ .debug_line    0x000012bb      0x42a src/dma.o
+ .debug_line    0x000016e5      0x4ad src/spi.o
 
 .debug_str      0x00000000    0xa9c59
  .debug_str     0x00000000    0xa9c59 main_boot.o

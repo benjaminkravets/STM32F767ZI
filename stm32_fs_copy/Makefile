@@ -42,11 +42,11 @@ app.elf: main_app.o $(OBJS)
 boot.elf: main_boot.o $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_BOOT) $^ -o boot.elf
 
-# main_boot.o: main_boot.c
-# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+main_boot.o: main_boot.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
-# main_app.o: main_app.c
-# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+main_app.o: main_app.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
 # system_stm32f7xx.o: vendor/system_stm32f7xx.c
 # 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c

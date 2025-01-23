@@ -16,7 +16,7 @@
 		<item key="askReindex.detail" value="0"/>
 	</section>
 	<section name="org.eclipse.cdt.ui.OPEN_ACTION_SELECTION_DIALOG_SECTION">
-		<item key="DIALOG_X_ORIGIN" value="769"/>
+		<item key="DIALOG_X_ORIGIN" value="277"/>
 		<item key="DIALOG_Y_ORIGIN" value="292"/>
 		<item key="DIALOG_WIDTH" value="766"/>
 		<item key="DIALOG_HEIGHT" value="438"/>

@@ -99,11 +99,35 @@ void using_spi()
     }
 }
 
-void SYSCFG_init() {
+void exti3_handler(){
+
+    GPIOB->ODR ^= (1 << LED_PIN);
+
+}
+
+void exti4_handler(){
+    
+    GPIOB->ODR ^= (1 << LED_PIN);
+
+}
+void exti15_10_handler(){
+    EXTI->PR |= (1 << 13);
+    GPIOB->ODR ^= (1 << LED_PIN);
+
+}
+void exti_init() {
+
+    //RCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOCEN_Pos);
+    RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOCEN_Msk);
+    //GPIOC->MODER;
+
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN_Msk;
-    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI12_PC;
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PC;
     EXTI->RTSR |= EXTI_RTSR_TR13_Msk;
     EXTI->FTSR |= EXTI_FTSR_TR13_Msk;
+    EXTI->IMR|= EXTI_IMR_IM13;
+
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 int main()
@@ -122,15 +146,17 @@ int main()
     SPI_init();
     DMA2_channel_init();
 
-    using_dma();
-    using_spi();
+    exti_init();
 
-    // while (1)
-    // {
-    //     char z = '0';
-    //     // char z = getchar();
-    //     delay_ms(500);
-    //     printf("Hello \r\n");
-    //     blink();
-    // }
+    // using_dma();
+    // using_spi();
+
+    while (1)
+    {
+        char z = '0';
+        // char z = getchar();
+        delay_ms(500);
+        printf("Hello \r\n");
+        blink();
+    }
 }
