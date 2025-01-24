@@ -8,6 +8,8 @@
         "20ed144db0b2001f1889c0e2db452143": "cpp",
         "charconv": "c",
         "xlocnum": "c",
-        "stm32f767xx.h": "c"
+        "stm32f767xx.h": "c",
+        "exti_gpio_irq.h": "c",
+        "system_stm32f7xx.h": "c"
     }
 }

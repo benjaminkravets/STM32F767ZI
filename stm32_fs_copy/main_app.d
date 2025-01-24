@@ -27,4 +27,4 @@ main_app.o: main_app.c \
  vendor/m-profile/cmsis_gcc_m.h vendor/m-profile/armv7m_mpu.h \
  vendor/m-profile/armv7m_cachel1.h vendor/system_stm32f7xx.h \
  vendor/system_stm32f7xx.h src/usart.h vendor/stm32f7xx.h \
- vendor/stm32f767xx.h src/dma.h src/spi.h
+ vendor/stm32f767xx.h src/dma.h src/spi.h src/exti_gpio_irq.h

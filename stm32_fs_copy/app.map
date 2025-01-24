@@ -491,6 +491,40 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 src/spi.o
  .debug_macro   0x00000000       0x16 src/spi.o
  .debug_macro   0x00000000      0x146 src/spi.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .group         0x00000000        0xc src/exti_gpio_irq.o
+ .debug_macro   0x00000000      0xac0 src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x3b src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x22 src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x8e src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x51 src/exti_gpio_irq.o
+ .debug_macro   0x00000000      0x103 src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x6a src/exti_gpio_irq.o
+ .debug_macro   0x00000000      0x1df src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x2e src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x10 src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x58 src/exti_gpio_irq.o
+ .debug_macro   0x00000000      0x26d src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x28 src/exti_gpio_irq.o
+ .debug_macro   0x00000000     0x14a2 src/exti_gpio_irq.o
+ .debug_macro   0x00000000      0x11f src/exti_gpio_irq.o
+ .debug_macro   0x00000000       0x22 src/exti_gpio_irq.o
+ .debug_macro   0x00000000    0x1aa23 src/exti_gpio_irq.o
 
 Memory Configuration
 
@@ -512,6 +546,7 @@ LOAD src/syscalls.o
 LOAD src/usart.o
 LOAD src/dma.o
 LOAD src/spi.o
+LOAD src/exti_gpio_irq.o
 START GROUP
 LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a
 LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a
@@ -534,7 +569,7 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
  .isr_vector    0x08008000      0x1f8 src/startup.o
                 0x08008000                isr_vector
 
-.text           0x08008200     0x500c
+.text           0x08008200     0x4f9c
                 0x08008200                        . = ALIGN (0x4)
  *(.text)
  .text          0x08008200        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crti.o
@@ -543,596 +578,597 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
                 0x08008200                _stack_init
                 0x08008208                _mainCRTStartup
                 0x08008208                _start
- .text          0x0800827c      0x384 main_app.o
-                0x0800834c                systick_handler
-                0x08008368                delay_ms
-                0x080083b0                blink
-                0x080083cc                clock_init
-                0x08008490                GPIOB_init
-                0x080084bc                using_spi
-                0x080084ec                exti3_handler
-                0x08008508                exti4_handler
-                0x08008524                exti15_10_handler
-                0x08008550                exti_init
-                0x080085b4                main
- .text          0x08008600       0xa8 src/startup.o
-                0x08008600                exti0_handler
-                0x08008600                svcall_handler
-                0x08008600                usage_fault_handler
-                0x08008600                exti1_handler
-                0x08008600                default_handler
-                0x08008600                hard_fault_handler
-                0x08008600                debug_monitor_handler
-                0x08008600                pendsv_handler
-                0x08008600                mem_manage_handler
-                0x08008600                exti2_handler
-                0x08008600                nmi_handler
-                0x08008600                bus_fault_handler
-                0x08008606                reset_handler
- .text          0x080086a8      0x10c vendor/system_stm32f7xx.o
-                0x080086a8                SystemInit
-                0x080086b4                SystemCoreClockUpdate
- .text          0x080087b4      0x244 src/syscalls.o
-                0x080087b4                _exit
-                0x080087be                _close
-                0x080087d4                execve
-                0x080087f8                fork
-                0x08008814                _fstat
-                0x08008832                _getpid
-                0x08008840                _isatty
-                0x08008854                _kill
-                0x08008878                link
-                0x0800889c                _lseek
-                0x080088b4                open
-                0x080088ce                _read
-                0x080088f8                _sbrk
-                0x08008944                _stat
-                0x08008962                times
-                0x08008978                unlink
-                0x08008998                wait
-                0x080089b8                _write
- .text          0x080089f8       0xcc src/usart.o
-                0x080089f8                USART3_init
-                0x08008a6c                usart_write
-                0x08008a98                usart_read
- .text          0x08008ac4      0x104 src/dma.o
-                0x08008ac4                DMA2_channel_init
-                0x08008ae0                DMA2_transfer
-                0x08008b4c                using_dma
- .text          0x08008bc8      0x138 src/spi.o
-                0x08008bc8                SPI_init
-                0x08008c70                SPI_write
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
- .text          0x08008d00        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
- .text          0x08008d00       0xa0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
-                0x08008d00                memchr
- .text          0x08008da0       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
-                0x08008da0                strlen
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
- .text          0x08008db0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
- .text          0x08008db0       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
-                0x08008db0                strcmp
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-ctype_.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
- .text          0x08008dc4        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
- .text          0x08008dc4      0x254 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldf3.o)
- .text          0x08009018      0x378 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubdf3.o)
-                0x08009018                __aeabi_drsub
-                0x08009020                __aeabi_dsub
-                0x08009020                __subdf3
-                0x08009024                __adddf3
-                0x08009024                __aeabi_dadd
-                0x0800929c                __aeabi_ui2d
-                0x0800929c                __floatunsidf
-                0x080092bc                __floatsidf
-                0x080092bc                __aeabi_i2d
-                0x080092e0                __extendsfdf2
-                0x080092e0                __aeabi_f2d
-                0x08009324                __aeabi_ul2d
-                0x08009324                __floatundidf
-                0x08009334                __floatdidf
-                0x08009334                __aeabi_l2d
- .text          0x08009390      0x424 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivdf3.o)
-                0x08009390                __aeabi_dmul
-                0x08009390                __muldf3
-                0x080095e4                __aeabi_ddiv
-                0x080095e4                __divdf3
- .text          0x080097b4      0x110 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpdf2.o)
-                0x080097b4                __gtdf2
-                0x080097b4                __gedf2
-                0x080097bc                __ltdf2
-                0x080097bc                __ledf2
-                0x080097c4                __cmpdf2
-                0x080097c4                __eqdf2
-                0x080097c4                __nedf2
-                0x08009840                __aeabi_cdrcmple
-                0x08009850                __aeabi_cdcmple
-                0x08009850                __aeabi_cdcmpeq
-                0x08009860                __aeabi_dcmpeq
-                0x08009874                __aeabi_dcmplt
-                0x08009888                __aeabi_dcmple
-                0x0800989c                __aeabi_dcmpge
-                0x080098b0                __aeabi_dcmpgt
- .text          0x080098c4       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_unorddf2.o)
-                0x080098c4                __aeabi_dcmpun
-                0x080098c4                __unorddf2
- .text          0x080098f0       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)
-                0x080098f0                __fixdfsi
-                0x080098f0                __aeabi_d2iz
- .text          0x08009940        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
- .text          0x08009940        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
+ .text          0x0800827c      0x284 main_app.o
+                0x08008314                systick_handler
+                0x08008330                delay_ms
+                0x08008378                blink
+                0x08008394                clock_init
+                0x08008458                GPIOB_init
+                0x08008484                using_spi
+                0x080084b4                main
+ .text          0x08008500       0xa8 src/startup.o
+                0x08008500                exti0_handler
+                0x08008500                svcall_handler
+                0x08008500                exti3_handler
+                0x08008500                usage_fault_handler
+                0x08008500                exti1_handler
+                0x08008500                default_handler
+                0x08008500                hard_fault_handler
+                0x08008500                debug_monitor_handler
+                0x08008500                pendsv_handler
+                0x08008500                mem_manage_handler
+                0x08008500                exti2_handler
+                0x08008500                nmi_handler
+                0x08008500                exti4_handler
+                0x08008500                bus_fault_handler
+                0x08008506                reset_handler
+ .text          0x080085a8      0x10c vendor/system_stm32f7xx.o
+                0x080085a8                SystemInit
+                0x080085b4                SystemCoreClockUpdate
+ .text          0x080086b4      0x244 src/syscalls.o
+                0x080086b4                _exit
+                0x080086be                _close
+                0x080086d4                execve
+                0x080086f8                fork
+                0x08008714                _fstat
+                0x08008732                _getpid
+                0x08008740                _isatty
+                0x08008754                _kill
+                0x08008778                link
+                0x0800879c                _lseek
+                0x080087b4                open
+                0x080087ce                _read
+                0x080087f8                _sbrk
+                0x08008844                _stat
+                0x08008862                times
+                0x08008878                unlink
+                0x08008898                wait
+                0x080088b8                _write
+ .text          0x080088f8       0xcc src/usart.o
+                0x080088f8                USART3_init
+                0x0800896c                usart_write
+                0x08008998                usart_read
+ .text          0x080089c4      0x104 src/dma.o
+                0x080089c4                DMA2_channel_init
+                0x080089e0                DMA2_transfer
+                0x08008a4c                using_dma
+ .text          0x08008ac8      0x138 src/spi.o
+                0x08008ac8                SPI_init
+                0x08008b70                SPI_write
+ .text          0x08008c00       0x90 src/exti_gpio_irq.o
+                0x08008c00                exti_init
+                0x08008c64                exti15_10_handler
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
+ .text          0x08008c90        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+ .text          0x08008c90       0xa0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+                0x08008c90                memchr
+ .text          0x08008d30       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
+                0x08008d30                strlen
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
+ .text          0x08008d40        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+ .text          0x08008d40       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
+                0x08008d40                strcmp
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-ctype_.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+ .text          0x08008d54        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
+ .text          0x08008d54      0x254 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldf3.o)
+ .text          0x08008fa8      0x378 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubdf3.o)
+                0x08008fa8                __aeabi_drsub
+                0x08008fb0                __aeabi_dsub
+                0x08008fb0                __subdf3
+                0x08008fb4                __adddf3
+                0x08008fb4                __aeabi_dadd
+                0x0800922c                __aeabi_ui2d
+                0x0800922c                __floatunsidf
+                0x0800924c                __floatsidf
+                0x0800924c                __aeabi_i2d
+                0x08009270                __extendsfdf2
+                0x08009270                __aeabi_f2d
+                0x080092b4                __aeabi_ul2d
+                0x080092b4                __floatundidf
+                0x080092c4                __floatdidf
+                0x080092c4                __aeabi_l2d
+ .text          0x08009320      0x424 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivdf3.o)
+                0x08009320                __aeabi_dmul
+                0x08009320                __muldf3
+                0x08009574                __aeabi_ddiv
+                0x08009574                __divdf3
+ .text          0x08009744      0x110 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpdf2.o)
+                0x08009744                __gtdf2
+                0x08009744                __gedf2
+                0x0800974c                __ltdf2
+                0x0800974c                __ledf2
+                0x08009754                __cmpdf2
+                0x08009754                __eqdf2
+                0x08009754                __nedf2
+                0x080097d0                __aeabi_cdrcmple
+                0x080097e0                __aeabi_cdcmple
+                0x080097e0                __aeabi_cdcmpeq
+                0x080097f0                __aeabi_dcmpeq
+                0x08009804                __aeabi_dcmplt
+                0x08009818                __aeabi_dcmple
+                0x0800982c                __aeabi_dcmpge
+                0x08009840                __aeabi_dcmpgt
+ .text          0x08009854       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_unorddf2.o)
+                0x08009854                __aeabi_dcmpun
+                0x08009854                __unorddf2
+ .text          0x08009880       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)
+                0x08009880                __fixdfsi
+                0x08009880                __aeabi_d2iz
+ .text          0x080098d0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
+ .text          0x080098d0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
  *(.text.*)
  .text.deregister_tm_clones
-                0x08009940       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+                0x080098d0       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
  .text.register_tm_clones
-                0x0800995c       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+                0x080098ec       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
  .text.__do_global_dtors_aux
-                0x08009980       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+                0x08009910       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
  .text.frame_dummy
-                0x080099a8       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
- .text.exit     0x080099cc       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
-                0x080099cc                exit
- .text.__cvt    0x080099f0       0xc8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
-                0x080099f0                __cvt
+                0x08009938       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+ .text.exit     0x0800995c       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
+                0x0800995c                exit
+ .text.__cvt    0x08009980       0xc8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+                0x08009980                __cvt
  .text.__exponent
-                0x08009ab8       0x74 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
-                0x08009ab8                __exponent
+                0x08009a48       0x74 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+                0x08009a48                __exponent
  .text._printf_float
-                0x08009b2c      0x458 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
-                0x08009b2c                _printf_float
+                0x08009abc      0x458 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+                0x08009abc                _printf_float
  .text._printf_common
-                0x08009f84       0xda /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
-                0x08009f84                _printf_common
- *fill*         0x0800a05e        0x2 
+                0x08009f14       0xda /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x08009f14                _printf_common
+ *fill*         0x08009fee        0x2 
  .text._printf_i
-                0x0800a060      0x240 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
-                0x0800a060                _printf_i
- .text.std      0x0800a2a0       0x6c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x08009ff0      0x240 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x08009ff0                _printf_i
+ .text.std      0x0800a230       0x6c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .text.stdio_exit_handler
-                0x0800a30c       0x18 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a29c       0x18 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .text.cleanup_stdio
-                0x0800a324       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a2b4       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .text.__fp_lock
-                0x0800a364       0x18 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a2f4       0x18 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .text.__fp_unlock
-                0x0800a37c       0x18 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a30c       0x18 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .text.global_stdio_init.part.0
-                0x0800a394       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a324       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .text.__sfp_lock_acquire
-                0x0800a3d4        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
-                0x0800a3d4                __sfp_lock_acquire
+                0x0800a364        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a364                __sfp_lock_acquire
  .text.__sfp_lock_release
-                0x0800a3e0        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
-                0x0800a3e0                __sfp_lock_release
- .text.__sfp    0x0800a3ec       0xa4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
-                0x0800a3ec                __sfp
- .text.__sinit  0x0800a490       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
-                0x0800a490                __sinit
+                0x0800a370        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a370                __sfp_lock_release
+ .text.__sfp    0x0800a37c       0xa4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a37c                __sfp
+ .text.__sinit  0x0800a420       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a420                __sinit
  .text.__fp_lock_all
-                0x0800a4c0       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
-                0x0800a4c0                __fp_lock_all
+                0x0800a450       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a450                __fp_lock_all
  .text.__fp_unlock_all
-                0x0800a4dc       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
-                0x0800a4dc                __fp_unlock_all
+                0x0800a46c       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x0800a46c                __fp_unlock_all
  .text._fwalk_sglue
-                0x0800a4f8       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
-                0x0800a4f8                _fwalk_sglue
+                0x0800a488       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
+                0x0800a488                _fwalk_sglue
  .text._printf_r
-                0x0800a534       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
-                0x0800a534                _printf_r
-                0x0800a534                _iprintf_r
- .text.printf   0x0800a550       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
-                0x0800a550                printf
-                0x0800a550                iprintf
- .text._puts_r  0x0800a574       0xaa /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
-                0x0800a574                _puts_r
- *fill*         0x0800a61e        0x2 
- .text.puts     0x0800a620       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
-                0x0800a620                puts
- .text.__sread  0x0800a630       0x22 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
-                0x0800a630                __sread
+                0x0800a4c4       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
+                0x0800a4c4                _printf_r
+                0x0800a4c4                _iprintf_r
+ .text.printf   0x0800a4e0       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
+                0x0800a4e0                printf
+                0x0800a4e0                iprintf
+ .text._puts_r  0x0800a504       0xaa /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
+                0x0800a504                _puts_r
+ *fill*         0x0800a5ae        0x2 
+ .text.puts     0x0800a5b0       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
+                0x0800a5b0                puts
+ .text.__sread  0x0800a5c0       0x22 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+                0x0800a5c0                __sread
  .text.__seofread
-                0x0800a652        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
-                0x0800a652                __seofread
+                0x0800a5e2        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+                0x0800a5e2                __seofread
  .text.__swrite
-                0x0800a656       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
-                0x0800a656                __swrite
- .text.__sseek  0x0800a68e       0x26 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
-                0x0800a68e                __sseek
+                0x0800a5e6       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+                0x0800a5e6                __swrite
+ .text.__sseek  0x0800a61e       0x26 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+                0x0800a61e                __sseek
  .text.__sclose
-                0x0800a6b4        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
-                0x0800a6b4                __sclose
+                0x0800a644        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+                0x0800a644                __sclose
  .text.__swbuf_r
-                0x0800a6bc       0x7c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
-                0x0800a6bc                __swbuf_r
- .text.__swbuf  0x0800a738       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
-                0x0800a738                __swbuf
+                0x0800a64c       0x7c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
+                0x0800a64c                __swbuf_r
+ .text.__swbuf  0x0800a6c8       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
+                0x0800a6c8                __swbuf
  .text.__swsetup_r
-                0x0800a748       0xa8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
-                0x0800a748                __swsetup_r
- .text.memset   0x0800a7f0       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
-                0x0800a7f0                memset
+                0x0800a6d8       0xa8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
+                0x0800a6d8                __swsetup_r
+ .text.memset   0x0800a780       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
+                0x0800a780                memset
  .text.__localeconv_l
-                0x0800a800        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
-                0x0800a800                __localeconv_l
+                0x0800a790        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+                0x0800a790                __localeconv_l
  .text._localeconv_r
-                0x0800a804        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
-                0x0800a804                _localeconv_r
+                0x0800a794        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+                0x0800a794                _localeconv_r
  .text.localeconv
-                0x0800a80c        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
-                0x0800a80c                localeconv
+                0x0800a79c        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+                0x0800a79c                localeconv
  .text._close_r
-                0x0800a814       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
-                0x0800a814                _close_r
+                0x0800a7a4       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
+                0x0800a7a4                _close_r
  .text._reclaim_reent
-                0x0800a834       0xbc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
-                0x0800a834                _reclaim_reent
+                0x0800a7c4       0xbc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+                0x0800a7c4                _reclaim_reent
  .text._lseek_r
-                0x0800a8f0       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
-                0x0800a8f0                _lseek_r
- .text._read_r  0x0800a914       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
-                0x0800a914                _read_r
+                0x0800a880       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
+                0x0800a880                _lseek_r
+ .text._read_r  0x0800a8a4       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
+                0x0800a8a4                _read_r
  .text._write_r
-                0x0800a938       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
-                0x0800a938                _write_r
+                0x0800a8c8       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
+                0x0800a8c8                _write_r
  .text.__libc_init_array
-                0x0800a95c       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
-                0x0800a95c                __libc_init_array
+                0x0800a8ec       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
+                0x0800a8ec                __libc_init_array
  .text.__retarget_lock_init
-                0x0800a9a4        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9a4                __retarget_lock_init
+                0x0800a934        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a934                __retarget_lock_init
  .text.__retarget_lock_init_recursive
-                0x0800a9a6        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9a6                __retarget_lock_init_recursive
+                0x0800a936        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a936                __retarget_lock_init_recursive
  .text.__retarget_lock_close
-                0x0800a9a8        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9a8                __retarget_lock_close
+                0x0800a938        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a938                __retarget_lock_close
  .text.__retarget_lock_close_recursive
-                0x0800a9aa        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9aa                __retarget_lock_close_recursive
+                0x0800a93a        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a93a                __retarget_lock_close_recursive
  .text.__retarget_lock_acquire
-                0x0800a9ac        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9ac                __retarget_lock_acquire
+                0x0800a93c        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a93c                __retarget_lock_acquire
  .text.__retarget_lock_acquire_recursive
-                0x0800a9ae        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9ae                __retarget_lock_acquire_recursive
+                0x0800a93e        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a93e                __retarget_lock_acquire_recursive
  .text.__retarget_lock_try_acquire
-                0x0800a9b0        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9b0                __retarget_lock_try_acquire
+                0x0800a940        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a940                __retarget_lock_try_acquire
  .text.__retarget_lock_try_acquire_recursive
-                0x0800a9b4        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9b4                __retarget_lock_try_acquire_recursive
+                0x0800a944        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a944                __retarget_lock_try_acquire_recursive
  .text.__retarget_lock_release
-                0x0800a9b8        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9b8                __retarget_lock_release
+                0x0800a948        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a948                __retarget_lock_release
  .text.__retarget_lock_release_recursive
-                0x0800a9ba        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
-                0x0800a9ba                __retarget_lock_release_recursive
- .text.quorem   0x0800a9bc      0x110 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
- *fill*         0x0800aacc        0x4 
- .text._dtoa_r  0x0800aad0      0xbc8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
-                0x0800aad0                _dtoa_r
- .text._free_r  0x0800b698       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
-                0x0800b698                _free_r
- .text.malloc   0x0800b72c       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
-                0x0800b72c                malloc
- .text.free     0x0800b73c       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
-                0x0800b73c                free
+                0x0800a94a        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x0800a94a                __retarget_lock_release_recursive
+ .text.quorem   0x0800a94c      0x110 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
+ *fill*         0x0800aa5c        0x4 
+ .text._dtoa_r  0x0800aa60      0xbc8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
+                0x0800aa60                _dtoa_r
+ .text._free_r  0x0800b628       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+                0x0800b628                _free_r
+ .text.malloc   0x0800b6bc       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
+                0x0800b6bc                malloc
+ .text.free     0x0800b6cc       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
+                0x0800b6cc                free
  .text.sbrk_aligned
-                0x0800b74c       0x44 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+                0x0800b6dc       0x44 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
  .text._malloc_r
-                0x0800b790      0x100 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
-                0x0800b790                _malloc_r
+                0x0800b720      0x100 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+                0x0800b720                _malloc_r
  .text.__malloc_lock
-                0x0800b890        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
-                0x0800b890                __malloc_lock
+                0x0800b820        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+                0x0800b820                __malloc_lock
  .text.__malloc_unlock
-                0x0800b89c        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
-                0x0800b89c                __malloc_unlock
- .text._Balloc  0x0800b8a8       0x7c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800b8a8                _Balloc
- .text._Bfree   0x0800b924       0x44 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800b924                _Bfree
+                0x0800b82c        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+                0x0800b82c                __malloc_unlock
+ .text._Balloc  0x0800b838       0x7c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800b838                _Balloc
+ .text._Bfree   0x0800b8b4       0x44 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800b8b4                _Bfree
  .text.__multadd
-                0x0800b968       0x8c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800b968                __multadd
- .text.__s2b    0x0800b9f4       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800b9f4                __s2b
+                0x0800b8f8       0x8c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800b8f8                __multadd
+ .text.__s2b    0x0800b984       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800b984                __s2b
  .text.__hi0bits
-                0x0800ba88       0x3e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800ba88                __hi0bits
+                0x0800ba18       0x3e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800ba18                __hi0bits
  .text.__lo0bits
-                0x0800bac6       0x5a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bac6                __lo0bits
- .text.__i2b    0x0800bb20       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bb20                __i2b
+                0x0800ba56       0x5a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800ba56                __lo0bits
+ .text.__i2b    0x0800bab0       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bab0                __i2b
  .text.__multiply
-                0x0800bb4c      0x150 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bb4c                __multiply
+                0x0800badc      0x150 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800badc                __multiply
  .text.__pow5mult
-                0x0800bc9c       0xb8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bc9c                __pow5mult
+                0x0800bc2c       0xb8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bc2c                __pow5mult
  .text.__lshift
-                0x0800bd54       0xdc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bd54                __lshift
- .text.__mcmp   0x0800be30       0x36 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800be30                __mcmp
- *fill*         0x0800be66        0x2 
- .text.__mdiff  0x0800be68      0x130 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800be68                __mdiff
- .text.__ulp    0x0800bf98       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bf98                __ulp
- .text.__b2d    0x0800bfd8       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800bfd8                __b2d
- .text.__d2b    0x0800c06c       0xb0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800c06c                __d2b
- .text.__ratio  0x0800c11c       0x60 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800c11c                __ratio
+                0x0800bce4       0xdc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bce4                __lshift
+ .text.__mcmp   0x0800bdc0       0x36 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bdc0                __mcmp
+ *fill*         0x0800bdf6        0x2 
+ .text.__mdiff  0x0800bdf8      0x130 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bdf8                __mdiff
+ .text.__ulp    0x0800bf28       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bf28                __ulp
+ .text.__b2d    0x0800bf68       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bf68                __b2d
+ .text.__d2b    0x0800bffc       0xb0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800bffc                __d2b
+ .text.__ratio  0x0800c0ac       0x60 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800c0ac                __ratio
  .text._mprec_log10
-                0x0800c17c       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800c17c                _mprec_log10
+                0x0800c10c       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800c10c                _mprec_log10
  .text.__copybits
-                0x0800c1b4       0x46 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800c1b4                __copybits
+                0x0800c144       0x46 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800c144                __copybits
  .text.__any_on
-                0x0800c1fa       0x42 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800c1fa                __any_on
+                0x0800c18a       0x42 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800c18a                __any_on
  .text.__sfputc_r
-                0x0800c23c       0x2a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x0800c1cc       0x2a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
  .text.__sfputs_r
-                0x0800c266       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
-                0x0800c266                __sfputs_r
+                0x0800c1f6       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x0800c1f6                __sfputs_r
  .text.__sprint_r
-                0x0800c28a       0x1a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
-                0x0800c28a                __sprint_r
+                0x0800c21a       0x1a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x0800c21a                __sprint_r
  .text._vfprintf_r
-                0x0800c2a4      0x230 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
-                0x0800c2a4                _vfiprintf_r
-                0x0800c2a4                _vfprintf_r
+                0x0800c234      0x230 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x0800c234                _vfiprintf_r
+                0x0800c234                _vfprintf_r
  .text.vfprintf
-                0x0800c4d4       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
-                0x0800c4d4                vfiprintf
-                0x0800c4d4                vfprintf
+                0x0800c464       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x0800c464                vfiprintf
+                0x0800c464                vfprintf
  .text.__sflush_r
-                0x0800c4e8       0xfc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
-                0x0800c4e8                __sflush_r
+                0x0800c478       0xfc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
+                0x0800c478                __sflush_r
  .text._fflush_r
-                0x0800c5e4       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
-                0x0800c5e4                _fflush_r
- .text.fflush   0x0800c634       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
-                0x0800c634                fflush
+                0x0800c574       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
+                0x0800c574                _fflush_r
+ .text.fflush   0x0800c5c4       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
+                0x0800c5c4                fflush
  .text.__sfvwrite_r
-                0x0800c65c      0x2a4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
-                0x0800c65c                __sfvwrite_r
+                0x0800c5ec      0x2a4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
+                0x0800c5ec                __sfvwrite_r
  .text.__swhatbuf_r
-                0x0800c900       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
-                0x0800c900                __swhatbuf_r
+                0x0800c890       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
+                0x0800c890                __swhatbuf_r
  .text.__smakebuf_r
-                0x0800c948       0x72 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
-                0x0800c948                __smakebuf_r
- .text.memmove  0x0800c9ba       0x32 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
-                0x0800c9ba                memmove
+                0x0800c8d8       0x72 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
+                0x0800c8d8                __smakebuf_r
+ .text.memmove  0x0800c94a       0x32 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+                0x0800c94a                memmove
  .text._setlocale_r
-                0x0800c9ec       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
-                0x0800c9ec                _setlocale_r
+                0x0800c97c       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+                0x0800c97c                _setlocale_r
  .text.__locale_mb_cur_max
-                0x0800ca28        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
-                0x0800ca28                __locale_mb_cur_max
+                0x0800c9b8        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+                0x0800c9b8                __locale_mb_cur_max
  .text.setlocale
-                0x0800ca34       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
-                0x0800ca34                setlocale
+                0x0800c9c4       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+                0x0800c9c4                setlocale
  .text._fstat_r
-                0x0800ca44       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
-                0x0800ca44                _fstat_r
+                0x0800c9d4       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
+                0x0800c9d4                _fstat_r
  .text._isatty_r
-                0x0800ca68       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
-                0x0800ca68                _isatty_r
- .text._sbrk_r  0x0800ca88       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
-                0x0800ca88                _sbrk_r
- .text.memcpy   0x0800caa8       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
-                0x0800caa8                memcpy
+                0x0800c9f8       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
+                0x0800c9f8                _isatty_r
+ .text._sbrk_r  0x0800ca18       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+                0x0800ca18                _sbrk_r
+ .text.memcpy   0x0800ca38       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
+                0x0800ca38                memcpy
  .text.__assert_func
-                0x0800cac4       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
-                0x0800cac4                __assert_func
+                0x0800ca54       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
+                0x0800ca54                __assert_func
  .text.__assert
-                0x0800cb00        0xa /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
-                0x0800cb00                __assert
+                0x0800ca90        0xa /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
+                0x0800ca90                __assert
  .text._calloc_r
-                0x0800cb0a       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
-                0x0800cb0a                _calloc_r
- *fill*         0x0800cb32        0x2 
+                0x0800ca9a       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
+                0x0800ca9a                _calloc_r
+ *fill*         0x0800cac2        0x2 
  .text._mbtowc_r
-                0x0800cb34       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
-                0x0800cb34                _mbtowc_r
+                0x0800cac4       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
+                0x0800cac4                _mbtowc_r
  .text.__ascii_mbtowc
-                0x0800cb48       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
-                0x0800cb48                __ascii_mbtowc
+                0x0800cad8       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
+                0x0800cad8                __ascii_mbtowc
  .text._realloc_r
-                0x0800cb6c       0x5c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
-                0x0800cb6c                _realloc_r
+                0x0800cafc       0x5c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+                0x0800cafc                _realloc_r
  .text._wctomb_r
-                0x0800cbc8       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
-                0x0800cbc8                _wctomb_r
+                0x0800cb58       0x14 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
+                0x0800cb58                _wctomb_r
  .text.__ascii_wctomb
-                0x0800cbdc       0x1a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
-                0x0800cbdc                __ascii_wctomb
+                0x0800cb6c       0x1a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
+                0x0800cb6c                __ascii_wctomb
  .text._fprintf_r
-                0x0800cbf6       0x1a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
-                0x0800cbf6                _fprintf_r
-                0x0800cbf6                _fiprintf_r
- .text.fprintf  0x0800cc10       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
-                0x0800cc10                fprintf
-                0x0800cc10                fiprintf
- .text.abort    0x0800cc34        0xe /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
-                0x0800cc34                abort
+                0x0800cb86       0x1a /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
+                0x0800cb86                _fprintf_r
+                0x0800cb86                _fiprintf_r
+ .text.fprintf  0x0800cba0       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
+                0x0800cba0                fprintf
+                0x0800cba0                fiprintf
+ .text.abort    0x0800cbc4        0xe /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
+                0x0800cbc4                abort
  .text._malloc_usable_size_r
-                0x0800cc42       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
-                0x0800cc42                _malloc_usable_size_r
+                0x0800cbd2       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+                0x0800cbd2                _malloc_usable_size_r
  .text._init_signal_r
-                0x0800cc52       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800cc52                _init_signal_r
+                0x0800cbe2       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800cbe2                _init_signal_r
  .text._signal_r
-                0x0800cc7a       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800cc7a                _signal_r
+                0x0800cc0a       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800cc0a                _signal_r
  .text._raise_r
-                0x0800ccaa       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800ccaa                _raise_r
+                0x0800cc3a       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800cc3a                _raise_r
  .text.__sigtramp_r
-                0x0800ccfa       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800ccfa                __sigtramp_r
- *fill*         0x0800cd42        0x2 
- .text.raise    0x0800cd44       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800cd44                raise
- .text.signal   0x0800cd54       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800cd54                signal
+                0x0800cc8a       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800cc8a                __sigtramp_r
+ *fill*         0x0800ccd2        0x2 
+ .text.raise    0x0800ccd4       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800ccd4                raise
+ .text.signal   0x0800cce4       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800cce4                signal
  .text._init_signal
-                0x0800cd64        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800cd64                _init_signal
+                0x0800ccf4        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800ccf4                _init_signal
  .text.__sigtramp
-                0x0800cd70       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
-                0x0800cd70                __sigtramp
- .text._kill_r  0x0800cd80       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
-                0x0800cd80                _kill_r
+                0x0800cd00       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x0800cd00                __sigtramp
+ .text._kill_r  0x0800cd10       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
+                0x0800cd10                _kill_r
  .text._getpid_r
-                0x0800cda4        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
-                0x0800cda4                _getpid_r
+                0x0800cd34        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
+                0x0800cd34                _getpid_r
  *(.rodata)
- .rodata        0x0800cda8       0x14 main_app.o
- .rodata        0x0800cdbc       0x18 vendor/system_stm32f7xx.o
-                0x0800cdbc                AHBPrescTable
-                0x0800cdcc                APBPrescTable
- .rodata        0x0800cdd4       0x25 src/dma.o
- *fill*         0x0800cdf9        0x3 
- .rodata        0x0800cdfc        0x6 src/spi.o
+ .rodata        0x0800cd38       0x14 main_app.o
+ .rodata        0x0800cd4c       0x18 vendor/system_stm32f7xx.o
+                0x0800cd4c                AHBPrescTable
+                0x0800cd5c                APBPrescTable
+ .rodata        0x0800cd64       0x25 src/dma.o
+ *fill*         0x0800cd89        0x3 
+ .rodata        0x0800cd8c        0x6 src/spi.o
  *(.rodata.*)
- *fill*         0x0800ce02        0x2 
+ *fill*         0x0800cd92        0x2 
  .rodata.all_implied_fbits
-                0x0800ce04       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+                0x0800cd94       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
  .rodata._printf_float.str1.1
-                0x0800ce28      0x173 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+                0x0800cdb8      0x173 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
                                  0x12 (size before relaxing)
  .rodata._printf_i.str1.1
-                0x0800cf9b       0x22 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x0800cf2b       0x22 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
  .rodata._dtoa_r.str1.1
-                0x0800cf9b       0x90 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
+                0x0800cf2b       0x90 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
  .rodata._Balloc.str1.1
-                0x0800cf9b       0x71 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800cf2b       0x71 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
  .rodata.__multadd.str1.1
-                0x0800cf9b       0x11 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
- *fill*         0x0800cf9b        0x1 
- .rodata.p05.0  0x0800cf9c        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800cf2b       0x11 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+ *fill*         0x0800cf2b        0x1 
+ .rodata.p05.0  0x0800cf2c        0xc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
  .rodata.__mprec_tinytens
-                0x0800cfa8       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800cfa8                __mprec_tinytens
+                0x0800cf38       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800cf38                __mprec_tinytens
  .rodata.__mprec_bigtens
-                0x0800cfd0       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800cfd0                __mprec_bigtens
+                0x0800cf60       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800cf60                __mprec_bigtens
  .rodata.__mprec_tens
-                0x0800cff8       0xc8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
-                0x0800cff8                __mprec_tens
+                0x0800cf88       0xc8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0800cf88                __mprec_tens
  .rodata._vfprintf_r.str1.1
-                0x0800d0c0       0x11 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x0800d050       0x11 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
  .rodata._setlocale_r.str1.1
-                0x0800d0c0        0x9 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+                0x0800d050        0x9 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
  .rodata.str1.1
-                0x0800d0c0        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+                0x0800d050        0x2 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
  .rodata.__assert_func.str1.1
-                0x0800d0c0       0x3d /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
+                0x0800d050       0x3d /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
  .rodata._ctype_
-                0x0800d0c0      0x101 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-ctype_.o)
-                0x0800d0c0                _ctype_
- *fill*         0x0800d1c1        0x3 
+                0x0800d050      0x101 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-ctype_.o)
+                0x0800d050                _ctype_
+ *fill*         0x0800d151        0x3 
  .rodata.all_implied_fbits
-                0x0800d1c4       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
+                0x0800d154       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
  *(.init)
- .init          0x0800d1e8        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crti.o
-                0x0800d1e8                _init
- .init          0x0800d1ec        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
+ .init          0x0800d178        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crti.o
+                0x0800d178                _init
+ .init          0x0800d17c        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
  *(.fini)
- .fini          0x0800d1f4        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crti.o
-                0x0800d1f4                _fini
- .fini          0x0800d1f8        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x0800d184        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crti.o
+                0x0800d184                _fini
+ .fini          0x0800d188        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
  *(.eh_frame)
- .eh_frame      0x0800d200        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
- .eh_frame      0x0800d200        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
+ .eh_frame      0x0800d190        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x0800d190        0x4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
  *(.ARM.exidx)
- .ARM.exidx     0x0800d204        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .ARM.exidx     0x0800d194        0x8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
                                  0x10 (size before relaxing)
- .ARM.exidx     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .ARM.exidx     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
                                   0x8 (size before relaxing)
- .ARM.exidx     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
+ .ARM.exidx     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
                                   0x8 (size before relaxing)
- .ARM.exidx     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
+ .ARM.exidx     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
                                   0x8 (size before relaxing)
-                0x0800d20c                        . = ALIGN (0x4)
-                0x0800d20c                        _etext = .
-                0x0800d20c                        _sidata = LOADADDR (.data)
+                0x0800d19c                        . = ALIGN (0x4)
+                0x0800d19c                        _etext = .
+                0x0800d19c                        _sidata = LOADADDR (.data)
 
-.ARM.extab      0x0800d20c        0x0
- .ARM.extab     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
- .ARM.extab     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
- .ARM.extab     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
- .ARM.extab     0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
+.ARM.extab      0x0800d19c        0x0
+ .ARM.extab     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .ARM.extab     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .ARM.extab     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
+ .ARM.extab     0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
 
-.glue_7         0x0800d20c        0x0
- .glue_7        0x0800d20c        0x0 linker stubs
+.glue_7         0x0800d19c        0x0
+ .glue_7        0x0800d19c        0x0 linker stubs
 
-.glue_7t        0x0800d20c        0x0
- .glue_7t       0x0800d20c        0x0 linker stubs
+.glue_7t        0x0800d19c        0x0
+ .glue_7t       0x0800d19c        0x0 linker stubs
 
-.vfp11_veneer   0x0800d20c        0x0
- .vfp11_veneer  0x0800d20c        0x0 linker stubs
+.vfp11_veneer   0x0800d19c        0x0
+ .vfp11_veneer  0x0800d19c        0x0 linker stubs
 
-.v4_bx          0x0800d20c        0x0
- .v4_bx         0x0800d20c        0x0 linker stubs
+.v4_bx          0x0800d19c        0x0
+ .v4_bx         0x0800d19c        0x0 linker stubs
 
-.iplt           0x0800d20c        0x0
- .iplt          0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+.iplt           0x0800d19c        0x0
+ .iplt          0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
 
-.rel.dyn        0x0800d20c        0x0
- .rel.iplt      0x0800d20c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
+.rel.dyn        0x0800d19c        0x0
+ .rel.iplt      0x0800d19c        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
 
-.data           0x20000000      0x1dc load address 0x0800d20c
+.data           0x20000000      0x1dc load address 0x0800d19c
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -1148,6 +1184,7 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
  .data          0x20000008        0x0 src/usart.o
  .data          0x20000008        0x0 src/dma.o
  .data          0x20000008        0x0 src/spi.o
+ .data          0x20000008        0x0 src/exti_gpio_irq.o
  .data          0x20000008        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
  .data          0x20000008        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
  .data          0x20000008        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
@@ -1229,16 +1266,16 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
                 0x200001dc                        _edata = .
 
 .tm_clone_table
-                0x200001dc        0x0 load address 0x0800d3e8
+                0x200001dc        0x0 load address 0x0800d378
  .tm_clone_table
                 0x200001dc        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
  .tm_clone_table
                 0x200001dc        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
 
-.igot.plt       0x200001dc        0x0 load address 0x0800d3e8
+.igot.plt       0x200001dc        0x0 load address 0x0800d378
  .igot.plt      0x200001dc        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtbegin.o
 
-.bss            0x200001dc      0x17c load address 0x0800d3e8
+.bss            0x200001dc      0x17c load address 0x0800d378
                 0x200001dc                        . = ALIGN (0x4)
                 0x200001dc                        _sbss = .
                 0x200001dc                        __bss_start__ = _sbss
@@ -1255,6 +1292,7 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
  .bss           0x200001e8        0x0 src/usart.o
  .bss           0x200001e8        0x0 src/dma.o
  .bss           0x200001e8        0x0 src/spi.o
+ .bss           0x200001e8        0x0 src/exti_gpio_irq.o
  .bss           0x200001e8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
  .bss           0x200001e8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
  .bss           0x200001e8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
@@ -1387,121 +1425,123 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000017c       0x2e src/spi.o
  .ARM.attributes
-                0x000001aa       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
+                0x000001aa       0x2e src/exti_gpio_irq.o
  .ARM.attributes
-                0x000001d8       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+                0x000001d8       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
  .ARM.attributes
-                0x00000206       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x00000206       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
  .ARM.attributes
-                0x00000234       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+                0x00000234       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
  .ARM.attributes
-                0x00000262       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
+                0x00000262       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
  .ARM.attributes
-                0x00000290       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
+                0x00000290       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
  .ARM.attributes
-                0x000002be       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
+                0x000002be       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
  .ARM.attributes
-                0x000002ec       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+                0x000002ec       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
  .ARM.attributes
-                0x0000031a       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
+                0x0000031a       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
  .ARM.attributes
-                0x00000348       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
+                0x00000348       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
  .ARM.attributes
-                0x00000376       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
+                0x00000376       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
  .ARM.attributes
-                0x000003a4       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+                0x000003a4       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
  .ARM.attributes
-                0x000003d2       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
+                0x000003d2       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
  .ARM.attributes
-                0x00000400       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+                0x00000400       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
  .ARM.attributes
-                0x0000042e       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
+                0x0000042e       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
  .ARM.attributes
-                0x0000045c       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
+                0x0000045c       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
  .ARM.attributes
-                0x0000048a       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
+                0x0000048a       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
  .ARM.attributes
-                0x000004b8       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
+                0x000004b8       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
  .ARM.attributes
-                0x000004e6       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
+                0x000004e6       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
  .ARM.attributes
-                0x00000514       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+                0x00000514       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
  .ARM.attributes
-                0x00000542       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+                0x00000542       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
  .ARM.attributes
-                0x0000055e       0x17 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
+                0x00000570       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
  .ARM.attributes
-                0x00000575       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
+                0x0000058c       0x17 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
  .ARM.attributes
-                0x000005a3       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+                0x000005a3       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
  .ARM.attributes
-                0x000005d1       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
+                0x000005d1       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
  .ARM.attributes
-                0x000005ff       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+                0x000005ff       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
  .ARM.attributes
-                0x0000062d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+                0x0000062d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
  .ARM.attributes
-                0x0000065b       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+                0x0000065b       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
  .ARM.attributes
-                0x00000689       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+                0x00000689       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
  .ARM.attributes
-                0x000006b7       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
+                0x000006b7       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
  .ARM.attributes
-                0x000006e5       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
+                0x000006e5       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
  .ARM.attributes
-                0x00000713       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
+                0x00000713       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
  .ARM.attributes
-                0x00000741       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+                0x00000741       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
  .ARM.attributes
-                0x0000076f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+                0x0000076f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
  .ARM.attributes
-                0x0000079d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
+                0x0000079d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
  .ARM.attributes
-                0x000007cb       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
+                0x000007cb       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
  .ARM.attributes
-                0x000007f9       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+                0x000007f9       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
  .ARM.attributes
-                0x00000827       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
+                0x00000827       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
  .ARM.attributes
-                0x00000843       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
+                0x00000855       0x1c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
  .ARM.attributes
-                0x00000871       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
+                0x00000871       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
  .ARM.attributes
-                0x0000089f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
+                0x0000089f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
  .ARM.attributes
-                0x000008cd       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
+                0x000008cd       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
  .ARM.attributes
-                0x000008fb       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+                0x000008fb       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
  .ARM.attributes
-                0x00000929       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
+                0x00000929       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
  .ARM.attributes
-                0x00000957       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-ctype_.o)
+                0x00000957       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
  .ARM.attributes
-                0x00000985       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
+                0x00000985       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-ctype_.o)
  .ARM.attributes
-                0x000009b3       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
+                0x000009b3       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
  .ARM.attributes
-                0x000009e1       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+                0x000009e1       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
  .ARM.attributes
-                0x00000a0f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+                0x00000a0f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
  .ARM.attributes
-                0x00000a3d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
+                0x00000a3d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
  .ARM.attributes
-                0x00000a6b       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldf3.o)
+                0x00000a6b       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
  .ARM.attributes
-                0x00000a89       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubdf3.o)
+                0x00000a99       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldf3.o)
  .ARM.attributes
-                0x00000aa7       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivdf3.o)
+                0x00000ab7       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubdf3.o)
  .ARM.attributes
-                0x00000ac5       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpdf2.o)
+                0x00000ad5       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivdf3.o)
  .ARM.attributes
-                0x00000ae3       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_unorddf2.o)
+                0x00000af3       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpdf2.o)
  .ARM.attributes
-                0x00000b01       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)
+                0x00000b11       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_unorddf2.o)
  .ARM.attributes
-                0x00000b1f       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
+                0x00000b2f       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)
  .ARM.attributes
-                0x00000b4d       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
+                0x00000b4d       0x2e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtend.o
+ .ARM.attributes
+                0x00000b7b       0x1e /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/crtn.o
 
 .comment        0x00000000       0x45
  .comment       0x00000000       0x45 main_app.o
@@ -1512,6 +1552,7 @@ LOAD linker stubs
  .comment       0x00000045       0x46 src/usart.o
  .comment       0x00000045       0x46 src/dma.o
  .comment       0x00000045       0x46 src/spi.o
+ .comment       0x00000045       0x46 src/exti_gpio_irq.o
 
 .debug_line_str
                 0x00000000      0x28c
@@ -1537,25 +1578,27 @@ LOAD linker stubs
  .debug_line_str
                 0x0000028c       0xc4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)
 
-.debug_info     0x00000000     0x2b64
- .debug_info    0x00000000      0xfa5 main_app.o
- .debug_info    0x00000fa5      0x502 src/startup.o
- .debug_info    0x000014a7      0x33c vendor/system_stm32f7xx.o
- .debug_info    0x000017e3      0x785 src/syscalls.o
- .debug_info    0x00001f68      0x3e2 src/usart.o
- .debug_info    0x0000234a      0x3c8 src/dma.o
- .debug_info    0x00002712      0x452 src/spi.o
+.debug_info     0x00000000     0x2f7e
+ .debug_info    0x00000000      0xe63 main_app.o
+ .debug_info    0x00000e63      0x502 src/startup.o
+ .debug_info    0x00001365      0x33c vendor/system_stm32f7xx.o
+ .debug_info    0x000016a1      0x785 src/syscalls.o
+ .debug_info    0x00001e26      0x3e2 src/usart.o
+ .debug_info    0x00002208      0x3c8 src/dma.o
+ .debug_info    0x000025d0      0x452 src/spi.o
+ .debug_info    0x00002a22      0x55c src/exti_gpio_irq.o
 
-.debug_abbrev   0x00000000      0xacf
- .debug_abbrev  0x00000000      0x297 main_app.o
- .debug_abbrev  0x00000297      0x17a src/startup.o
- .debug_abbrev  0x00000411      0x11c vendor/system_stm32f7xx.o
- .debug_abbrev  0x0000052d      0x1f6 src/syscalls.o
- .debug_abbrev  0x00000723      0x118 src/usart.o
- .debug_abbrev  0x0000083b      0x152 src/dma.o
- .debug_abbrev  0x0000098d      0x142 src/spi.o
+.debug_abbrev   0x00000000      0xba3
+ .debug_abbrev  0x00000000      0x27e main_app.o
+ .debug_abbrev  0x0000027e      0x17a src/startup.o
+ .debug_abbrev  0x000003f8      0x11c vendor/system_stm32f7xx.o
+ .debug_abbrev  0x00000514      0x1f6 src/syscalls.o
+ .debug_abbrev  0x0000070a      0x118 src/usart.o
+ .debug_abbrev  0x00000822      0x152 src/dma.o
+ .debug_abbrev  0x00000974      0x142 src/spi.o
+ .debug_abbrev  0x00000ab6       0xed src/exti_gpio_irq.o
 
-.debug_aranges  0x00000000       0xe0
+.debug_aranges  0x00000000      0x100
  .debug_aranges
                 0x00000000       0x20 main_app.o
  .debug_aranges
@@ -1570,154 +1613,160 @@ LOAD linker stubs
                 0x000000a0       0x20 src/dma.o
  .debug_aranges
                 0x000000c0       0x20 src/spi.o
+ .debug_aranges
+                0x000000e0       0x20 src/exti_gpio_irq.o
 
-.debug_macro    0x00000000    0x1f1e8
- .debug_macro   0x00000000      0x1e8 main_app.o
- .debug_macro   0x000001e8      0xac0 main_app.o
- .debug_macro   0x00000ca8       0x22 main_app.o
- .debug_macro   0x00000cca       0x8e main_app.o
- .debug_macro   0x00000d58       0x51 main_app.o
- .debug_macro   0x00000da9      0x103 main_app.o
- .debug_macro   0x00000eac       0x6a main_app.o
- .debug_macro   0x00000f16      0x1df main_app.o
- .debug_macro   0x000010f5       0x61 main_app.o
- .debug_macro   0x00001156       0x24 main_app.o
- .debug_macro   0x0000117a       0x43 main_app.o
- .debug_macro   0x000011bd       0x34 main_app.o
- .debug_macro   0x000011f1       0x16 main_app.o
- .debug_macro   0x00001207       0x9e main_app.o
- .debug_macro   0x000012a5      0x364 main_app.o
- .debug_macro   0x00001609      0x112 main_app.o
- .debug_macro   0x0000171b       0x10 main_app.o
- .debug_macro   0x0000172b       0x16 main_app.o
- .debug_macro   0x00001741       0x4a main_app.o
- .debug_macro   0x0000178b       0x34 main_app.o
- .debug_macro   0x000017bf       0x10 main_app.o
- .debug_macro   0x000017cf       0x58 main_app.o
- .debug_macro   0x00001827       0x8e main_app.o
- .debug_macro   0x000018b5       0x1c main_app.o
- .debug_macro   0x000018d1      0x185 main_app.o
- .debug_macro   0x00001a56       0x16 main_app.o
- .debug_macro   0x00001a6c       0x16 main_app.o
- .debug_macro   0x00001a82      0x146 main_app.o
- .debug_macro   0x00001bc8       0x3b main_app.o
- .debug_macro   0x00001c03       0x2e main_app.o
- .debug_macro   0x00001c31       0x10 main_app.o
- .debug_macro   0x00001c41       0x58 main_app.o
- .debug_macro   0x00001c99      0x26d main_app.o
- .debug_macro   0x00001f06       0x28 main_app.o
- .debug_macro   0x00001f2e     0x14a2 main_app.o
- .debug_macro   0x000033d0      0x11f main_app.o
- .debug_macro   0x000034ef       0x22 main_app.o
- .debug_macro   0x00003511    0x1aa23 main_app.o
- .debug_macro   0x0001df34       0x2e main_app.o
- .debug_macro   0x0001df62       0x6d main_app.o
- .debug_macro   0x0001dfcf      0x104 src/startup.o
- .debug_macro   0x0001e0d3       0xfd vendor/system_stm32f7xx.o
- .debug_macro   0x0001e1d0      0x26e src/syscalls.o
- .debug_macro   0x0001e43e       0x5b src/syscalls.o
- .debug_macro   0x0001e499       0x94 src/syscalls.o
- .debug_macro   0x0001e52d       0x57 src/syscalls.o
- .debug_macro   0x0001e584      0x190 src/syscalls.o
- .debug_macro   0x0001e714       0x10 src/syscalls.o
- .debug_macro   0x0001e724       0x3c src/syscalls.o
- .debug_macro   0x0001e760       0x10 src/syscalls.o
- .debug_macro   0x0001e770       0x10 src/syscalls.o
- .debug_macro   0x0001e780       0x10 src/syscalls.o
- .debug_macro   0x0001e790       0x1c src/syscalls.o
- .debug_macro   0x0001e7ac       0x52 src/syscalls.o
- .debug_macro   0x0001e7fe       0x22 src/syscalls.o
- .debug_macro   0x0001e820       0x10 src/syscalls.o
- .debug_macro   0x0001e830       0x52 src/syscalls.o
- .debug_macro   0x0001e882       0xcf src/syscalls.o
- .debug_macro   0x0001e951       0x1c src/syscalls.o
- .debug_macro   0x0001e96d       0x3d src/syscalls.o
- .debug_macro   0x0001e9aa       0x35 src/syscalls.o
- .debug_macro   0x0001e9df      0x12c src/syscalls.o
- .debug_macro   0x0001eb0b       0x10 src/syscalls.o
- .debug_macro   0x0001eb1b      0x242 src/syscalls.o
- .debug_macro   0x0001ed5d       0xfd src/usart.o
- .debug_macro   0x0001ee5a      0x1c7 src/dma.o
- .debug_macro   0x0001f021      0x1c7 src/spi.o
+.debug_macro    0x00000000    0x1f2dc
+ .debug_macro   0x00000000      0x1ec main_app.o
+ .debug_macro   0x000001ec      0xac0 main_app.o
+ .debug_macro   0x00000cac       0x22 main_app.o
+ .debug_macro   0x00000cce       0x8e main_app.o
+ .debug_macro   0x00000d5c       0x51 main_app.o
+ .debug_macro   0x00000dad      0x103 main_app.o
+ .debug_macro   0x00000eb0       0x6a main_app.o
+ .debug_macro   0x00000f1a      0x1df main_app.o
+ .debug_macro   0x000010f9       0x61 main_app.o
+ .debug_macro   0x0000115a       0x24 main_app.o
+ .debug_macro   0x0000117e       0x43 main_app.o
+ .debug_macro   0x000011c1       0x34 main_app.o
+ .debug_macro   0x000011f5       0x16 main_app.o
+ .debug_macro   0x0000120b       0x9e main_app.o
+ .debug_macro   0x000012a9      0x364 main_app.o
+ .debug_macro   0x0000160d      0x112 main_app.o
+ .debug_macro   0x0000171f       0x10 main_app.o
+ .debug_macro   0x0000172f       0x16 main_app.o
+ .debug_macro   0x00001745       0x4a main_app.o
+ .debug_macro   0x0000178f       0x34 main_app.o
+ .debug_macro   0x000017c3       0x10 main_app.o
+ .debug_macro   0x000017d3       0x58 main_app.o
+ .debug_macro   0x0000182b       0x8e main_app.o
+ .debug_macro   0x000018b9       0x1c main_app.o
+ .debug_macro   0x000018d5      0x185 main_app.o
+ .debug_macro   0x00001a5a       0x16 main_app.o
+ .debug_macro   0x00001a70       0x16 main_app.o
+ .debug_macro   0x00001a86      0x146 main_app.o
+ .debug_macro   0x00001bcc       0x3b main_app.o
+ .debug_macro   0x00001c07       0x2e main_app.o
+ .debug_macro   0x00001c35       0x10 main_app.o
+ .debug_macro   0x00001c45       0x58 main_app.o
+ .debug_macro   0x00001c9d      0x26d main_app.o
+ .debug_macro   0x00001f0a       0x28 main_app.o
+ .debug_macro   0x00001f32     0x14a2 main_app.o
+ .debug_macro   0x000033d4      0x11f main_app.o
+ .debug_macro   0x000034f3       0x22 main_app.o
+ .debug_macro   0x00003515    0x1aa23 main_app.o
+ .debug_macro   0x0001df38       0x2e main_app.o
+ .debug_macro   0x0001df66       0x6d main_app.o
+ .debug_macro   0x0001dfd3      0x104 src/startup.o
+ .debug_macro   0x0001e0d7       0xfd vendor/system_stm32f7xx.o
+ .debug_macro   0x0001e1d4      0x26e src/syscalls.o
+ .debug_macro   0x0001e442       0x5b src/syscalls.o
+ .debug_macro   0x0001e49d       0x94 src/syscalls.o
+ .debug_macro   0x0001e531       0x57 src/syscalls.o
+ .debug_macro   0x0001e588      0x190 src/syscalls.o
+ .debug_macro   0x0001e718       0x10 src/syscalls.o
+ .debug_macro   0x0001e728       0x3c src/syscalls.o
+ .debug_macro   0x0001e764       0x10 src/syscalls.o
+ .debug_macro   0x0001e774       0x10 src/syscalls.o
+ .debug_macro   0x0001e784       0x10 src/syscalls.o
+ .debug_macro   0x0001e794       0x1c src/syscalls.o
+ .debug_macro   0x0001e7b0       0x52 src/syscalls.o
+ .debug_macro   0x0001e802       0x22 src/syscalls.o
+ .debug_macro   0x0001e824       0x10 src/syscalls.o
+ .debug_macro   0x0001e834       0x52 src/syscalls.o
+ .debug_macro   0x0001e886       0xcf src/syscalls.o
+ .debug_macro   0x0001e955       0x1c src/syscalls.o
+ .debug_macro   0x0001e971       0x3d src/syscalls.o
+ .debug_macro   0x0001e9ae       0x35 src/syscalls.o
+ .debug_macro   0x0001e9e3      0x12c src/syscalls.o
+ .debug_macro   0x0001eb0f       0x10 src/syscalls.o
+ .debug_macro   0x0001eb1f      0x242 src/syscalls.o
+ .debug_macro   0x0001ed61       0xfd src/usart.o
+ .debug_macro   0x0001ee5e      0x1c7 src/dma.o
+ .debug_macro   0x0001f025      0x1c7 src/spi.o
+ .debug_macro   0x0001f1ec       0xf0 src/exti_gpio_irq.o
 
-.debug_line     0x00000000     0x1e0e
- .debug_line    0x00000000      0x5d3 main_app.o
- .debug_line    0x000005d3      0x33a src/startup.o
- .debug_line    0x0000090d      0x361 vendor/system_stm32f7xx.o
- .debug_line    0x00000c6e      0x569 src/syscalls.o
- .debug_line    0x000011d7      0x360 src/usart.o
- .debug_line    0x00001537      0x42a src/dma.o
- .debug_line    0x00001961      0x4ad src/spi.o
+.debug_line     0x00000000     0x20cd
+ .debug_line    0x00000000      0x56b main_app.o
+ .debug_line    0x0000056b      0x33a src/startup.o
+ .debug_line    0x000008a5      0x361 vendor/system_stm32f7xx.o
+ .debug_line    0x00000c06      0x569 src/syscalls.o
+ .debug_line    0x0000116f      0x360 src/usart.o
+ .debug_line    0x000014cf      0x42a src/dma.o
+ .debug_line    0x000018f9      0x4ad src/spi.o
+ .debug_line    0x00001da6      0x327 src/exti_gpio_irq.o
 
-.debug_str      0x00000000    0xaa3cb
- .debug_str     0x00000000    0xaa3cb main_app.o
-                              0xa8e83 (size before relaxing)
- .debug_str     0x000aa3cb    0xa4422 src/startup.o
- .debug_str     0x000aa3cb    0xa4a7f vendor/system_stm32f7xx.o
- .debug_str     0x000aa3cb    0xa92f4 src/syscalls.o
- .debug_str     0x000aa3cb    0xa4a2c src/usart.o
- .debug_str     0x000aa3cb    0xa7e34 src/dma.o
- .debug_str     0x000aa3cb    0xa7e46 src/spi.o
+.debug_str      0x00000000    0xaa3c3
+ .debug_str     0x00000000    0xaa3c3 main_app.o
+                              0xa8dfb (size before relaxing)
+ .debug_str     0x000aa3c3    0xa4422 src/startup.o
+ .debug_str     0x000aa3c3    0xa4a7f vendor/system_stm32f7xx.o
+ .debug_str     0x000aa3c3    0xa92f4 src/syscalls.o
+ .debug_str     0x000aa3c3    0xa4a2c src/usart.o
+ .debug_str     0x000aa3c3    0xa7e34 src/dma.o
+ .debug_str     0x000aa3c3    0xa7e46 src/spi.o
+ .debug_str     0x000aa3c3    0xa4388 src/exti_gpio_irq.o
 
-.debug_frame    0x00000000     0x18f8
- .debug_frame   0x00000000      0x1e8 main_app.o
- .debug_frame   0x000001e8       0x4c src/startup.o
- .debug_frame   0x00000234       0x58 vendor/system_stm32f7xx.o
- .debug_frame   0x0000028c      0x2bc src/syscalls.o
- .debug_frame   0x00000548       0x80 src/usart.o
- .debug_frame   0x000005c8       0x7c src/dma.o
- .debug_frame   0x00000644       0x5c src/spi.o
- .debug_frame   0x000006a0       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
- .debug_frame   0x000006c8       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
- .debug_frame   0x0000075c       0x60 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_frame   0x000007bc      0x144 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
- .debug_frame   0x00000900       0x34 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
- .debug_frame   0x00000934       0x6c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
- .debug_frame   0x000009a0       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
- .debug_frame   0x000009dc       0x88 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
- .debug_frame   0x00000a64       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
- .debug_frame   0x00000aa4       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
- .debug_frame   0x00000ad0       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
- .debug_frame   0x00000af0       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
- .debug_frame   0x00000b30       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
- .debug_frame   0x00000b5c       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
- .debug_frame   0x00000b94       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
- .debug_frame   0x00000bc0       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
- .debug_frame   0x00000bec       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
- .debug_frame   0x00000c18       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
- .debug_frame   0x00000c44       0xb0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
- .debug_frame   0x00000cf4       0x4c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
- .debug_frame   0x00000d40       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
- .debug_frame   0x00000d60       0x6c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
- .debug_frame   0x00000dcc       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
- .debug_frame   0x00000e04       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
- .debug_frame   0x00000e34       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
- .debug_frame   0x00000e84       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
- .debug_frame   0x00000eb4      0x25c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
- .debug_frame   0x00001110       0xa8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
- .debug_frame   0x000011b8       0x5c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
- .debug_frame   0x00001214       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
- .debug_frame   0x00001250       0x58 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
- .debug_frame   0x000012a8       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
- .debug_frame   0x000012d0       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
- .debug_frame   0x00001318       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
- .debug_frame   0x00001344       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
- .debug_frame   0x00001370       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
- .debug_frame   0x0000139c       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
- .debug_frame   0x000013bc       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
- .debug_frame   0x000013e4       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
- .debug_frame   0x00001424       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
- .debug_frame   0x00001450       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
- .debug_frame   0x00001498       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
- .debug_frame   0x000014d4       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
- .debug_frame   0x00001510       0x64 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
- .debug_frame   0x00001574       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
- .debug_frame   0x0000159c       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
- .debug_frame   0x000015bc       0xcc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
- .debug_frame   0x00001688       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
- .debug_frame   0x000016c4       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldf3.o)
- .debug_frame   0x000016f4       0xac /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x000017a0       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivdf3.o)
- .debug_frame   0x000017f0       0xc4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpdf2.o)
- .debug_frame   0x000018b4       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_unorddf2.o)
- .debug_frame   0x000018d4       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)
+.debug_frame    0x00000000     0x18a4
+ .debug_frame   0x00000000      0x144 main_app.o
+ .debug_frame   0x00000144       0x4c src/startup.o
+ .debug_frame   0x00000190       0x58 vendor/system_stm32f7xx.o
+ .debug_frame   0x000001e8      0x2bc src/syscalls.o
+ .debug_frame   0x000004a4       0x80 src/usart.o
+ .debug_frame   0x00000524       0x7c src/dma.o
+ .debug_frame   0x000005a0       0x5c src/spi.o
+ .debug_frame   0x000005fc       0x50 src/exti_gpio_irq.o
+ .debug_frame   0x0000064c       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
+ .debug_frame   0x00000674       0x94 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+ .debug_frame   0x00000708       0x60 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_frame   0x00000768      0x144 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+ .debug_frame   0x000008ac       0x34 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
+ .debug_frame   0x000008e0       0x6c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
+ .debug_frame   0x0000094c       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-puts.o)
+ .debug_frame   0x00000988       0x88 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+ .debug_frame   0x00000a10       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wbuf.o)
+ .debug_frame   0x00000a50       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wsetup.o)
+ .debug_frame   0x00000a7c       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
+ .debug_frame   0x00000a9c       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+ .debug_frame   0x00000adc       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
+ .debug_frame   0x00000b08       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+ .debug_frame   0x00000b40       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
+ .debug_frame   0x00000b6c       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
+ .debug_frame   0x00000b98       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
+ .debug_frame   0x00000bc4       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
+ .debug_frame   0x00000bf0       0xb0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
+ .debug_frame   0x00000ca0       0x4c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .debug_frame   0x00000cec       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)
+ .debug_frame   0x00000d0c       0x6c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-dtoa.o)
+ .debug_frame   0x00000d78       0x38 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+ .debug_frame   0x00000db0       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-malloc.o)
+ .debug_frame   0x00000de0       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+ .debug_frame   0x00000e30       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+ .debug_frame   0x00000e60      0x25c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mprec.o)
+ .debug_frame   0x000010bc       0xa8 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf.o)
+ .debug_frame   0x00001164       0x5c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fflush.o)
+ .debug_frame   0x000011c0       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fvwrite.o)
+ .debug_frame   0x000011fc       0x58 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-makebuf.o)
+ .debug_frame   0x00001254       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+ .debug_frame   0x0000127c       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-locale.o)
+ .debug_frame   0x000012c4       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fstatr.o)
+ .debug_frame   0x000012f0       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-isattyr.o)
+ .debug_frame   0x0000131c       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+ .debug_frame   0x00001348       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strcmp.o)
+ .debug_frame   0x00001368       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_frame   0x00001390       0x40 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-assert.o)
+ .debug_frame   0x000013d0       0x2c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-callocr.o)
+ .debug_frame   0x000013fc       0x48 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mbtowc_r.o)
+ .debug_frame   0x00001444       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+ .debug_frame   0x00001480       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-wctomb_r.o)
+ .debug_frame   0x000014bc       0x64 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fprintf.o)
+ .debug_frame   0x00001520       0x28 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-abort.o)
+ .debug_frame   0x00001548       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+ .debug_frame   0x00001568       0xcc /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signal.o)
+ .debug_frame   0x00001634       0x3c /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-signalr.o)
+ .debug_frame   0x00001670       0x30 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldf3.o)
+ .debug_frame   0x000016a0       0xac /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x0000174c       0x50 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x0000179c       0xc4 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_cmpdf2.o)
+ .debug_frame   0x00001860       0x20 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_unorddf2.o)
+ .debug_frame   0x00001880       0x24 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7e-m/nofp/libgcc.a(_arm_fixdfsi.o)

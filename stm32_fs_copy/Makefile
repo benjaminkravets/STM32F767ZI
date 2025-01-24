@@ -3,7 +3,7 @@
 #CC, CFLAGS, etc. are implicit variables used by implicit rules for automatic compilation/linking which allow, for instance, just running 'make file.c' and getting an .elf (check out implicits using make -p)
 #here, explicit rules are used
 
-CC=arm-none-eabi-gcc
+CC=arm-none-eabi-c++
 #nano.specs will use nanolib instead of stdlib or newlib
 CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD -g3 -ggdb
 CPPFLAGS=-Ivendor -Isrc
@@ -33,7 +33,7 @@ image.bin: all
 
 all: app.elf boot.elf
 
-OBJS = src/startup.o vendor/system_stm32f7xx.o src/syscalls.o src/usart.o src/dma.o src/spi.o
+OBJS = src/startup.o vendor/system_stm32f7xx.o src/syscalls.o src/usart.o src/dma.o src/spi.o src/exti_gpio_irq.o
        
 #$^ is an automatic variable and means "all prerequisites" ($< is first prerequisite). $@ means the name of the target of the rule
 app.elf: main_app.o $(OBJS)
@@ -42,11 +42,11 @@ app.elf: main_app.o $(OBJS)
 boot.elf: main_boot.o $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_BOOT) $^ -o boot.elf
 
-main_boot.o: main_boot.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# main_boot.o: main_boot.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
-main_app.o: main_app.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
+# main_app.o: main_app.c
+# 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
 # system_stm32f7xx.o: vendor/system_stm32f7xx.c
 # 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
