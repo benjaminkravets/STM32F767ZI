@@ -3,7 +3,7 @@
 #CC, CFLAGS, etc. are implicit variables used by implicit rules for automatic compilation/linking which allow, for instance, just running 'make file.c' and getting an .elf (check out implicits using make -p)
 #here, explicit rules are used
 
-CC=arm-none-eabi-c++
+CC=arm-none-eabi-gcc
 #nano.specs will use nanolib instead of stdlib or newlib
 CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD -g3 -ggdb
 CPPFLAGS=-Ivendor -Isrc

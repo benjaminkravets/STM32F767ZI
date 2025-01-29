@@ -101,7 +101,9 @@ void using_spi()
 }
 
 
-
+int printf(const char *__restrict, ...) {
+    return 0;
+}
 
 
 int main()
