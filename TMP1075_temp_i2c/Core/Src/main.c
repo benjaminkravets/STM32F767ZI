@@ -105,6 +105,10 @@ int main(void)
 	float temp_celsius = read_binary * .0625;
 	float temp_farenheit = temp_celsius * 1.8 + 32;
 	HAL_Delay(500);
+	uint8_t config = 255;
+
+	HAL_I2C_Mem_Write(&hi2c2, (72 << 1), 1, 1, &config, 1, 100);
+	HAL_Delay(500);
 
     /* USER CODE END WHILE */
 
