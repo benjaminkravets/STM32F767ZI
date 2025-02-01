@@ -96,18 +96,28 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t read_data[2] = {0};
+  uint8_t read_data[2] = {0b00000000, 0b01000000};
   while (1)
   {
-	//HAL_I2C_Master_Receive(&hi2c2, (72 << 1), 0, 2, read_data, 2, 100);
-	HAL_I2C_Mem_Read(&hi2c2, (72 << 1), 0, 1, read_data, 2, 1000);
-	uint32_t read_binary = read_data[1] >> 4 | read_data[0] << 4;
-	float temp_celsius = read_binary * .0625;
-	float temp_farenheit = temp_celsius * 1.8 + 32;
-	HAL_Delay(500);
-	uint8_t config = 255;
 
-	HAL_I2C_Mem_Write(&hi2c2, (72 << 1), 1, 1, &config, 1, 100);
+//	HAL_I2C_Mem_Read(&hi2c2, (72 << 1), 0, 1, read_data, 2, 1000);
+//	uint32_t read_binary = read_data[1] >> 4 | read_data[0] << 4;
+//	float temp_celsius = read_binary * .0625;
+//	float temp_farenheit = temp_celsius * 1.8 + 32;
+//	HAL_Delay(500);
+
+	float temp_celsius = 0;
+	//HAL_I2C_Mem_Read(&hi2c2, (72 << 1), 0, 1, read_data, 2, 1000);
+	uint32_t read_binary = read_data[1] >> 4 | read_data[0] << 4;
+	if (1 << 11 & read_binary) {
+
+        temp_celsius = -((~((int32_t)read_binary - 1)) & 4095) * .0625;
+
+	} else {
+
+		temp_celsius = read_binary * .0625;
+
+	}
 	HAL_Delay(500);
 
     /* USER CODE END WHILE */
