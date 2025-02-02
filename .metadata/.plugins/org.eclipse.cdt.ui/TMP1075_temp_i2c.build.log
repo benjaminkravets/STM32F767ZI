@@ -1,21 +1,21 @@
-22:02:17 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+19:31:11 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:109:15: warning: variable 'temp_celsius' set but not used [-Wunused-but-set-variable]
-  109 |         float temp_celsius = 0;
-      |               ^~~~~~~~~~~~
+../Core/Src/main.c:154:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  154 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
 arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: TMP1075_temp_i2c.elf
  
 arm-none-eabi-size  TMP1075_temp_i2c.elf 
 arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
    text	   data	    bss	    dec	    hex	filename
-   9716	     12	   1652	  11380	   2c74	TMP1075_temp_i2c.elf
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
 Finished building: default.size.stdout
  
 Finished building: TMP1075_temp_i2c.list
  
 
-22:02:18 Build Finished. 0 errors, 1 warnings. (took 649ms)
+19:31:12 Build Finished. 0 errors, 1 warnings. (took 752ms)
 

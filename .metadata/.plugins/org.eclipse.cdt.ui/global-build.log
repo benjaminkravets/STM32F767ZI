@@ -177,3 +177,614 @@ Finished building: default.size.stdout
  
 Finished building: TMP1075_temp_i2c.list
  
+15:41:23 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:116:9: warning: variable 'temp' set but not used [-Wunused-but-set-variable]
+  116 |   float temp = 0;
+      |         ^~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11592	     12	   1652	  13256	   33c8	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+15:41:54 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11592	     12	   1652	  13256	   33c8	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+15:43:41 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:15: warning: variable 'temp_celsius' set but not used [-Wunused-but-set-variable]
+  109 |         float temp_celsius = 0;
+      |               ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+   9716	     12	   1652	  11380	   2c74	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+15:44:06 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:109:15: warning: variable 'temp_celsius' set but not used [-Wunused-but-set-variable]
+  109 |         float temp_celsius = 0;
+      |               ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11552	     12	   1652	  13216	   33a0	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+15:51:43 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:134:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  134 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+../Core/Src/main.c:113:17: warning: unused variable 'read_data' [-Wunused-variable]
+  113 |         uint8_t read_data[2] = { 0 };
+      |                 ^~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11592	     12	   1652	  13256	   33c8	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+15:53:18 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:115:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  115 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+15:54:53 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  117 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:03:43 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11448	     12	   1652	  13112	   3338	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:15:14 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11448	     12	   1652	  13112	   3338	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:18:03 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11448	     12	   1652	  13112	   3338	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:18:42 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11448	     12	   1652	  13112	   3338	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+16:27:50 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:120:13: error: 'chars' undeclared (first use in this function); did you mean 'char'?
+  120 |             chars[0] |= (1);
+      |             ^~~~~
+      |             char
+../Core/Src/main.c:120:13: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+16:28:15 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:120:13: error: 'conf_registers' undeclared (first use in this function); did you mean 'conf_register'?
+  120 |             conf_registers[0] |= (1);
+      |             ^~~~~~~~~~~~~~
+      |             conf_register
+../Core/Src/main.c:120:13: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+16:28:31 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11456	     12	   1652	  13120	   3340	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:31:09 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12228	     12	   1652	  13892	   3644	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:33:42 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12228	     12	   1652	  13892	   3644	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+16:40:01 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12244	     12	   1652	  13908	   3654	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:43:43 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:131:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  131 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:48:23 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+16:49:59 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+16:51:14 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:133:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  133 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+16:54:33 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+16:57:27 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:133:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  133 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12420	     12	   1652	  14084	   3704	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:26:44 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:146:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  146 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:32:55 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:146:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  146 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12420	     12	   1652	  14084	   3704	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:39:37 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:146:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  146 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:45:55 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:147:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  147 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:50:22 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:147:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  147 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:53:17 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+17:54:04 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:147:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  147 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12420	     12	   1652	  14084	   3704	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+17:58:17 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:147:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  147 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+18:30:13 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  155 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12476	     12	   1652	  14140	   373c	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+18:30:46 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  155 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12476	     12	   1652	  14140	   373c	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+18:32:05 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  155 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12476	     12	   1652	  14140	   373c	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+18:32:45 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  155 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12476	     12	   1652	  14140	   373c	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+18:33:39 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12476	     12	   1652	  14140	   373c	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+19:10:45 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:154:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  154 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+   9752	     12	   1652	  11416	   2c98	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+19:11:52 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9752	     12	   1652	  11416	   2c98	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+19:12:53 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:154:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  154 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+19:19:20 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11588	     12	   1652	  13252	   33c4	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+19:22:48 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:154:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  154 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12420	     12	   1652	  14084	   3704	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
+19:31:11 **** Incremental Build of configuration Debug for project TMP1075_temp_i2c ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F767xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:154:23: warning: unused variable 'temp_celsius' [-Wunused-variable]
+  154 |                 float temp_celsius = read_temp();
+      |                       ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "TMP1075_temp_i2c.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\bakra\Desktop\STM32F767ZI\TMP1075_temp_i2c\STM32F767ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_temp_i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TMP1075_temp_i2c.elf
+ 
+arm-none-eabi-size  TMP1075_temp_i2c.elf 
+arm-none-eabi-objdump -h -S TMP1075_temp_i2c.elf  > "TMP1075_temp_i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  12504	     12	   1652	  14168	   3758	TMP1075_temp_i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: TMP1075_temp_i2c.list
+ 
