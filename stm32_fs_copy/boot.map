@@ -490,6 +490,7 @@ Name             Origin             Length             Attributes
 SRAM             0x20000000         0x00080000         xrw
 FLASH_BOOT       0x08000000         0x00008000         xr
 FLASH_APP        0x08008000         0x001f8000         xr
+NOINIT           0x40024000         0x00001000         xrw
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
@@ -1348,6 +1349,10 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
                 0x20000354                        . = ALIGN (0x4)
                 0x20000354                        _ebss = .
                 0x20000354                        __bss_end__ = _ebss
+
+.noinit         0x40024000        0x0
+                0x40024000                        . = ALIGN (0x4)
+ *(*.noinit*)
 OUTPUT(boot.elf elf32-littlearm)
 LOAD linker stubs
 

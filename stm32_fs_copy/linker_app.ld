@@ -1,9 +1,10 @@
-
+/* memory regions */
 MEMORY
 {
     SRAM (rwx): ORIGIN = 0x20000000, LENGTH = 512K
     FLASH_BOOT (rx): ORIGIN = 0x08000000, LENGTH = 32K
     FLASH_APP (rx): ORIGIN = 0x08008000, LENGTH = 2016K
+    NOINIT (rwx) : ORIGIN = 0x40024000, LENGTH = 4K
 }
 
 __flash_boot_start__ = ORIGIN(FLASH_BOOT);
@@ -67,4 +68,10 @@ SECTIONS
         _ebss = .;
         __bss_end__ = _ebss; /*needed by _mainCRTStartup */
     } > SRAM
+
+    .noinit (NOLOAD):
+    {
+        . = ALIGN(4);
+        KEEP(*(*.noinit*))
+    } > NOINIT
 }

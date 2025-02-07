@@ -100,11 +100,22 @@ void using_spi()
     }
 }
 
-
-int printf(const char *__restrict, ...) {
-    return 0;
+void init_BKPSRAM()
+{
+    // 4.1.5
+    // Enable power interface clock
+    RCC->APB1ENR |= RCC_APB1ENR_PWREN_Msk;
+    // enable Disable Backup Domain write protection
+    PWR->CR1 |= PWR_CR1_DBP_Msk;
+    // enable backup SRAM interface clock
+    RCC->AHB1ENR |= RCC_AHB1ENR_BKPSRAMEN_Msk;
 }
 
+// int printf(const char *__restrict, ...) {
+//     return 0;
+// }
+volatile uint32_t boot_test __attribute__((section(".noinit")));
+volatile uint32_t counter __attribute__((section(".noinit")));
 
 int main()
 {
@@ -124,8 +135,23 @@ int main()
 
     exti_init();
 
+    init_BKPSRAM();
+
     // using_dma();
     // using_spi();
+
+    //can reset counter after so many seconds:
+    // if boot_test is random (will sometimes not be zero after flashing), initialize to known value (0x12345)
+    if (boot_test != 0x12345)
+    {
+        boot_test = 0x12345;
+        counter = 0;
+        // if boot_test is 0x12345, boot has been attemped since flashing, increment boot count
+    }
+    else
+    {
+        counter += 1;
+    }
 
     while (1)
     {
@@ -133,6 +159,7 @@ int main()
         // char z = getchar();
         delay_ms(500);
         printf("Hello \r\n");
+        printf("%i \r\n", counter);
         blink();
     }
 }

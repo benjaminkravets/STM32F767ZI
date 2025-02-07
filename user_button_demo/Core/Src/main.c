@@ -92,6 +92,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_PWREx_EnableBkUpReg()
   while (1)
   {
 	if (irq_cooldown > 0){

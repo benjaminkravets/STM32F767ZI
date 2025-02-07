@@ -374,9 +374,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
  8000534:	f000 f86e 	bl	8000614 <MX_GPIO_Init>
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
 	if (irq_cooldown > 0){
