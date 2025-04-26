@@ -138,10 +138,10 @@ int main()
     init_BKPSRAM();
 
     // using_dma();
-    // using_spi();
+    //using_spi();
 
     //can reset counter after so many seconds:
-    // if boot_test is random (will sometimes not be zero after flashing), initialize to known value (0x12345)
+    // if boot_test is random (may be at initial boot), initialize to known value (0x12345)
     if (boot_test != 0x12345)
     {
         boot_test = 0x12345;

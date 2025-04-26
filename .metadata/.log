@@ -74,3 +74,194 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-02-06 16:59:03.887
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-03-31 20:05:52.713 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-03-31 20:06:29.337
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-03-31 20:06:29.340
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-03-31 20:07:09.835
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-03-31 20:07:13.793
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+!SESSION 2025-04-22 07:31:30.065 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-22 07:31:54.409
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-22 07:31:54.412
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-22 07:32:04.764
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-22 07:32:29.174
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-22 07:32:33.195
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+!SESSION 2025-04-22 18:59:25.488 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-22 19:11:07.199
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-22 19:11:07.201
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-22 19:11:17.135
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-22 19:11:42.827
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-22 19:11:46.579
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+
+!ENTRY org.eclipse.core.jobs 2 2 2025-04-22 19:15:06.510
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.equinox.p2.operations.ProfileModificationJob
+
+!ENTRY org.eclipse.core.jobs 2 2 2025-04-22 19:15:06.511
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.equinox.internal.p2.artifact.repository.simple.DownloadJob
+!SESSION 2025-04-25 20:38:02.042 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-25 20:55:52.470
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-25 20:55:52.472
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-25 20:56:04.055
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 20:56:29.970
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 20:56:35.019
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+
+!ENTRY org.eclipse.equinox.preferences 4 4 2025-04-25 21:01:35.945
+!MESSAGE Exception saving preferences to: C:/ST/STM32CubeIDE_1.11.2/STM32CubeIDE/p2/org.eclipse.equinox.p2.engine/profileRegistry/STM32CubeIDE.profile/.data/.settings/org.eclipse.equinox.p2.artifact.repository.prefs.
+!STACK 0
+java.nio.file.AccessDeniedException: C:\ST\STM32CubeIDE_1.11.2\STM32CubeIDE\p2\org.eclipse.equinox.p2.engine\profileRegistry\STM32CubeIDE.profile\.data\.settings\org.eclipse.equinox.p2.artifact.repository.prefs
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileCopy.move(WindowsFileCopy.java:403)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.move(WindowsFileSystemProvider.java:291)
+	at java.base/java.nio.file.Files.move(Files.java:1430)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.write(EclipsePreferences.java:289)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.save(EclipsePreferences.java:1039)
+	at org.eclipse.equinox.internal.p2.engine.ProfilePreferences.doSave(ProfilePreferences.java:141)
+	at org.eclipse.equinox.internal.p2.engine.ProfilePreferences$SaveJob.run(ProfilePreferences.java:54)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.equinox.p2.engine 2 0 2025-04-25 21:01:35.946
+!MESSAGE Exception saving profile preferences
+!STACK 0
+org.osgi.service.prefs.BackingStoreException: Exception saving preferences to: C:/ST/STM32CubeIDE_1.11.2/STM32CubeIDE/p2/org.eclipse.equinox.p2.engine/profileRegistry/STM32CubeIDE.profile/.data/.settings/org.eclipse.equinox.p2.artifact.repository.prefs.
+	at org.eclipse.core.internal.preferences.EclipsePreferences.write(EclipsePreferences.java:297)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.save(EclipsePreferences.java:1039)
+	at org.eclipse.equinox.internal.p2.engine.ProfilePreferences.doSave(ProfilePreferences.java:141)
+	at org.eclipse.equinox.internal.p2.engine.ProfilePreferences$SaveJob.run(ProfilePreferences.java:54)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: java.nio.file.AccessDeniedException: C:\ST\STM32CubeIDE_1.11.2\STM32CubeIDE\p2\org.eclipse.equinox.p2.engine\profileRegistry\STM32CubeIDE.profile\.data\.settings\org.eclipse.equinox.p2.artifact.repository.prefs
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileCopy.move(WindowsFileCopy.java:403)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.move(WindowsFileSystemProvider.java:291)
+	at java.base/java.nio.file.Files.move(Files.java:1430)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.write(EclipsePreferences.java:289)
+	... 4 more
+
+!ENTRY org.eclipse.equinox.p2.touchpoint.natives 2 0 2025-04-25 21:01:36.889
+!MESSAGE Could not remove temporary backup directory (it is safe to manually delete it and its contents): C:\Users\bakra\AppData\Local\Temp\STM32CubeIDE_239a1591-2946-448f-bc97-87cb50eb7ebf
+!SESSION 2025-04-25 21:02:27.037 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data file:/C:/Users/bakra/Desktop/STM32F767ZI/
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-25 21:02:50.170
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-25 21:02:50.172
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-25 21:02:58.330
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 21:03:41.689
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 21:03:45.154
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-04-25 21:07:13.924
+!MESSAGE Indexed 'mpu' (20 sources, 82 headers) in 5.22 sec: 5,677 declarations; 32,193 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0053%)
+!SESSION 2025-04-25 21:58:41.233 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-25 21:59:08.631
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-25 21:59:08.631
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-25 21:59:15.204
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 21:59:51.297
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 21:59:55.230
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+!SESSION 2025-04-25 22:04:06.555 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-25 22:04:13.270
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-25 22:04:13.270
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-25 22:04:19.181
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 22:04:52.831
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-25 22:04:57.293
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.

@@ -43,3 +43,4 @@ Debugging
 
         then target remote localhost:61234
 
+libc.a in /arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib may be stdlib implementations

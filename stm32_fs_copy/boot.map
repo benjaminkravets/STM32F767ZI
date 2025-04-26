@@ -557,61 +557,60 @@ LOAD /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/a
                 0x08000348                nmi_handler
                 0x08000348                exti4_handler
                 0x08000348                bus_fault_handler
-                0x0800034e                reset_handler
+                0x08000350                reset_handler
  .text          0x080003f0      0x10c vendor/system_stm32f7xx.o
                 0x080003f0                SystemInit
                 0x080003fc                SystemCoreClockUpdate
- .text          0x080004fc      0x244 src/syscalls.o
+ .text          0x080004fc      0x24c src/syscalls.o
                 0x080004fc                _exit
-                0x08000506                _close
-                0x0800051c                execve
-                0x08000540                fork
-                0x0800055c                _fstat
-                0x0800057a                _getpid
-                0x08000588                _isatty
-                0x0800059c                _kill
-                0x080005c0                link
-                0x080005e4                _lseek
-                0x080005fc                open
-                0x08000616                _read
-                0x08000640                _sbrk
-                0x0800068c                _stat
-                0x080006aa                times
-                0x080006c0                unlink
-                0x080006e0                wait
-                0x08000700                _write
- .text          0x08000740       0xcc src/usart.o
-                0x08000740                USART3_init
-                0x080007b4                usart_write
-                0x080007e0                usart_read
- .text          0x0800080c      0x104 src/dma.o
-                0x0800080c                DMA2_channel_init
-                0x08000828                DMA2_transfer
-                0x08000894                using_dma
- .text          0x08000910      0x138 src/spi.o
-                0x08000910                SPI_init
-                0x080009b8                SPI_write
- .text          0x08000a48       0x90 src/exti_gpio_irq.o
-                0x08000a48                exti_init
-                0x08000aac                exti15_10_handler
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
- .text          0x08000ad8        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
- *fill*         0x08000ad8        0x8 
+                0x08000508                _close
+                0x0800051e                execve
+                0x08000544                fork
+                0x08000560                _fstat
+                0x0800057e                _getpid
+                0x0800058c                _isatty
+                0x080005a0                _kill
+                0x080005c4                link
+                0x080005e8                _lseek
+                0x08000600                open
+                0x0800061a                _read
+                0x08000644                _sbrk
+                0x08000694                _stat
+                0x080006b2                times
+                0x080006c8                unlink
+                0x080006e8                wait
+                0x08000708                _write
+ .text          0x08000748       0xcc src/usart.o
+                0x08000748                USART3_init
+                0x080007bc                usart_write
+                0x080007e8                usart_read
+ .text          0x08000814      0x104 src/dma.o
+                0x08000814                DMA2_channel_init
+                0x08000830                DMA2_transfer
+                0x0800089c                using_dma
+ .text          0x08000918      0x138 src/spi.o
+                0x08000918                SPI_init
+                0x080009c0                SPI_write
+ .text          0x08000a50       0x90 src/exti_gpio_irq.o
+                0x08000a50                exti_init
+                0x08000ab4                exti15_10_handler
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-exit.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_float.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-fwalk.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-printf.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-stdio.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memset.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-localeconv.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-closer.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lseekr.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-readr.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-writer.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-init.o)
+ .text          0x08000ae0        0x0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-lock.o)
  .text          0x08000ae0       0xa0 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
                 0x08000ae0                memchr
  .text          0x08000b80       0x10 /home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-strlen.o)

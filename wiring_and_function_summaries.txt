@@ -25,9 +25,16 @@
 		7. wp
 		8. GND
 
-
-
 6. CAN communication 2 (can_kw45_2 and can_f767_2)
 	6.1 kw45 (components 'FreeRTOS kernel', 'cm33 nontrustzone port', 'lpuart', 'lpuart_edma', 'lpuart_freertos', 'flexcan', 'flexcan_edma', 'mem_manager_freertos') when either a UART character is received on LPUART0 or LPIT0 triggers (which occurs once a second), a command is sent to a stream buffer. CanSenderReceiverTask, which has been blocking on this stream buffer, receives the command and sends 8 CAN messages of DLC 8 with message ID 0x123, then receives 8 messages of DLC 8 ID 0x321- both transactions use interrupts. As messages are received back, an interrupt sends their data to another stream buffer byte wise. CanPrintTask unblocks from waiting on this stream buffer and recieves these bytes, then prints them to the debug port (LPUART1). CAN TX and RX are PTC4 and PTC5.
 
 	6.2 f767 8 messages of DLC 8 ID 0x123 are received. Afer 64 bytes (8 bytes x 8 messages) have accumulated in a buffer in CanReceiverTask, they are incremented and sent to another stream buffer. CanSenderTask unblocks from waiting on this stream buffer and receives these bytes, then sends them back in 8 byte packets ID 0x321. The sending and receiving use interrupts. CAN TX and RX are PD1 and PD0.
+
+7. TMP1075 sensor 
+	7.1 Breakoutboard (numbers are those on breakout board, not IC)
+	1             10
+	2 SDA *   VCC 9
+	3 SCL     A0  8
+	4 ALERT   A1  7
+	5 GND     A2  6
+	
