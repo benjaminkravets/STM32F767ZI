@@ -56,7 +56,7 @@ boot.elf: main_boot.o $(OBJS)
 
 # this handles all .o files given their .c, including those in subdirectories src and vendor (instead of above commented rules)
 %.o: %.c 
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -Wa,-adhlns=$(@:.o=.lst) $^ -c -o $@
 
 flash_app: app.elf
 	$(PROGRAMMER_APP)
@@ -69,7 +69,7 @@ flash_image: image.bin
 .PHONY: clean
 
 clean:
-	find . -type f \( -name "*.o" -o -name "*.d" -o -name "*.bin" -o -name "*.elf" \) -delete
+	find . -type f \( -name "*.o" -o -name "*.d" -o -name "*.bin" -o -name "*.elf" -o -name "*.lst" \) -delete
 
 #export PATH="/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/:$PATH"
 

@@ -1,0 +1,466 @@
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"startup.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "src/startup.c"
+  18              		.global	isr_vector
+  19              		.section	.isr_vector,"aw"
+  20              		.align	2
+  23              	isr_vector:
+  24 0000 00000820 		.word	537395200
+  25 0004 00000000 		.word	reset_handler
+  26 0008 00000000 		.word	nmi_handler
+  27 000c 00000000 		.word	hard_fault_handler
+  28 0010 00000000 		.word	mem_manage_handler
+  29 0014 00000000 		.word	bus_fault_handler
+  30 0018 00000000 		.word	usage_fault_handler
+  31 001c 00000000 		.word	0
+  32 0020 00000000 		.word	0
+  33 0024 00000000 		.word	0
+  34 0028 00000000 		.word	0
+  35 002c 00000000 		.word	svcall_handler
+  36 0030 00000000 		.word	debug_monitor_handler
+  37 0034 00000000 		.word	0
+  38 0038 00000000 		.word	pendsv_handler
+  39 003c 00000000 		.word	systick_handler
+  40 0040 00000000 		.word	0
+  41 0044 00000000 		.word	0
+  42 0048 00000000 		.word	0
+  43 004c 00000000 		.word	0
+  44 0050 00000000 		.word	0
+  45 0054 00000000 		.word	0
+  46 0058 00000000 		.word	exti0_handler
+  47 005c 00000000 		.word	exti1_handler
+  48 0060 00000000 		.word	exti2_handler
+  49 0064 00000000 		.word	exti3_handler
+  50 0068 00000000 		.word	exti4_handler
+  51 006c 00000000 		.word	0
+  52 0070 00000000 		.word	0
+  53 0074 00000000 		.word	0
+  54 0078 00000000 		.word	0
+  55 007c 00000000 		.word	0
+  56 0080 00000000 		.word	0
+  57 0084 00000000 		.word	0
+  58 0088 00000000 		.word	0
+  59 008c 00000000 		.word	0
+  60 0090 00000000 		.word	0
+  61 0094 00000000 		.word	0
+  62 0098 00000000 		.word	0
+  63 009c 00000000 		.word	0
+  64 00a0 00000000 		.word	0
+  65 00a4 00000000 		.word	0
+  66 00a8 00000000 		.word	0
+  67 00ac 00000000 		.word	0
+  68 00b0 00000000 		.word	0
+  69 00b4 00000000 		.word	0
+  70 00b8 00000000 		.word	0
+  71 00bc 00000000 		.word	0
+  72 00c0 00000000 		.word	0
+  73 00c4 00000000 		.word	0
+  74 00c8 00000000 		.word	0
+  75 00cc 00000000 		.word	0
+  76 00d0 00000000 		.word	0
+  77 00d4 00000000 		.word	0
+  78 00d8 00000000 		.word	0
+  79 00dc 00000000 		.word	0
+  80 00e0 00000000 		.word	exti15_10_handler
+  81 00e4 00000000 		.space	276
+  81      00000000 
+  81      00000000 
+  81      00000000 
+  81      00000000 
+  82              		.text
+  83              		.align	1
+  84              		.global	default_handler
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  89              	default_handler:
+  90              	.LFB191:
+   1:src/startup.c **** #define SRAM_START (0x20000000U)
+   2:src/startup.c **** #define SRAM_SIZE (512U * 1024U)
+   3:src/startup.c **** #define SRAM_END (SRAM_START + SRAM_SIZE)
+   4:src/startup.c **** // the stack starts at the end of SRAM and grows down
+   5:src/startup.c **** #define STACK_POINTER_INIT_ADDRESS (SRAM_END)
+   6:src/startup.c **** 
+   7:src/startup.c **** #include <stdint.h>
+   8:src/startup.c **** #include "stm32f767xx.h"
+   9:src/startup.c **** #include "system_stm32f7xx.h"
+  10:src/startup.c **** #define ISR_VECTOR_SIZE_WORDS 126
+  11:src/startup.c **** 
+  12:src/startup.c **** extern uint32_t _sisr_vector, _etext, _sdata, _edata, _sbss, _ebss, _sidata;
+  13:src/startup.c **** 
+  14:src/startup.c **** void main(void);
+  15:src/startup.c **** 
+  16:src/startup.c **** void __libc_init_array();
+  17:src/startup.c **** 
+  18:src/startup.c **** // https://developer.arm.com/documentation/dui0646/c/The-Cortex-M7-Processor/Exception-model/Except
+  19:src/startup.c **** 
+  20:src/startup.c **** void default_handler(void); // catches unexpected interrupts or exceptions- will be called if anoth
+  21:src/startup.c **** 
+  22:src/startup.c **** void reset_handler(void);                                                       // called at boot. 
+  23:src/startup.c **** void nmi_handler(void) __attribute__((weak, alias("default_handler")));         // non maskable int
+  24:src/startup.c **** void hard_fault_handler(void) __attribute__((weak, alias("default_handler")));  // error during exc
+  25:src/startup.c **** void mem_manage_handler(void) __attribute__((weak, alias("default_handler")));  // memory protectio
+  26:src/startup.c **** void bus_fault_handler(void) __attribute__((weak, alias("default_handler")));   // fault related to
+  27:src/startup.c **** void usage_fault_handler(void) __attribute__((weak, alias("default_handler"))); // fault from instr
+  28:src/startup.c **** void svcall_handler(void) __attribute__((weak, alias("default_handler")));      // called when supv
+  29:src/startup.c **** void debug_monitor_handler(void) __attribute__((weak, alias("default_handler")));
+  30:src/startup.c **** void pendsv_handler(void) __attribute__((weak, alias("default_handler")));  // interrupt-driven req
+  31:src/startup.c **** void systick_handler(void) __attribute__((weak, alias("default_handler"))); // occurs when system t
+  32:src/startup.c **** void exti0_handler(void) __attribute__((weak, alias("default_handler")));
+  33:src/startup.c **** void exti1_handler(void) __attribute__((weak, alias("default_handler")));
+  34:src/startup.c **** void exti2_handler(void) __attribute__((weak, alias("default_handler")));
+  35:src/startup.c **** void exti3_handler(void) __attribute__((weak, alias("default_handler")));
+  36:src/startup.c **** void exti4_handler(void) __attribute__((weak, alias("default_handler")));
+  37:src/startup.c **** 
+  38:src/startup.c **** void exti15_10_handler(void) __attribute__((weak, alias("default_handler")));
+  39:src/startup.c **** 
+  40:src/startup.c **** 
+  41:src/startup.c **** // section attribute places this array in the isr_vector sections
+  42:src/startup.c **** uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector"))) = {
+  43:src/startup.c ****     (uint32_t)STACK_POINTER_INIT_ADDRESS, // will be copied to r13
+  44:src/startup.c ****     (uint32_t)&reset_handler,
+  45:src/startup.c ****     (uint32_t)&nmi_handler,
+  46:src/startup.c ****     (uint32_t)&hard_fault_handler,
+  47:src/startup.c ****     (uint32_t)&mem_manage_handler,
+  48:src/startup.c ****     (uint32_t)&bus_fault_handler,
+  49:src/startup.c ****     (uint32_t)&usage_fault_handler,
+  50:src/startup.c ****     0,
+  51:src/startup.c ****     0,
+  52:src/startup.c ****     0,
+  53:src/startup.c ****     0,
+  54:src/startup.c ****     (uint32_t)&svcall_handler,
+  55:src/startup.c ****     (uint32_t)&debug_monitor_handler,
+  56:src/startup.c ****     0,
+  57:src/startup.c ****     (uint32_t)&pendsv_handler,
+  58:src/startup.c ****     (uint32_t)&systick_handler,
+  59:src/startup.c ****     0,
+  60:src/startup.c ****     0,
+  61:src/startup.c ****     0,
+  62:src/startup.c ****     0,
+  63:src/startup.c ****     0,
+  64:src/startup.c ****     0,
+  65:src/startup.c ****     (uint32_t)&exti0_handler,
+  66:src/startup.c ****     (uint32_t)&exti1_handler,
+  67:src/startup.c ****     (uint32_t)&exti2_handler,
+  68:src/startup.c ****     (uint32_t)&exti3_handler,
+  69:src/startup.c ****     (uint32_t)&exti4_handler,
+  70:src/startup.c ****     0,
+  71:src/startup.c ****     0,
+  72:src/startup.c ****     0,
+  73:src/startup.c ****     0,
+  74:src/startup.c ****     0,
+  75:src/startup.c ****     0,
+  76:src/startup.c ****     0,
+  77:src/startup.c ****     0,
+  78:src/startup.c ****     0,
+  79:src/startup.c ****     0,
+  80:src/startup.c ****     0,
+  81:src/startup.c ****     0,
+  82:src/startup.c ****     0,
+  83:src/startup.c ****     0,
+  84:src/startup.c ****     0,
+  85:src/startup.c ****     0,
+  86:src/startup.c ****     0,
+  87:src/startup.c ****     0,
+  88:src/startup.c ****     0,
+  89:src/startup.c ****     0,
+  90:src/startup.c ****     0,
+  91:src/startup.c ****     0,
+  92:src/startup.c ****     0,
+  93:src/startup.c ****     0,
+  94:src/startup.c ****     0,
+  95:src/startup.c ****     0,
+  96:src/startup.c ****     0,
+  97:src/startup.c ****     0,
+  98:src/startup.c ****     0,
+  99:src/startup.c ****     (uint32_t)&exti15_10_handler,
+ 100:src/startup.c **** };
+ 101:src/startup.c **** 
+ 102:src/startup.c **** 
+ 103:src/startup.c **** void default_handler(void) // waits in busy loop (common out-of-box implementation, should be chang
+ 104:src/startup.c **** {
+  91              		.loc 1 104 1
+  92              		.cfi_startproc
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 1, uses_anonymous_args = 0
+  95              		@ link register save eliminated.
+  96 0000 80B4     		push	{r7}
+  97              		.cfi_def_cfa_offset 4
+  98              		.cfi_offset 7, -4
+  99 0002 00AF     		add	r7, sp, #0
+ 100              		.cfi_def_cfa_register 7
+ 101              	.L2:
+ 105:src/startup.c ****     while (1)
+ 102              		.loc 1 105 11
+ 103 0004 00BF     		nop
+ 104 0006 FDE7     		b	.L2
+ 105              		.cfi_endproc
+ 106              	.LFE191:
+ 108              		.weak	exti15_10_handler
+ 109              		.thumb_set exti15_10_handler,default_handler
+ 110              		.weak	exti4_handler
+ 111              		.thumb_set exti4_handler,default_handler
+ 112              		.weak	exti3_handler
+ 113              		.thumb_set exti3_handler,default_handler
+ 114              		.weak	exti2_handler
+ 115              		.thumb_set exti2_handler,default_handler
+ 116              		.weak	exti1_handler
+ 117              		.thumb_set exti1_handler,default_handler
+ 118              		.weak	exti0_handler
+ 119              		.thumb_set exti0_handler,default_handler
+ 120              		.weak	systick_handler
+ 121              		.thumb_set systick_handler,default_handler
+ 122              		.weak	pendsv_handler
+ 123              		.thumb_set pendsv_handler,default_handler
+ 124              		.weak	debug_monitor_handler
+ 125              		.thumb_set debug_monitor_handler,default_handler
+ 126              		.weak	svcall_handler
+ 127              		.thumb_set svcall_handler,default_handler
+ 128              		.weak	usage_fault_handler
+ 129              		.thumb_set usage_fault_handler,default_handler
+ 130              		.weak	bus_fault_handler
+ 131              		.thumb_set bus_fault_handler,default_handler
+ 132              		.weak	mem_manage_handler
+ 133              		.thumb_set mem_manage_handler,default_handler
+ 134              		.weak	hard_fault_handler
+ 135              		.thumb_set hard_fault_handler,default_handler
+ 136              		.weak	nmi_handler
+ 137              		.thumb_set nmi_handler,default_handler
+ 138              		.align	1
+ 139              		.global	reset_handler
+ 140              		.syntax unified
+ 141              		.thumb
+ 142              		.thumb_func
+ 144              	reset_handler:
+ 145              	.LFB192:
+ 106:src/startup.c ****         ;
+ 107:src/startup.c **** }
+ 108:src/startup.c **** 
+ 109:src/startup.c **** // abides by the ARM reset behaviour outlined in B1.5.5 of Armv7-M
+ 110:src/startup.c **** void reset_handler(void)
+ 111:src/startup.c **** {
+ 146              		.loc 1 111 1
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 32
+ 149              		@ frame_needed = 1, uses_anonymous_args = 0
+ 150 0008 80B5     		push	{r7, lr}
+ 151              		.cfi_def_cfa_offset 8
+ 152              		.cfi_offset 7, -8
+ 153              		.cfi_offset 14, -4
+ 154 000a 88B0     		sub	sp, sp, #32
+ 155              		.cfi_def_cfa_offset 40
+ 156 000c 00AF     		add	r7, sp, #0
+ 157              		.cfi_def_cfa_register 7
+ 112:src/startup.c ****     // linker-provided symbols should be used be their reference, not directly
+ 113:src/startup.c ****     //  copy .data from whereever it ended up in FLASH to SRAM
+ 114:src/startup.c ****     uint32_t data_size = (uint32_t)&_edata - (uint32_t)&_sdata;
+ 158              		.loc 1 114 26
+ 159 000e 1F4A     		ldr	r2, .L8
+ 160              		.loc 1 114 46
+ 161 0010 1F4B     		ldr	r3, .L8+4
+ 162              		.loc 1 114 14
+ 163 0012 D31A     		subs	r3, r2, r3
+ 164 0014 7B61     		str	r3, [r7, #20]
+ 115:src/startup.c ****     uint32_t *flash_data = (uint32_t *)&_sidata; // data load address in flash
+ 165              		.loc 1 115 15
+ 166 0016 1F4B     		ldr	r3, .L8+8
+ 167 0018 3B61     		str	r3, [r7, #16]
+ 116:src/startup.c ****     uint32_t *sram_data = (uint32_t *)&_sdata;   // data virtual address in sram
+ 168              		.loc 1 116 15
+ 169 001a 1D4B     		ldr	r3, .L8+4
+ 170 001c FB60     		str	r3, [r7, #12]
+ 171              	.LBB2:
+ 117:src/startup.c **** 
+ 118:src/startup.c ****     for (uint32_t i = 0; i < data_size; i++)
+ 172              		.loc 1 118 19
+ 173 001e 0023     		movs	r3, #0
+ 174 0020 FB61     		str	r3, [r7, #28]
+ 175              		.loc 1 118 5
+ 176 0022 0CE0     		b	.L4
+ 177              	.L5:
+ 119:src/startup.c ****     {
+ 120:src/startup.c ****         sram_data[i] = flash_data[i];
+ 178              		.loc 1 120 34
+ 179 0024 FB69     		ldr	r3, [r7, #28]
+ 180 0026 9B00     		lsls	r3, r3, #2
+ 181 0028 3A69     		ldr	r2, [r7, #16]
+ 182 002a 1A44     		add	r2, r2, r3
+ 183              		.loc 1 120 18
+ 184 002c FB69     		ldr	r3, [r7, #28]
+ 185 002e 9B00     		lsls	r3, r3, #2
+ 186 0030 F968     		ldr	r1, [r7, #12]
+ 187 0032 0B44     		add	r3, r3, r1
+ 188              		.loc 1 120 34
+ 189 0034 1268     		ldr	r2, [r2]
+ 190              		.loc 1 120 22
+ 191 0036 1A60     		str	r2, [r3]
+ 118:src/startup.c ****     {
+ 192              		.loc 1 118 42 discriminator 3
+ 193 0038 FB69     		ldr	r3, [r7, #28]
+ 194 003a 0133     		adds	r3, r3, #1
+ 195 003c FB61     		str	r3, [r7, #28]
+ 196              	.L4:
+ 118:src/startup.c ****     {
+ 197              		.loc 1 118 28 discriminator 1
+ 198 003e FA69     		ldr	r2, [r7, #28]
+ 199 0040 7B69     		ldr	r3, [r7, #20]
+ 200 0042 9A42     		cmp	r2, r3
+ 201 0044 EED3     		bcc	.L5
+ 202              	.LBE2:
+ 121:src/startup.c ****     }
+ 122:src/startup.c **** 
+ 123:src/startup.c ****     // zero fill .bss section in SRAM
+ 124:src/startup.c ****     uint32_t bss_size = (uint32_t)&_ebss - (uint32_t)&_sbss;
+ 203              		.loc 1 124 25
+ 204 0046 144A     		ldr	r2, .L8+12
+ 205              		.loc 1 124 44
+ 206 0048 144B     		ldr	r3, .L8+16
+ 207              		.loc 1 124 14
+ 208 004a D31A     		subs	r3, r2, r3
+ 209 004c BB60     		str	r3, [r7, #8]
+ 125:src/startup.c ****     uint32_t *bss = (uint32_t *)&_sbss;
+ 210              		.loc 1 125 15
+ 211 004e 134B     		ldr	r3, .L8+16
+ 212 0050 7B60     		str	r3, [r7, #4]
+ 213              	.LBB3:
+ 126:src/startup.c **** 
+ 127:src/startup.c ****     for (uint32_t i = 0; i < bss_size; i++)
+ 214              		.loc 1 127 19
+ 215 0052 0023     		movs	r3, #0
+ 216 0054 BB61     		str	r3, [r7, #24]
+ 217              		.loc 1 127 5
+ 218 0056 08E0     		b	.L6
+ 219              	.L7:
+ 128:src/startup.c ****     {
+ 129:src/startup.c ****         bss[i] = 0;
+ 220              		.loc 1 129 12
+ 221 0058 BB69     		ldr	r3, [r7, #24]
+ 222 005a 9B00     		lsls	r3, r3, #2
+ 223 005c 7A68     		ldr	r2, [r7, #4]
+ 224 005e 1344     		add	r3, r3, r2
+ 225              		.loc 1 129 16
+ 226 0060 0022     		movs	r2, #0
+ 227 0062 1A60     		str	r2, [r3]
+ 127:src/startup.c ****     {
+ 228              		.loc 1 127 41 discriminator 3
+ 229 0064 BB69     		ldr	r3, [r7, #24]
+ 230 0066 0133     		adds	r3, r3, #1
+ 231 0068 BB61     		str	r3, [r7, #24]
+ 232              	.L6:
+ 127:src/startup.c ****     {
+ 233              		.loc 1 127 28 discriminator 1
+ 234 006a BA69     		ldr	r2, [r7, #24]
+ 235 006c BB68     		ldr	r3, [r7, #8]
+ 236 006e 9A42     		cmp	r2, r3
+ 237 0070 F2D3     		bcc	.L7
+ 238              	.LBE3:
+ 130:src/startup.c ****     }
+ 131:src/startup.c **** 
+ 132:src/startup.c ****     // modify the System Control Block's Vector Table Offset Register's TBLOFF address to be the lo
+ 133:src/startup.c ****     SCB->VTOR = ((uint32_t)&_sisr_vector & SCB_VTOR_TBLOFF_Msk);
+ 239              		.loc 1 133 18
+ 240 0072 0B4B     		ldr	r3, .L8+20
+ 241              		.loc 1 133 8
+ 242 0074 0B4A     		ldr	r2, .L8+24
+ 243              		.loc 1 133 42
+ 244 0076 23F07F03 		bic	r3, r3, #127
+ 245              		.loc 1 133 15
+ 246 007a 9360     		str	r3, [r2, #8]
+ 134:src/startup.c **** 
+ 135:src/startup.c ****     // libc initialization
+ 136:src/startup.c ****     // functions can be added here using __attribute__((constructor))
+ 137:src/startup.c ****     __libc_init_array();
+ 247              		.loc 1 137 5
+ 248 007c FFF7FEFF 		bl	__libc_init_array
+ 138:src/startup.c ****     main();
+ 249              		.loc 1 138 5
+ 250 0080 FFF7FEFF 		bl	main
+ 139:src/startup.c **** }
+ 251              		.loc 1 139 1
+ 252 0084 00BF     		nop
+ 253 0086 2037     		adds	r7, r7, #32
+ 254              		.cfi_def_cfa_offset 8
+ 255 0088 BD46     		mov	sp, r7
+ 256              		.cfi_def_cfa_register 13
+ 257              		@ sp needed
+ 258 008a 80BD     		pop	{r7, pc}
+ 259              	.L9:
+ 260              		.align	2
+ 261              	.L8:
+ 262 008c 00000000 		.word	_edata
+ 263 0090 00000000 		.word	_sdata
+ 264 0094 00000000 		.word	_sidata
+ 265 0098 00000000 		.word	_ebss
+ 266 009c 00000000 		.word	_sbss
+ 267 00a0 00000000 		.word	_sisr_vector
+ 268 00a4 00ED00E0 		.word	-536810240
+ 269              		.cfi_endproc
+ 270              	.LFE192:
+ 272              	.Letext0:
+ 273              		.file 2 "/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/machine/
+ 274              		.file 3 "/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_std
+ 275              		.file 4 "vendor/core_cm7.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 startup.c
+     /tmp/cc2farlg.s:23     .isr_vector:00000000 isr_vector
+     /tmp/cc2farlg.s:20     .isr_vector:00000000 $d
+     /tmp/cc2farlg.s:144    .text:00000008 reset_handler
+     /tmp/cc2farlg.s:89     .text:00000000 nmi_handler
+     /tmp/cc2farlg.s:89     .text:00000000 hard_fault_handler
+     /tmp/cc2farlg.s:89     .text:00000000 mem_manage_handler
+     /tmp/cc2farlg.s:89     .text:00000000 bus_fault_handler
+     /tmp/cc2farlg.s:89     .text:00000000 usage_fault_handler
+     /tmp/cc2farlg.s:89     .text:00000000 svcall_handler
+     /tmp/cc2farlg.s:89     .text:00000000 debug_monitor_handler
+     /tmp/cc2farlg.s:89     .text:00000000 pendsv_handler
+     /tmp/cc2farlg.s:89     .text:00000000 systick_handler
+     /tmp/cc2farlg.s:89     .text:00000000 exti0_handler
+     /tmp/cc2farlg.s:89     .text:00000000 exti1_handler
+     /tmp/cc2farlg.s:89     .text:00000000 exti2_handler
+     /tmp/cc2farlg.s:89     .text:00000000 exti3_handler
+     /tmp/cc2farlg.s:89     .text:00000000 exti4_handler
+     /tmp/cc2farlg.s:89     .text:00000000 exti15_10_handler
+     /tmp/cc2farlg.s:83     .text:00000000 $t
+     /tmp/cc2farlg.s:89     .text:00000000 default_handler
+     /tmp/cc2farlg.s:262    .text:0000008c $d
+                           .group:00000000 wm4.0.b9144c81caf0c2c1ee9424d16d32a8e9
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.features.h.33.d554620bb17bd3b714c3fb5c268772bc
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.stm32f767xx.h.34.d0ba5a0a33e572d9abba2a69be3f047a
+                           .group:00000000 wm4.cmsis_version.h.30.d128735bf87720f7436b74fefeb5043c
+                           .group:00000000 wm4.core_cm7.h.67.c4fc7696682f9e831eac3dd54a48d9d5
+                           .group:00000000 wm4.arm_acle.h.28.a0697f530ff2dbf8c463bef049b82760
+                           .group:00000000 wm4.cmsis_gcc.h.39.eba7438bc45fd1a6e6376b63ffe44436
+                           .group:00000000 wm4.cmsis_gcc_m.h.24.23847e2e684820077e61f12ca9bb647d
+                           .group:00000000 wm4.core_cm7.h.182.bdcc4e50bcd2482b3ee7b3848e1c3d57
+                           .group:00000000 wm4.armv7m_mpu.h.24.6a1cc6ec2305a465645532db695e36b9
+                           .group:00000000 wm4.armv7m_cachel1.h.24.936dd92d6e204a8d0b17d5e4ea4a356e
+                           .group:00000000 wm4.stm32f767xx.h.1291.96cbc8c974f635ff90f2e384fa7968c7
+
+UNDEFINED SYMBOLS
+__libc_init_array
+main
+_edata
+_sdata
+_sidata
+_ebss
+_sbss
+_sisr_vector

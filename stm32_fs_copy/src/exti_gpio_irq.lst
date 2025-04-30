@@ -1,0 +1,211 @@
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"exti_gpio_irq.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "src/exti_gpio_irq.c"
+  18              		.align	1
+  19              		.global	exti_init
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  24              	exti_init:
+  25              	.LFB191:
+   1:src/exti_gpio_irq.c **** #include "stm32f767xx.h"
+   2:src/exti_gpio_irq.c **** #include "system_stm32f7xx.h"
+   3:src/exti_gpio_irq.c **** #include "exti_gpio_irq.h"
+   4:src/exti_gpio_irq.c **** 
+   5:src/exti_gpio_irq.c **** #define LED_PIN 0
+   6:src/exti_gpio_irq.c **** 
+   7:src/exti_gpio_irq.c **** void exti_init()
+   8:src/exti_gpio_irq.c **** {
+  26              		.loc 1 8 1
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 80B4     		push	{r7}
+  32              		.cfi_def_cfa_offset 4
+  33              		.cfi_offset 7, -4
+  34 0002 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+   9:src/exti_gpio_irq.c ****     // instructions in 11.5 (and 4.2.2 of PM0253 M7 Programming manual)
+  10:src/exti_gpio_irq.c **** 
+  11:src/exti_gpio_irq.c ****     // GPIO port C RCC enable
+  12:src/exti_gpio_irq.c ****     RCC->AHB1ENR |= (RCC_AHB1ENR_GPIOCEN_Msk);
+  36              		.loc 1 12 8
+  37 0004 134B     		ldr	r3, .L2
+  38 0006 1B6B     		ldr	r3, [r3, #48]
+  39 0008 124A     		ldr	r2, .L2
+  40              		.loc 1 12 18
+  41 000a 43F00403 		orr	r3, r3, #4
+  42 000e 1363     		str	r3, [r2, #48]
+  13:src/exti_gpio_irq.c ****     // enable SYSCFG for managing EXTI lines
+  14:src/exti_gpio_irq.c ****     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN_Msk;
+  43              		.loc 1 14 8
+  44 0010 104B     		ldr	r3, .L2
+  45 0012 5B6C     		ldr	r3, [r3, #68]
+  46 0014 0F4A     		ldr	r2, .L2
+  47              		.loc 1 14 18
+  48 0016 43F48043 		orr	r3, r3, #16384
+  49 001a 5364     		str	r3, [r2, #68]
+  15:src/exti_gpio_irq.c ****     // enable C13 pin EXTI (11.8)
+  16:src/exti_gpio_irq.c ****     SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PC;
+  50              		.loc 1 16 11
+  51 001c 0E4B     		ldr	r3, .L2+4
+  52              		.loc 1 16 19
+  53 001e 5B69     		ldr	r3, [r3, #20]
+  54              		.loc 1 16 11
+  55 0020 0D4A     		ldr	r2, .L2+4
+  56              		.loc 1 16 23
+  57 0022 43F02003 		orr	r3, r3, #32
+  58 0026 5361     		str	r3, [r2, #20]
+  17:src/exti_gpio_irq.c ****     // 1. don't mask interrupt request from line 13 (event is EMR)
+  18:src/exti_gpio_irq.c ****     EXTI->IMR |= EXTI_IMR_IM13;
+  59              		.loc 1 18 9
+  60 0028 0C4B     		ldr	r3, .L2+8
+  61 002a 1B68     		ldr	r3, [r3]
+  62 002c 0B4A     		ldr	r2, .L2+8
+  63              		.loc 1 18 15
+  64 002e 43F40053 		orr	r3, r3, #8192
+  65 0032 1360     		str	r3, [r2]
+  19:src/exti_gpio_irq.c ****     // 2. enable input line 13 rising edge detection (falling edge is FTSR)
+  20:src/exti_gpio_irq.c ****     EXTI->RTSR |= EXTI_RTSR_TR13_Msk;
+  66              		.loc 1 20 9
+  67 0034 094B     		ldr	r3, .L2+8
+  68 0036 9B68     		ldr	r3, [r3, #8]
+  69 0038 084A     		ldr	r2, .L2+8
+  70              		.loc 1 20 16
+  71 003a 43F40053 		orr	r3, r3, #8192
+  72 003e 9360     		str	r3, [r2, #8]
+  21:src/exti_gpio_irq.c ****     // 3. ISER[1] is 32 - (56 - 32) (since this is past ISER[0])
+  22:src/exti_gpio_irq.c ****     NVIC->ISER[1] |= (1 << 8);
+  73              		.loc 1 22 9
+  74 0040 074B     		ldr	r3, .L2+12
+  75              		.loc 1 22 15
+  76 0042 5B68     		ldr	r3, [r3, #4]
+  77              		.loc 1 22 9
+  78 0044 064A     		ldr	r2, .L2+12
+  79              		.loc 1 22 19
+  80 0046 43F48073 		orr	r3, r3, #256
+  81 004a 5360     		str	r3, [r2, #4]
+  23:src/exti_gpio_irq.c **** 
+  24:src/exti_gpio_irq.c ****     // original CMSIS
+  25:src/exti_gpio_irq.c ****     // NVIC_EnableIRQ(EXTI15_10_IRQn);
+  26:src/exti_gpio_irq.c ****     // NVIC->ISER[(((uint32_t)EXTI15_10_IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)EXTI15_10_IR
+  27:src/exti_gpio_irq.c **** 
+  28:src/exti_gpio_irq.c **** }
+  82              		.loc 1 28 1
+  83 004c 00BF     		nop
+  84 004e BD46     		mov	sp, r7
+  85              		.cfi_def_cfa_register 13
+  86              		@ sp needed
+  87 0050 80BC     		pop	{r7}
+  88              		.cfi_restore 7
+  89              		.cfi_def_cfa_offset 0
+  90 0052 7047     		bx	lr
+  91              	.L3:
+  92              		.align	2
+  93              	.L2:
+  94 0054 00380240 		.word	1073887232
+  95 0058 00380140 		.word	1073821696
+  96 005c 003C0140 		.word	1073822720
+  97 0060 00E100E0 		.word	-536813312
+  98              		.cfi_endproc
+  99              	.LFE191:
+ 101              		.align	1
+ 102              		.global	exti15_10_handler
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 107              	exti15_10_handler:
+ 108              	.LFB192:
+  29:src/exti_gpio_irq.c **** 
+  30:src/exti_gpio_irq.c **** void exti15_10_handler()
+  31:src/exti_gpio_irq.c **** {
+ 109              		.loc 1 31 1
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 1, uses_anonymous_args = 0
+ 113              		@ link register save eliminated.
+ 114 0064 80B4     		push	{r7}
+ 115              		.cfi_def_cfa_offset 4
+ 116              		.cfi_offset 7, -4
+ 117 0066 00AF     		add	r7, sp, #0
+ 118              		.cfi_def_cfa_register 7
+  32:src/exti_gpio_irq.c ****     EXTI->PR |= (1 << 13);
+ 119              		.loc 1 32 9
+ 120 0068 074B     		ldr	r3, .L5
+ 121 006a 5B69     		ldr	r3, [r3, #20]
+ 122 006c 064A     		ldr	r2, .L5
+ 123              		.loc 1 32 14
+ 124 006e 43F40053 		orr	r3, r3, #8192
+ 125 0072 5361     		str	r3, [r2, #20]
+  33:src/exti_gpio_irq.c ****     GPIOB->ODR ^= (1 << LED_PIN);
+ 126              		.loc 1 33 10
+ 127 0074 054B     		ldr	r3, .L5+4
+ 128 0076 5B69     		ldr	r3, [r3, #20]
+ 129 0078 044A     		ldr	r2, .L5+4
+ 130              		.loc 1 33 16
+ 131 007a 83F00103 		eor	r3, r3, #1
+ 132 007e 5361     		str	r3, [r2, #20]
+  34:src/exti_gpio_irq.c **** }...
+ 133              		.loc 1 34 1
+ 134 0080 00BF     		nop
+ 135 0082 BD46     		mov	sp, r7
+ 136              		.cfi_def_cfa_register 13
+ 137              		@ sp needed
+ 138 0084 80BC     		pop	{r7}
+ 139              		.cfi_restore 7
+ 140              		.cfi_def_cfa_offset 0
+ 141 0086 7047     		bx	lr
+ 142              	.L6:
+ 143              		.align	2
+ 144              	.L5:
+ 145 0088 003C0140 		.word	1073822720
+ 146 008c 00040240 		.word	1073873920
+ 147              		.cfi_endproc
+ 148              	.LFE192:
+ 150              	.Letext0:
+ 151              		.file 2 "/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/machine/
+ 152              		.file 3 "/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_std
+ 153              		.file 4 "vendor/core_cm7.h"
+ 154              		.file 5 "vendor/stm32f767xx.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 exti_gpio_irq.c
+     /tmp/ccKzpx9x.s:18     .text:00000000 $t
+     /tmp/ccKzpx9x.s:24     .text:00000000 exti_init
+     /tmp/ccKzpx9x.s:94     .text:00000054 $d
+     /tmp/ccKzpx9x.s:101    .text:00000064 $t
+     /tmp/ccKzpx9x.s:107    .text:00000064 exti15_10_handler
+     /tmp/ccKzpx9x.s:145    .text:00000088 $d
+                           .group:00000000 wm4.0.b9144c81caf0c2c1ee9424d16d32a8e9
+                           .group:00000000 wm4.stm32f767xx.h.34.d0ba5a0a33e572d9abba2a69be3f047a
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.features.h.33.d554620bb17bd3b714c3fb5c268772bc
+                           .group:00000000 wm4._default_types.h.15.247e5cd201eca3442cbf5404108c4935
+                           .group:00000000 wm4._intsup.h.10.48bafbb683905c4daa4565a85aeeb264
+                           .group:00000000 wm4._stdint.h.10.c24fa3af3bc1706662bb5593a907e841
+                           .group:00000000 wm4.stdint.h.23.d53047a68f4a85177f80b422d52785ed
+                           .group:00000000 wm4.cmsis_version.h.30.d128735bf87720f7436b74fefeb5043c
+                           .group:00000000 wm4.core_cm7.h.67.c4fc7696682f9e831eac3dd54a48d9d5
+                           .group:00000000 wm4.arm_acle.h.28.a0697f530ff2dbf8c463bef049b82760
+                           .group:00000000 wm4.cmsis_gcc.h.39.eba7438bc45fd1a6e6376b63ffe44436
+                           .group:00000000 wm4.cmsis_gcc_m.h.24.23847e2e684820077e61f12ca9bb647d
+                           .group:00000000 wm4.core_cm7.h.182.bdcc4e50bcd2482b3ee7b3848e1c3d57
+                           .group:00000000 wm4.armv7m_mpu.h.24.6a1cc6ec2305a465645532db695e36b9
+                           .group:00000000 wm4.armv7m_cachel1.h.24.936dd92d6e204a8d0b17d5e4ea4a356e
+                           .group:00000000 wm4.stm32f767xx.h.1291.96cbc8c974f635ff90f2e384fa7968c7
+
+NO UNDEFINED SYMBOLS

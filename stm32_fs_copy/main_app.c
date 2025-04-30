@@ -13,6 +13,7 @@
 #define LED_PIN 0 // 0 - green, 7 - blue, 14 - red
 
 uint32_t ticks;
+uint32_t datavar = 1;
 void systick_handler()
 {
     ticks++;
@@ -117,6 +118,10 @@ void init_BKPSRAM()
 volatile uint32_t boot_test __attribute__((section(".noinit")));
 volatile uint32_t counter __attribute__((section(".noinit")));
 
+uint32_t divider(uint32_t a, uint32_t b) {
+    return a / b;
+}
+
 int main()
 {
     clock_init();
@@ -155,6 +160,7 @@ int main()
 
     while (1)
     {
+        volatile float f = divider(1, 2);
         char z = '0';
         // char z = getchar();
         delay_ms(500);
