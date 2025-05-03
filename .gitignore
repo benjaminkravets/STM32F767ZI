@@ -4,3 +4,6 @@ stm32_fs/vendor
 stm32_fs_copy/vendor
 stm32_fs_copy/mints
 can_f767_zephyr
+*.elf
+**/Drivers/
+Drivers/

@@ -3,6 +3,7 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="_get_"/>
 		<item value="uar"/>
 	</list>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">

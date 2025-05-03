@@ -346,13 +346,13 @@
  282              		.file 5 "/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/stdio.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 spi.c
-     /tmp/ccpNwW3H.s:18     .text:00000000 $t
-     /tmp/ccpNwW3H.s:24     .text:00000000 SPI_init
-     /tmp/ccpNwW3H.s:141    .text:00000094 $d
-     /tmp/ccpNwW3H.s:150    .rodata:00000000 $d
-     /tmp/ccpNwW3H.s:154    .text:000000a8 $t
-     /tmp/ccpNwW3H.s:160    .text:000000a8 SPI_write
-     /tmp/ccpNwW3H.s:274    .text:00000134 $d
+     /tmp/cc6hxrTB.s:18     .text:00000000 $t
+     /tmp/cc6hxrTB.s:24     .text:00000000 SPI_init
+     /tmp/cc6hxrTB.s:141    .text:00000094 $d
+     /tmp/cc6hxrTB.s:150    .rodata:00000000 $d
+     /tmp/cc6hxrTB.s:154    .text:000000a8 $t
+     /tmp/cc6hxrTB.s:160    .text:000000a8 SPI_write
+     /tmp/cc6hxrTB.s:274    .text:00000134 $d
                            .group:00000000 wm4.0.b9144c81caf0c2c1ee9424d16d32a8e9
                            .group:00000000 wm4.stm32f767xx.h.34.d0ba5a0a33e572d9abba2a69be3f047a
                            .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b

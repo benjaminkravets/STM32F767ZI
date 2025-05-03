@@ -131,7 +131,7 @@ int main(void)
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
-  uint32_t a =__get_IPSR();
+  uint32_t c =__get_CONTROL();
 
   /* Start scheduler */
   osKernelStart();
@@ -316,11 +316,12 @@ void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  uint32_t b =__get_IPSR();
 
   for(;;)
   {
     osDelay(1);
+    uint32_t b =__get_CONTROL();
+
   }
   /* USER CODE END 5 */
 }

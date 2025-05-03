@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 0000002e  00000000  00000000  00006010  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000d85a  00000000  00000000  0000603e  2**0
+ 12 .debug_info   0000d864  00000000  00000000  0000603e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00002435  00000000  00000000  00013898  2**0
+ 13 .debug_abbrev 00002435  00000000  00000000  000138a2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000b88  00000000  00000000  00015cd0  2**3
+ 14 .debug_aranges 00000b88  00000000  00000000  00015cd8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 000008ba  00000000  00000000  00016858  2**0
+ 15 .debug_rnglists 000008ba  00000000  00000000  00016860  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000023bc  00000000  00000000  00017112  2**0
+ 16 .debug_macro  000023bc  00000000  00000000  0001711a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000d5ca  00000000  00000000  000194ce  2**0
+ 17 .debug_line   0000d5cb  00000000  00000000  000194d6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000f5242  00000000  00000000  00026a98  2**0
+ 18 .debug_str    000f5250  00000000  00000000  00026aa1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0011bcda  2**0
+ 19 .comment      00000043  00000000  00000000  0011bcf1  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002e6c  00000000  00000000  0011bd20  2**2
+ 20 .debug_frame  00002e6c  00000000  00000000  0011bd34  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000055  00000000  00000000  0011eb8c  2**0
+ 21 .debug_line_str 00000055  00000000  00000000  0011eba0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -421,12 +421,12 @@ int main(void)
  800058e:	4a07      	ldr	r2, [pc, #28]	@ (80005ac <main+0x40>)
  8000590:	6013      	str	r3, [r2, #0]
  */
-__STATIC_FORCEINLINE uint32_t __get_IPSR(void)
+__STATIC_FORCEINLINE uint32_t __get_CONTROL(void)
 {
   uint32_t result;
 
-  __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
- 8000592:	f3ef 8305 	mrs	r3, IPSR
+  __ASM volatile ("MRS %0, control" : "=r" (result) );
+ 8000592:	f3ef 8314 	mrs	r3, CONTROL
  8000596:	603b      	str	r3, [r7, #0]
   return(result);
  8000598:	683b      	ldr	r3, [r7, #0]
@@ -435,7 +435,7 @@ __STATIC_FORCEINLINE uint32_t __get_IPSR(void)
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
-  uint32_t a =__get_IPSR();
+  uint32_t c =__get_CONTROL();
  800059a:	607b      	str	r3, [r7, #4]
 
   /* Start scheduler */
@@ -528,7 +528,7 @@ void SystemClock_Config(void)
  8000626:	d001      	beq.n	800062c <SystemClock_Config+0x7c>
   {
     Error_Handler();
- 8000628:	f000 f941 	bl	80008ae <Error_Handler>
+ 8000628:	f000 f942 	bl	80008b0 <Error_Handler>
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
@@ -560,7 +560,7 @@ void SystemClock_Config(void)
  8000652:	d001      	beq.n	8000658 <SystemClock_Config+0xa8>
   {
     Error_Handler();
- 8000654:	f000 f92b 	bl	80008ae <Error_Handler>
+ 8000654:	f000 f92c 	bl	80008b0 <Error_Handler>
   }
 }
  8000658:	bf00      	nop
@@ -918,43 +918,44 @@ void StartDefaultTask(void *argument)
  8000896:	b084      	sub	sp, #16
  8000898:	af00      	add	r7, sp, #0
  800089a:	6078      	str	r0, [r7, #4]
-  __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
- 800089c:	f3ef 8305 	mrs	r3, IPSR
- 80008a0:	60bb      	str	r3, [r7, #8]
-  return(result);
- 80008a2:	68bb      	ldr	r3, [r7, #8]
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  uint32_t b =__get_IPSR();
- 80008a4:	60fb      	str	r3, [r7, #12]
 
   for(;;)
   {
     osDelay(1);
- 80008a6:	2001      	movs	r0, #1
- 80008a8:	f001 f952 	bl	8001b50 <osDelay>
- 80008ac:	e7fb      	b.n	80008a6 <StartDefaultTask+0x12>
+ 800089c:	2001      	movs	r0, #1
+ 800089e:	f001 f957 	bl	8001b50 <osDelay>
+  __ASM volatile ("MRS %0, control" : "=r" (result) );
+ 80008a2:	f3ef 8314 	mrs	r3, CONTROL
+ 80008a6:	60bb      	str	r3, [r7, #8]
+  return(result);
+ 80008a8:	68bb      	ldr	r3, [r7, #8]
+    uint32_t b =__get_CONTROL();
+ 80008aa:	60fb      	str	r3, [r7, #12]
+  {
+ 80008ac:	bf00      	nop
+ 80008ae:	e7f5      	b.n	800089c <StartDefaultTask+0x8>
 
-080008ae <Error_Handler>:
+080008b0 <Error_Handler>:
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
 void Error_Handler(void)
 {
- 80008ae:	b480      	push	{r7}
- 80008b0:	af00      	add	r7, sp, #0
+ 80008b0:	b480      	push	{r7}
+ 80008b2:	af00      	add	r7, sp, #0
   __ASM volatile ("cpsid i" : : : "memory");
- 80008b2:	b672      	cpsid	i
+ 80008b4:	b672      	cpsid	i
 }
- 80008b4:	bf00      	nop
+ 80008b6:	bf00      	nop
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
- 80008b6:	bf00      	nop
- 80008b8:	e7fd      	b.n	80008b6 <Error_Handler+0x8>
-	...
+ 80008b8:	bf00      	nop
+ 80008ba:	e7fd      	b.n	80008b8 <Error_Handler+0x8>
 
 080008bc <HAL_MspInit>:
 /* USER CODE END 0 */
@@ -3865,6 +3866,11 @@ osStatus_t osKernelInitialize (void) {
  8001930:	b480      	push	{r7}
  8001932:	b085      	sub	sp, #20
  8001934:	af00      	add	r7, sp, #0
+ */
+__STATIC_FORCEINLINE uint32_t __get_IPSR(void)
+{
+  uint32_t result;
+
   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
  8001936:	f3ef 8305 	mrs	r3, IPSR
  800193a:	60bb      	str	r3, [r7, #8]

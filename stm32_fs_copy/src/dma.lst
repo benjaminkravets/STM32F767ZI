@@ -316,16 +316,16 @@
  257              		.file 5 "/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/stdio.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 dma.c
-     /tmp/ccCHjW3B.s:18     .text:00000000 $t
-     /tmp/ccCHjW3B.s:24     .text:00000000 DMA2_channel_init
-     /tmp/ccCHjW3B.s:55     .text:00000018 $d
-     /tmp/ccCHjW3B.s:59     .text:0000001c $t
-     /tmp/ccCHjW3B.s:65     .text:0000001c DMA2_transfer
-     /tmp/ccCHjW3B.s:151    .text:00000080 $d
-     /tmp/ccCHjW3B.s:157    .rodata:00000000 $d
-     /tmp/ccCHjW3B.s:170    .text:00000088 $t
-     /tmp/ccCHjW3B.s:176    .text:00000088 using_dma
-     /tmp/ccCHjW3B.s:246    .text:000000f4 $d
+     /tmp/ccnWrXX9.s:18     .text:00000000 $t
+     /tmp/ccnWrXX9.s:24     .text:00000000 DMA2_channel_init
+     /tmp/ccnWrXX9.s:55     .text:00000018 $d
+     /tmp/ccnWrXX9.s:59     .text:0000001c $t
+     /tmp/ccnWrXX9.s:65     .text:0000001c DMA2_transfer
+     /tmp/ccnWrXX9.s:151    .text:00000080 $d
+     /tmp/ccnWrXX9.s:157    .rodata:00000000 $d
+     /tmp/ccnWrXX9.s:170    .text:00000088 $t
+     /tmp/ccnWrXX9.s:176    .text:00000088 using_dma
+     /tmp/ccnWrXX9.s:246    .text:000000f4 $d
                            .group:00000000 wm4.0.b9144c81caf0c2c1ee9424d16d32a8e9
                            .group:00000000 wm4.stm32f767xx.h.34.d0ba5a0a33e572d9abba2a69be3f047a
                            .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b

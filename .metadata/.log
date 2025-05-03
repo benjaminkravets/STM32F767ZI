@@ -332,3 +332,45 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 	 at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
 	 at org.eclipse.ui.internal.Workbench$39.run(Workbench.java:2733)
 	 at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2025-04-29 20:50:23.593 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-04-29 20:50:30.872
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-04-29 20:50:30.874
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-04-29 20:50:38.199
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-29 20:51:18.122
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-04-29 20:51:23.125
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
+!SESSION 2025-05-02 17:58:21.680 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-05-02 17:58:34.970
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-05-02 17:58:34.972
+!MESSAGE Log4j2 initialized with config file C:\Users\bakra\Desktop\STM32F767ZI\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-02 17:58:48.169
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-05-02 17:59:33.150
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2025-05-02 17:59:37.646
+!MESSAGE No repository found at https://sw-center.st.com/stm32cubeide/toolchains/7-2018-q2-update/1.5.0.
