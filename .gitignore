@@ -5,5 +5,8 @@ stm32_fs_copy/vendor
 stm32_fs_copy/mints
 can_f767_zephyr
 *.elf
+**/*.log
 **/Drivers/
 Drivers/
+**/Debug/
+Debug/

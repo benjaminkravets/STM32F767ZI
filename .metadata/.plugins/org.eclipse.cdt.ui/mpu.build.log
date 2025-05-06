@@ -1,10 +1,10 @@
-18:42:53 **** Incremental Build of configuration Debug for project mpu ****
+21:56:26 **** Incremental Build of configuration Debug for project mpu ****
 make -j16 all 
 arm-none-eabi-size  mpu.elf 
    text	   data	    bss	    dec	    hex	filename
-  17944	     16	  20336	  38296	   9598	mpu.elf
+   6600	     12	   1572	   8184	   1ff8	mpu.elf
 Finished building: default.size.stdout
  
 
-18:42:53 Build Finished. 0 errors, 0 warnings. (took 494ms)
+21:56:26 Build Finished. 0 errors, 0 warnings. (took 199ms)
 
