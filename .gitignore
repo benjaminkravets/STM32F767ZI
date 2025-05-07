@@ -12,3 +12,11 @@ Drivers/
 Debug/
 **/Middleware/
 Middleware/
+**/Debug/
+Debug/
+*.elf
+*.bin
+*.map
+*.bin
+*.lst
+*.o
