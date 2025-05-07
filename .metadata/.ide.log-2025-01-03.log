@@ -1,8 +1,0 @@
-2025-01-04 13:34:30,640 [INFO] CADModel:198 - CPN selected (Project mode): STM32F767ZIT6
-2025-01-04 13:34:30,668 [INFO] CADModel:200 - Internet connection configuration mode: 1
-2025-01-04 13:34:30,669 [INFO] CADModel:203 - rpn retrievedSTM32F767ZI
-2025-01-04 13:34:30,694 [INFO] WebAppUi:653 - RPN selected STM32F767ZI
-2025-01-04 13:34:30,694 [INFO] WebAppUi:654 - RefName selected STM32F767ZITx
-2025-01-04 13:34:30,694 [INFO] WebAppUi:655 - CPN selected STM32F767ZIT6
-2025-01-04 13:34:30,695 [WARN] WebAppUi:675 - Web application not loaded
-2025-01-04 13:34:30,695 [INFO] WebAppUiContainer:153 - Web application run mode: Project CPN: STM32F767ZIT6

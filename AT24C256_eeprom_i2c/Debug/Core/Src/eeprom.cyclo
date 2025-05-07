@@ -1,4 +1,0 @@
-../Core/Src/eeprom.c:20:10:remaining_bytes	2
-../Core/Src/eeprom.c:36:6:eeprom_write_bytes	3
-../Core/Src/eeprom.c:79:6:eeprom_read_bytes	3
-../Core/Src/eeprom.c:117:6:eeprom_erasepage	1

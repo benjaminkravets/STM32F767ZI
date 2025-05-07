@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;segger_sysview&apos;" deleteContents="true" description="Delete resource &apos;segger_sysview&apos;" element1="/segger_sysview" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1713998637321"/>
-</session>

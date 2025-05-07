@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;spi_f767_3&apos;" deleteContents="true" description="Delete resource &apos;spi_f767_3&apos;" element1="/spi_f767_3" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1713397344598"/>&#x0A;<refactoring comment="Delete 2 resources" deleteContents="true" description="Delete 2 resources" element1="/SPI_FullDuplex_ComDMA" element2="/SPI_TwoBoards_FullDuplex_DMA" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="2" stamp="1713576082255"/>
-</session>

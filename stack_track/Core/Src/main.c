@@ -60,6 +60,7 @@ void stacktrack(uint32_t depth) {
 	} else {
 		stacktrack(--depth);
 	}
+	uint32_t d = 1;
 
 }
 /* USER CODE END 0 */
