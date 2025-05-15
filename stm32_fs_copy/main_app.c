@@ -162,9 +162,9 @@ int main()
     {
         volatile float f = divider(1, 2);
         char z = '0';
-        // char z = getchar();
+        //z = getchar();
         delay_ms(500);
-        printf("Hello \r\n");
+        printf("Hello %c \r\n", z);
         printf("%i \r\n", counter);
         blink();
     }

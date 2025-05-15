@@ -29,6 +29,9 @@ void exti_init()
 
 void exti15_10_handler()
 {
-    EXTI->PR |= (1 << 13);
+    //clear pending register (11.9.6), indicating interrupt has been services
+    // as this is a "read clear by writing 1" (rc_w1), use = not |=
+    EXTI->PR = (1 << 13);
+    //toggle LED
     GPIOB->ODR ^= (1 << LED_PIN);
 }

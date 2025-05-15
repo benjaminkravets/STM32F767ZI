@@ -15,7 +15,7 @@ void USART3_init()
     GPIOD->MODER &= ~(GPIO_MODER_MODER8_Msk | GPIO_MODER_MODER9_Msk);
     GPIOD->MODER |= (0b10 << GPIO_MODER_MODER8_Pos) | (0b10 << GPIO_MODER_MODER9_Pos);
 
-    // reset GPIO AF selection (0 and 1 of high AF register are pins 8 and 9), then choose AF7 for USART3
+    // reset GPIO alternate function selection (0 and 1 of high AF register are pins 8 and 9), then choose AF7 for USART3
     GPIOD->AFR[1] &= ~(GPIO_AFRH_AFRH0 | GPIO_AFRH_AFRH1);
     GPIOD->AFR[1] |= (0b0111 << GPIO_AFRH_AFRH0_Pos) | (0b0111 << GPIO_AFRH_AFRH1_Pos);
 

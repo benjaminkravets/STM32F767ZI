@@ -58,9 +58,10 @@ void stacktrack(uint32_t depth) {
 	if (depth == 0) {
 		return;
 	} else {
-		stacktrack(--depth);
+		uint32_t * d = malloc(256);	//! doesn't get freed
+		stacktrack(--depth);		//breakpoint here
+		free(d);
 	}
-	uint32_t d = 1;
 
 }
 /* USER CODE END 0 */
@@ -95,7 +96,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  stacktrack(5);
+  stacktrack(10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
