@@ -6,25 +6,21 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
   * in the root directory of this software component.
   * If no LICENSE file comes with this software, it is provided AS-IS.
-  * Based on embetronix.com tutorial
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "lwip.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lwip/apps/httpd.h"
-#include "httpd.h"
-#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -45,23 +41,15 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-UART_HandleTypeDef huart3;
-
-PCD_HandleTypeDef hpcd_USB_OTG_FS;
-
 /* USER CODE BEGIN PV */
-int GreenLED = 0;
-int BlueLED  = 0;
-int RedLED   = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USART3_UART_Init(void);
-static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE BEGIN PFP */
-const char *LedControlCgiHandler(int iIndex, int iNumParams, char *pcParam[], char *pcValue[]);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -77,7 +65,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  tCGI LED_CGI = {"/LEDControl.cgi", LedControlCgiHandler};
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -98,26 +86,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART3_UART_Init();
-  MX_USB_OTG_FS_PCD_Init();
-  MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
 
-  httpd_init();
-  http_set_cgi_handlers(&LED_CGI, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  MX_LWIP_Process();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GreenLED );     //Green LED
-	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, BlueLED );      //Blue LED
-	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, RedLED );      //Red LED
   }
   /* USER CODE END 3 */
 }
@@ -131,10 +110,6 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure LSE Drive Capability
-  */
-  HAL_PWR_EnableBkUpAccess();
-
   /** Configure the main internal regulator output voltage
   */
   __HAL_RCC_PWR_CLK_ENABLE();
@@ -143,23 +118,11 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 96;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
-  RCC_OscInitStruct.PLL.PLLR = 2;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Activate the Over-Drive mode
-  */
-  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
@@ -168,85 +131,15 @@ void SystemClock_Config(void)
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
     Error_Handler();
   }
-}
-
-/**
-  * @brief USART3 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART3_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART3_Init 0 */
-
-  /* USER CODE END USART3_Init 0 */
-
-  /* USER CODE BEGIN USART3_Init 1 */
-
-  /* USER CODE END USART3_Init 1 */
-  huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
-  huart3.Init.WordLength = UART_WORDLENGTH_8B;
-  huart3.Init.StopBits = UART_STOPBITS_1;
-  huart3.Init.Parity = UART_PARITY_NONE;
-  huart3.Init.Mode = UART_MODE_TX_RX;
-  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART3_Init 2 */
-
-  /* USER CODE END USART3_Init 2 */
-
-}
-
-/**
-  * @brief USB_OTG_FS Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USB_OTG_FS_PCD_Init(void)
-{
-
-  /* USER CODE BEGIN USB_OTG_FS_Init 0 */
-
-  /* USER CODE END USB_OTG_FS_Init 0 */
-
-  /* USER CODE BEGIN USB_OTG_FS_Init 1 */
-
-  /* USER CODE END USB_OTG_FS_Init 1 */
-  hpcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hpcd_USB_OTG_FS.Init.dev_endpoints = 6;
-  hpcd_USB_OTG_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_OTG_FS.Init.Sof_enable = ENABLE;
-  hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = ENABLE;
-  hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
-  if (HAL_PCD_Init(&hpcd_USB_OTG_FS) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_OTG_FS_Init 2 */
-
-  /* USER CODE END USB_OTG_FS_Init 2 */
-
 }
 
 /**
@@ -258,6 +151,7 @@ static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
   /* USER CODE BEGIN MX_GPIO_Init_1 */
+
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
@@ -269,7 +163,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LD1_Pin|LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
@@ -280,12 +174,44 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USER_Btn_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB0 LD3_Pin LD2_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|LD3_Pin|LD2_Pin;
+  /*Configure GPIO pins : RMII_MDC_Pin RMII_RXD0_Pin RMII_RXD1_Pin */
+  GPIO_InitStruct.Pin = RMII_MDC_Pin|RMII_RXD0_Pin|RMII_RXD1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : RMII_REF_CLK_Pin RMII_MDIO_Pin RMII_CRS_DV_Pin */
+  GPIO_InitStruct.Pin = RMII_REF_CLK_Pin|RMII_MDIO_Pin|RMII_CRS_DV_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LD1_Pin LD3_Pin LD2_Pin */
+  GPIO_InitStruct.Pin = LD1_Pin|LD3_Pin|LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RMII_TXD1_Pin */
+  GPIO_InitStruct.Pin = RMII_TXD1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
+  HAL_GPIO_Init(RMII_TXD1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : STLK_RX_Pin STLK_TX_Pin */
+  GPIO_InitStruct.Pin = STLK_RX_Pin|STLK_TX_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /*Configure GPIO pin : USB_PowerSwitchOn_Pin */
   GPIO_InitStruct.Pin = USB_PowerSwitchOn_Pin;
@@ -300,54 +226,35 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USB_OverCurrent_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : USB_SOF_Pin USB_ID_Pin USB_DM_Pin USB_DP_Pin */
+  GPIO_InitStruct.Pin = USB_SOF_Pin|USB_ID_Pin|USB_DM_Pin|USB_DP_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : USB_VBUS_Pin */
+  GPIO_InitStruct.Pin = USB_VBUS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(USB_VBUS_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : RMII_TX_EN_Pin RMII_TXD0_Pin */
+  GPIO_InitStruct.Pin = RMII_TX_EN_Pin|RMII_TXD0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
   /* USER CODE BEGIN MX_GPIO_Init_2 */
+
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-const char *LedControlCgiHandler(int index, int numParams, char *pcParam[], char *pcValue[])
-{
-  if(index == 0)
-  {
-    for(int i=0; i < numParams; i++)
-    {
-      if(strcmp(pcParam[i], "green") == 0)
-      {
-        if(strcmp(pcValue[i], "ON") == 0)
-        {
-          GreenLED = 1;
-        }
-        else
-        {
-          GreenLED = 0;
-        }
-      }
-      else if(strcmp(pcParam[i], "blue") == 0)
-      {
-        if(strcmp(pcValue[i], "ON") == 0)
-        {
-          BlueLED = 1;
-        }
-        else
-        {
-          BlueLED = 0;
-        }
-      }
-      else if(strcmp(pcParam[i], "red") == 0)
-      {
-        if(strcmp(pcValue[i], "ON") == 0)
-        {
-          RedLED = 1;
-        }
-        else
-        {
-          RedLED = 0;
-        }
-      }
-    }
-  }
-  return "/index.html";
-}
+
 /* USER CODE END 4 */
 
 /**

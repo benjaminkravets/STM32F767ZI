@@ -53,6 +53,8 @@
 #define SYS_LIGHTWEIGHT_PROT 0
 /*----- Value in opt.h for MEM_ALIGNMENT: 1 -----*/
 #define MEM_ALIGNMENT 4
+/*----- Default Value for F7 devices: 0x20048000 -----*/
+#define LWIP_RAM_HEAP_POINTER 0x20048000
 /*----- Value in opt.h for LWIP_ETHERNET: LWIP_ARP || PPPOE_SUPPORT -*/
 #define LWIP_ETHERNET 1
 /*----- Value in opt.h for LWIP_DNS_SECURE: (LWIP_DNS_SECURE_RAND_XID | LWIP_DNS_SECURE_NO_MULTIPLE_OUTSTANDING | LWIP_DNS_SECURE_RAND_SRC_PORT) -*/
@@ -65,8 +67,6 @@
 #define TCP_SNDQUEUELOWAT 5
 /*----- Value in opt.h for TCP_WND_UPDATE_THRESHOLD: LWIP_MIN(TCP_WND/4, TCP_MSS*4) -----*/
 #define TCP_WND_UPDATE_THRESHOLD 536
-/*----- Default Value for LWIP_ENABLE_NETIF_HOSTNAME: 0 ---*/
-#define LWIP_ENABLE_NETIF_HOSTNAME 1
 /*----- Value in opt.h for LWIP_NETIF_LINK_CALLBACK: 0 -----*/
 #define LWIP_NETIF_LINK_CALLBACK 1
 /*----- Value in opt.h for LWIP_NETCONN: 1 -----*/

@@ -76,7 +76,7 @@ void MX_LWIP_Init(void)
 /* USER CODE BEGIN IP_ADDRESSES */
 /* USER CODE END IP_ADDRESSES */
 
-  /* Initilialize the LwIP stack without RTOS */
+  /* Initialize the LwIP stack without RTOS */
   lwip_init();
 
   /* IP addresses initialization without DHCP (IPv4) */
@@ -95,8 +95,6 @@ void MX_LWIP_Init(void)
 
   /* Set the link callback function, this function is called on change of link status*/
   netif_set_link_callback(&gnetif, ethernet_link_status_updated);
-
-  /* Create the Ethernet link handler thread */
 
 /* USER CODE BEGIN 3 */
 

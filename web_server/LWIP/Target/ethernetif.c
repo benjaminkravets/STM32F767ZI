@@ -53,9 +53,9 @@
 /* Private variables ---------------------------------------------------------*/
 /*
 @Note: This interface is implemented to operate in zero-copy mode only:
-        - Rx buffers will be allocated from LwIP stack memory heap,
+        - Rx Buffers will be allocated from LwIP stack Rx memory pool,
           then passed to ETH HAL driver.
-        - Tx buffers will be allocated from LwIP stack memory heap,
+        - Tx Buffers will be allocated from LwIP stack memory heap,
           then passed to ETH HAL driver.
 
 @Notes:
@@ -221,7 +221,12 @@ static void low_level_init(struct netif *netif)
   LAN8742_RegisterBusIO(&LAN8742, &LAN8742_IOCtx);
 
   /* Initialize the LAN8742 ETH PHY */
-  LAN8742_Init(&LAN8742);
+  if(LAN8742_Init(&LAN8742) != LAN8742_STATUS_OK)
+  {
+    netif_set_link_down(netif);
+    netif_set_down(netif);
+    return;
+  }
 
   if (hal_eth_init_status == HAL_OK)
   {
