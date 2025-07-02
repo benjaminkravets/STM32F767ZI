@@ -189,7 +189,9 @@ void SysTick_Handler(void)
 void RTC_WKUP_IRQHandler(void)
 {
   /* USER CODE BEGIN RTC_WKUP_IRQn 0 */
-  //HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+	#if LIT == 1
+	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+	#endif
 
   /* USER CODE END RTC_WKUP_IRQn 0 */
   HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);

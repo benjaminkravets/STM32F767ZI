@@ -37,4 +37,9 @@
 	3 SCL     A0  8
 	4 ALERT   A1  7
 	5 GND     A2  6
+8. Low power idle
+	The active task enters low power stop mode by default, when RTC generates an interrupt (periodically) the task enters active/run mode for 500 ms before returning to stop mode.
+	LEDs to indicate RTC timer (PB14 Red) and run mode (PB7 Green) are turned on with LIT macro
+	Current on the F767ZI board is measured through JP5
+	F767ZI can be powered by 3V3 and GND on CN8
 	
