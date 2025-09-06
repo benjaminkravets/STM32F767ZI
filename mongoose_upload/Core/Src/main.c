@@ -100,13 +100,13 @@ static void mylog(char ch, void *param) {
 
 struct firmware_image {
   char * data;
-  size_t current_size;
-};
+  size_t size;
+} img0;
 
 int init_firmware_image(struct firmware_image * image) {
   image->data = (char *)malloc(200000);
   assert(img0.data != NULL);
-  image->current_size = 0;
+  image->size = 0;
   return 0;
 }
 
@@ -135,8 +135,24 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
   } else {
     size_t current_size = 0;
     MG_DEBUG(("%s -> %lu bytes @ %ld", path, hm->body.len, offset));
-    if (offset == 0) {img->current_size = 0}; //if offset is 0, "delete" the firmware image by starting write from 0
+    if (offset == 0) img->size = 0; //if offset is 0, "delete" the firmware image by starting write from 0
+    current_size = img->size;
+    if (offset > 0 && current_size != (size_t) offset) {
+      mg_http_reply(c, 400, "", "%s: offset mismatch", path);
+      res = -5;
+    } else {
+      memcpy(img->data + img->size, hm->body.buf, hm->body.len);
+      //printf("%s \r\n", hm->body.buf);
+      for(int i = 0 ; i < hm->body.len ; i++) {
+        printf("%c", hm->body.buf[i]);
+      }
+      img->size += hm->body.len;
+      res = hm->body.len;
+      mg_http_reply(c, 200, "", "%ld", res);
+    }
   }
+
+  return res;
 }
 
 static void fn(struct mg_connection *c, int ev, void *ev_data) {
@@ -144,7 +160,8 @@ static void fn(struct mg_connection *c, int ev, void *ev_data) {
 		struct mg_http_message *hm = (struct mg_http_message *) ev_data;
 		if (mg_match(hm->uri, mg_str("/upload"), NULL)) {
 			//mg_http_upload(c, hm, &mg_fs_posix, "/tmp", 99999);
-			HAL_UART_Transmit(&huart4, hm->body.buf, hm->body.len, 100);
+			//HAL_UART_Transmit(&huart4, hm->body.buf, hm->body.len, 100);
+			mg_http_upload_modified(c, hm, 99999, &img0);
 
 		} else {
 			struct mg_http_serve_opts opts = {.root_dir = "/web_root", .fs = &mg_fs_packed};
@@ -193,7 +210,9 @@ int main(void)
   mg_mgr_init(&mgr);
   mg_http_listen(&mgr, "http://0.0.0.0", fn, &mgr);
 
-  //for (;;) mg_mgr_poll(&mgr, 100);
+  init_firmware_image(&img0);
+
+  for (;;) mg_mgr_poll(&mgr, 50);
   char * a = malloc(200000);
   char * b = malloc(200000000);
 
