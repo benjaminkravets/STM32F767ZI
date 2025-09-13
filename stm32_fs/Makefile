@@ -5,7 +5,7 @@
 
 CC=arm-none-eabi-gcc
 #nano.specs will use nanolib instead of stdlib or newlib
-CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD -g3 -ggdb -Wall -Wextra
+CFLAGS=-mcpu=cortex-m7 -mthumb --specs=nano.specs -DSTM32F767xx -MD -g3 -ggdb
 CPPFLAGS=-Ivendor -Isrc
 
 #nanolib doesn't support floats for printf/scanf by default
@@ -17,10 +17,12 @@ LDFLAGS_BOOT=-T $(LINKER_FILE_BOOT)
 
 OCPY=arm-none-eabi-objcopy
 
-PROGRAMMER_APP= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs_copy\app.elf 0x08008000 -rst"
-PROGRAMMER_BOOT= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs_copy\boot.elf 0x08000000 -rst"
+PROGRAMMER_APP= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\app.elf 0x08008000 -rst"
+PROGRAMMER_BOOT= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\boot.elf 0x08000000 -rst"
 
-PROGRAMMER_IMAGE= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs_copy\image.bin 0x08000000 -rst"
+PROGRAMMER_IMAGE= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\image.bin 0x08000000 -rst"
+
+OBJDIR := build
 
 #target: prerequisites
 #	command
