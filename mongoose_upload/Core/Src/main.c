@@ -104,19 +104,27 @@ struct firmware_image {
 } img0;
 
 int init_firmware_image(struct firmware_image * image) {
-  image->data = (char *)malloc(200000);
+  image->data = malloc(200000);
   assert(img0.data != NULL);
   image->size = 0;
   return 0;
 }
 
+int print_firmware_image(struct firmware_image * image) {
+  for(int i = 0 ; i < image->size ; i++) {
+    printf("%c", image->data[i]);
+  }
+}
+
 long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm, size_t max_size, struct firmware_image * img)
 {
-  char buf[20] = "0", file[MG_PATH_MAX], path[MG_PATH_MAX];
-  long res = 0, offset;
+  char buf[20] = "0", file[MG_PATH_MAX], path[MG_PATH_MAX], total[MG_PATH_MAX];
+  long res = 0, offset, total_length;
   mg_http_get_var(&hm->query, "offset", buf, sizeof(buf));
   mg_http_get_var(&hm->query, "file", file, sizeof(file));
+  mg_http_get_var(&hm->query, "total", total, sizeof(total));
   offset = strtol(buf, NULL, 0);
+  total_length = strtol(total, NULL, 0);
   if (hm->body.len == 0) {
     mg_http_reply(c, 200, "", "%ld", res);  // Nothing to write
   } else if (file[0] == '\0') {
@@ -142,12 +150,19 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
       res = -5;
     } else {
       memcpy(img->data + img->size, hm->body.buf, hm->body.len);
-      //printf("%s \r\n", hm->body.buf);
-      for(int i = 0 ; i < hm->body.len ; i++) {
-        printf("%c", hm->body.buf[i]);
-      }
+      // printf("%s \r\n", hm->body.buf);
+      //  for(int i = 0 ; i < hm->body.len ; i++) {
+      //    printf("%c", hm->body.buf[i]);
+      //  }
+
+      printf("offset %i \r\n", offset);
       img->size += hm->body.len;
       res = hm->body.len;
+      if (total_length == img->size) {
+        printf("transfer complete, total length %i current image length %i \r\n", total_length, img->size);
+        print_firmware_image(img);
+      }
+
       mg_http_reply(c, 200, "", "%ld", res);
     }
   }
