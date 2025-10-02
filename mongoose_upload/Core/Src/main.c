@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "mongoose.h"
+#include "sodium.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,6 +66,7 @@ ETH_HandleTypeDef heth;
 UART_HandleTypeDef huart4;
 
 /* USER CODE BEGIN PV */
+randombytes_implementation blank_impl;
 
 /* USER CODE END PV */
 
@@ -74,7 +76,13 @@ static void MX_GPIO_Init(void);
 static void MX_ETH_Init(void);
 static void MX_UART4_Init(void);
 /* USER CODE BEGIN PFP */
+uint32_t blank_random() {
+	return 0;
+}
 
+void blank_buf(void * const buf, const size_t size) {
+	memset(buf, 0, size);
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -100,6 +108,8 @@ static void mylog(char ch, void *param) {
 
 struct firmware_image {
   char * data;
+  char data_sha256[32];
+  char data_signature[64];
   size_t size;
 } img0;
 
@@ -110,11 +120,26 @@ int init_firmware_image(struct firmware_image * image) {
   return 0;
 }
 
+int verify_firmware_image(struct firmware_image * image) {
+	memcpy(&image->data_sha256, image->data, 32);
+	memcpy(&image->data_signature, image->data + 32, 64);
+
+	char calculated_data_sha256[32];
+
+	//crypto_hash_sha256(calculated_data_sha256, &image->, inlen)
+
+	__BKPT(0);
+
+}
+
 int print_firmware_image(struct firmware_image * image) {
   for(int i = 0 ; i < image->size ; i++) {
     printf("%c", image->data[i]);
   }
+  verify_firmware_image(image);
 }
+
+
 
 long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm, size_t max_size, struct firmware_image * img)
 {
@@ -149,11 +174,12 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
       mg_http_reply(c, 400, "", "%s: offset mismatch", path);
       res = -5;
     } else {
+      //printf("len is %i", hm->body.len);
       memcpy(img->data + img->size, hm->body.buf, hm->body.len);
-      // printf("%s \r\n", hm->body.buf);
-      //  for(int i = 0 ; i < hm->body.len ; i++) {
-      //    printf("%c", hm->body.buf[i]);
-      //  }
+       //printf("%s \r\n", hm->body.buf);
+        for(int i = 0 ; i < hm->body.len ; i++) {
+          printf("%c", hm->body.buf[i]);
+        }
 
       printf("offset %i \r\n", offset);
       img->size += hm->body.len;
@@ -161,6 +187,7 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
       if (total_length == img->size) {
         printf("transfer complete, total length %i current image length %i \r\n", total_length, img->size);
         print_firmware_image(img);
+//        verify_firmware_image(img);
       }
 
       mg_http_reply(c, 200, "", "%ld", res);
@@ -218,6 +245,18 @@ int main(void)
   MX_ETH_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
+  randombytes_implementation blank = {
+		  .implementation_name = "blank",
+		  .random = blank_random,
+		  .buf = blank_buf,
+  };
+
+  randombytes_set_implementation(&blank);
+
+
+  if (sodium_init() == -1) {
+	  return 1;
+  }
   mg_log_set(MG_LL_DEBUG );
   mg_log_set_fn(mylog, NULL);
 
@@ -228,8 +267,35 @@ int main(void)
   init_firmware_image(&img0);
 
   for (;;) mg_mgr_poll(&mgr, 50);
-  char * a = malloc(200000);
-  char * b = malloc(200000000);
+
+
+  uint8_t hash_me[10] = "0123456789";
+  uint8_t hash[32] = {0};
+
+  crypto_hash_sha256(hash, hash_me, 10);
+
+  uint8_t pk[] = {
+		    0x0e, 0x45, 0x8b, 0x35, 0xfb, 0x06, 0xe6, 0x9e,
+		    0xfa, 0x97, 0x07, 0x61, 0x13, 0x16, 0x0c, 0xc3,
+		    0x33, 0x5e, 0x4c, 0x06, 0xc0, 0x09, 0x3b, 0xb9,
+		    0x12, 0x78, 0xdf, 0x0e, 0x5b, 0x81, 0x9b, 0x84
+  };
+
+  uint8_t sig[] = {
+		  0xe4, 0x9a, 0x9f, 0x5f, 0x11, 0x32, 0x0d, 0xae,
+		  0x8a, 0xb1, 0x80, 0x1f, 0xde, 0xa0, 0x1f, 0xe3,
+		  0x6f, 0x0d, 0x63, 0x75, 0xcd, 0x3a, 0x6c, 0xe9,
+		  0xd7, 0xad, 0xcf, 0x52, 0x70, 0xdb, 0xf7, 0x8c,
+		  0x98, 0x05, 0xb0, 0x86, 0x3d, 0x50, 0xd0, 0x5e,
+		  0xba, 0xb4, 0x0e, 0x63, 0xf9, 0x25, 0x27, 0x94,
+		  0xdd, 0xf1, 0x90, 0xfc, 0x81, 0x3b, 0xab, 0xa6,
+		  0xf0, 0xdf, 0xf2, 0x29, 0x71, 0x21, 0x2a, 0x02
+		};
+
+
+
+  uint32_t ret = crypto_sign_ed25519_verify_detached(sig, hash, 32, pk);
+
 
   /* USER CODE END 2 */
 
