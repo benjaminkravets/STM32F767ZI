@@ -48,4 +48,11 @@
 	add mongoose from https://mongoose.ws/documentation/tutorials/stm32/cube/
 	get a web page like the one in mongoose\tutorials\http\file-upload-multiple-posts\web_root\index.html but the files need to go into the virtual file system (packed_fs.c) using mongoose/tutorials/core/embedded-filesystem (covered in https://mongoose.ws/documentation/tutorials/core/embedded-filesystem/)
 
+	Libsodium outlines how to build for ARM at https://doc.libsodium.org/installation but some compiler flags need borrowed from an STM32CubeIDE project- CFLAGS will be "-mcpu=cortex-m7 -g3 -DDEBUG --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb". 
+	archives like libsodium.a can be added in stm32cubeide: https://community.st.com/t5/stm32-mcus/how-to-add-external-libraries-in-stm32cubeide/ta-p/628619 libsodium.a archive can be added as -lsodium in project properties and the dir to find it in can be added with -L
+	add sodium's includes (sodium.h and /sodium) to include
+	Libsodium by default uses an RNG function that relies on /dev/urandom which isn't available on the STM32, but an RNG isn't needed for just hashing and verifying with SHA256 and ED25519, so provide a "blank" randombytes_implementation implementation that returns/sets 0s.
+
+	on host:
+	steps to create ed25119 keys and signature at https://stackoverflow.com/a/76880975
 	

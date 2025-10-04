@@ -104,13 +104,13 @@ struct firmware_image
   char *data_sha256;
   char *data_signature;
   char *file_data;
-  size_t size;
+  size_t wr_offset;
 } main_img;
 
 int init_firmware_image(struct firmware_image *image)
 {
   assert((image->data = malloc(MAX_IMAGE_SIZE)) != NULL);
-  image->size = 0;
+  image->wr_offset = 0;
   image->data_sha256 = image->data + 0;
   image->data_signature = image->data + 32;
   image->file_data = image->data + 96;
@@ -122,7 +122,7 @@ int verify_firmware_image(struct firmware_image *image)
 
   uint8_t calculated_data_sha256[32] = {0};
 
-  crypto_hash_sha256(calculated_data_sha256, image->file_data, image->size - 96);
+  crypto_hash_sha256(calculated_data_sha256, image->file_data, image->wr_offset - 96);
   if (memcmp(calculated_data_sha256, image->data_sha256, 32) != 0)
   {
     printf("SHA2 doesn't match \r\n");
@@ -139,7 +139,7 @@ int verify_firmware_image(struct firmware_image *image)
 
 int print_firmware_image(struct firmware_image *image)
 {
-  for (int i = 0; i < image->size; i++)
+  for (int i = 0; i < image->wr_offset; i++)
   {
     printf("%c", image->data[i]);
   }
@@ -185,8 +185,8 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
     size_t current_size = 0;
     MG_DEBUG(("%s -> %lu bytes @ %ld", path, hm->body.len, offset));
     if (offset == 0)
-      img->size = 0; // if offset is 0, "delete" the firmware image by starting write from 0
-    current_size = img->size;
+      img->wr_offset = 0; // if offset is 0, "delete" the firmware image by starting write from 0
+    current_size = img->wr_offset;
     if (offset > 0 && current_size != (size_t)offset)
     {
       mg_http_reply(c, 400, "", "%s: offset mismatch", path);
@@ -196,7 +196,7 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
     {
       // printf("len is %i", hm->body.len);
       // coppy received http buffer to image buffer
-      memcpy(img->data + img->size, hm->body.buf, hm->body.len);
+      memcpy(img->data + img->wr_offset, hm->body.buf, hm->body.len);
       // printf("%s \r\n", hm->body.buf);
       for (int i = 0; i < hm->body.len; i++)
       {
@@ -204,11 +204,11 @@ long mg_http_upload_modified(struct mg_connection *c, struct mg_http_message *hm
       }
 
       printf("offset %i \r\n", offset);
-      img->size += hm->body.len;
+      img->wr_offset += hm->body.len;
       res = hm->body.len;
-      if (total_length == img->size)
+      if (total_length == img->wr_offset)
       {
-        printf("transfer complete, total length %i current image length %i \r\n", total_length, img->size);
+        printf("transfer complete, total length %i current image length %i \r\n", total_length, img->wr_offset);
         print_firmware_image(img);
       }
 

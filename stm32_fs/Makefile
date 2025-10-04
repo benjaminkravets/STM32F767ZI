@@ -22,7 +22,7 @@ PROGRAMMER_BOOT= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32
 
 PROGRAMMER_IMAGE= powershell.exe -c "& 'C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe' -c port=SWD -d C:\Users\bakra\Desktop\STM32F767ZI\stm32_fs\image.bin 0x08000000 -rst"
 
-OBJDIR := build
+BUILDDIR := build
 
 #target: prerequisites
 #	command
@@ -37,12 +37,13 @@ all: app.elf boot.elf
 
 OBJS = src/startup.o vendor/system_stm32f7xx.o src/syscalls.o src/usart.o src/dma.o src/spi.o src/exti_gpio_irq.o
        
-#$^ is an automatic variable and means "all prerequisites" ($< is first prerequisite). $@ means the name of the target of the rule
+#$^ is an automatic variable and means "all prerequisites" ($< is first prerequisite). $@ means the name of the target of the rule.
+#here, $^ means all prerequisites (main_app.o and OBJS) and $@ means app.elf
 app.elf: main_app.o $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_APP) $^ -o app.elf
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_APP) $^ -o $@
 
 boot.elf: main_boot.o $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_BOOT) $^ -o boot.elf
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS_BOOT) $^ -o $@
 
 # main_boot.o: main_boot.c
 # 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
@@ -57,6 +58,7 @@ boot.elf: main_boot.o $(OBJS)
 # 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -c
 
 # this handles all .o files given their .c, including those in subdirectories src and vendor (instead of above commented rules)
+
 %.o: %.c 
 	$(CC) $(CFLAGS) $(CPPFLAGS) -Wa,-adhlns=$(@:.o=.lst) $^ -c -o $@
 
@@ -71,7 +73,7 @@ flash_image: image.bin
 .PHONY: clean
 
 clean:
-	find . -type f \( -name "*.o" -o -name "*.d" -o -name "*.bin" -o -name "*.elf" -o -name "*.lst" \) -delete
+	find . -type f \( -name "*.o" -o -name "*.d" -o -name "*.bin" -o -name "*.elf" -o -name "*.lst" -o -name "*.map" \) -delete
 
 #export PATH="/home/ben/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/:$PATH"
 

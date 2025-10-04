@@ -10,16 +10,25 @@ def genkeys(args):
 
 def sign(args):
     print("signing", args.sign)
+    subprocess.call("openssl sha256 " + args.sign[0], shell=True)
     subprocess.call("openssl sha256 " + args.sign[0] + " | awk '{print $2}' | tr -d '\n' | xxd -r -p > image_sha_in_ascii", shell=True)
     subprocess.call("openssl pkeyutl -sign -inkey private.pem -out test_sha_ascii_sig.bin -rawin -in image_sha_in_ascii", shell=True)
+    print("Verifying signature")
     subprocess.call("openssl pkeyutl -verify -pubin -inkey public.pem -rawin -in image_sha_in_ascii -sigfile test_sha_ascii_sig.bin", shell=True)
     print("Signature C declaration:")
     subprocess.call("xxd -i test_sha_ascii_sig.bin", shell=True)
     print("Public key C declarataion:")
-    subprocess.call("echo -n \"uint8_t pk[] = {\" ; openssl pkey -pubin -in public.pem -text -noout | tr -d ' \n' | cut -c 22- | sed 's/:/, 0x/g' | cut -c 3- | tr -d '\n' ; echo \"};\"", shell=True)
+    subprocess.call("echo -n \"uint8_t public_key[] = { \" ; openssl pkey -pubin -in public.pem -text -noout | tr -d ' \n' | cut -c 22- | sed 's/:/, 0x/g' | cut -c 3- | tr -d '\n' ; echo \" };\"", shell=True)
+    
+    print("Creating signed_app with hash and signature prepended")
+
+    subprocess.call("cat image_sha_in_ascii > signed_" + args.sign[0], shell=True)
+    subprocess.call("cat test_sha_ascii_sig.bin >> signed_" + args.sign[0], shell=True)
+    subprocess.call("cat " + args.sign[0] + " >> signed_" + args.sign[0], shell=True)
+    
     
 def clean(args):
-    subprocess.call("rm -f *.pem ; rm -f test_sha_in_ascii ; rm -f test_sha_ascii_sig.bin", shell=True)
+    subprocess.call("rm -f *.pem ; rm -f test_sha_in_ascii ; rm -f test_sha_ascii_sig.bin ; rm -f signed_* ; rm -f image_sha_in_ascii", shell=True)
     
 
 if __name__ == "__main__":
